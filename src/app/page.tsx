@@ -14,7 +14,7 @@ export default function Home() {
           priority
         />
         <ol>
-          <li>
+          <li className="text-mint-500 text-red-500- leading-1">
             Get started by editing <code>src/app/page.tsx</code>.
           </li>
           <li>Save and see your changes instantly.</li>
