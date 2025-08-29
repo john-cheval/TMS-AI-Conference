@@ -6,7 +6,7 @@
   --color-tms-purple: #4d1592;
   --color-tns-pink: #ea73e7;
   --color-dark-grey: #828282;
-  --color-dark-alter:#00081B;
+  --color-dark-alter: #00081b;
   --color-gradient-btn-nav: linear-gradient(
     258deg,
     #ea73e7 -79.01%,
@@ -18,17 +18,49 @@
   --radius-sm: 8px;
 
   /*  LineHeight */
-  --leading- : 52px
-  --line-height:46px;
-  -- leading-:32px
-  --leading- :26px
-  --leading-1: 24px;
-  --leading-2: 18px;
+  --leading-1: 52px;
+  --line-height-2: 46px;
+  --leading-3: 32px;
+  --leading-4: 26px;
+  --leading-5: 24px;
+  --leading-6: 18px;
 
   /* Font sizes */
   --text-2xl: 25px;
+  /* Font Family */
+  --font-duabi: "Dubai", sans-serif;
 }
 
+@font-face {
+  font-family: "Dubai";
+  src: url("/fonts/dubai_font/Dubai-Light.ttf") format("truetype");
+  font-weight: 300; /* Regular */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Dubai";
+  src: url("/fonts/dubai_font/Dubai-Regular.ttf") format("truetype");
+  font-weight: 400; /* Regular */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Dubai";
+  src: url("/fonts/dubai_font/Dubai-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Dubai";
+  src: url("/fonts/dubai_font/Dubai-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
 /* Global Styles */
 * {
   margin: 0;
@@ -48,6 +80,7 @@ body {
   font-size: 16px;
   overflow-x: hidden;
   color: #000;
+  font-family: "Dubai", sans-serif;
 }
 
 a {
