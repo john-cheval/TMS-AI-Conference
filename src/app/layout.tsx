@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
-import Navbar from "@/components/shared/Navbar";
+import ServerNavbar from "@/components/shared/Navbar/ServerNavbar";
 
 export const metadata: Metadata = {
   title:
@@ -10,10 +10,10 @@ export const metadata: Metadata = {
     "Join the TMS AI Conference (AIM 2025), a key event within the TMS Specialty Congress in Anaheim, CA. Explore the latest in AI, machine learning, and manufacturing processes with global experts in materials science.",
 };
 
-// const inter = Inter({
-//   subsets: ["latin"],
-//   display: "swap",
-// });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export default function RootLayout({
   children,
@@ -22,8 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full " suppressHydrationWarning>
-      <body className={` antialiased flex flex-col min-h-full `}>
-        <Navbar />
+      <body
+        className={`${inter.className} antialiased flex flex-col min-h-full `}
+      >
+        <ServerNavbar />
         <main className="flex-grow">{children}</main>
       </body>
     </html>
