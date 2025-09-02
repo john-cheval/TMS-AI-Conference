@@ -43,13 +43,13 @@ const HomeSectionTwo = ({
             )}
           </div>
 
-          <div className=" mt-5 md:mt-6 lg:mt-8 md:pl-6 xl:pl-8 flex flex-col  gap-y-5 md:gap-y-6">
+          <div className=" pt-5 md:pt-6 lg:pt-8 md:pl-6 xl:pl-8 flex flex-col  gap-y-5 md:gap-y-6">
             {description && (
               <div className="description text-dark-grey  ">
                 <ExpandableHtmlText htmlContent={description} limit={750} />
               </div>
             )}
-            <div className="mx-auto md:mx-0">
+            <div className="mx-auto md:mx-0 ">
               <BigButton
                 hrefs={button_link}
                 isGradient={true}
