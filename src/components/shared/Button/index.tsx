@@ -15,11 +15,11 @@ const ButtonOrLink = ({
       {isLink ? (
         <Link
           href={hrefs ?? "/"}
-          className={`rounded-sm text-base font-bold leading-5  py-3 px-6 group transition-colors duration-300 ease-in-out ${
+          className={`rounded-sm text-sm md:text-base font-semibold md:font-bold leading-5 py-2.5 md:py-3 px-6 group transition-colors duration-300 ease-in-out ${
             isIcon ? "flex items-center gap-x-1" : ""
           } ${
             isGradient
-              ? "buttonGradient text-white border "
+              ? "buttonGradient text-white  "
               : "bg-tms-blue border border-tms-blue hover:bg-transparent text-white hover:text-tms-blue"
           }`}
         >
@@ -31,7 +31,7 @@ const ButtonOrLink = ({
         </Link>
       ) : (
         <button
-          className={`rounded-sm text-base font-bold leading-5  py-3 px-6 group transition-colors duration-300 ease-in-out ${
+          className={`rounded-sm text-sm md"text-base font-semibold md:font-bold leading-5  py-2.5 md:py-3 px-6 group transition-colors duration-300 ease-in-out ${
             isIcon ? "flex items-center gap-x-1" : ""
           } ${
             isGradient

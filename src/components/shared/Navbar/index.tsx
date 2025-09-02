@@ -62,6 +62,7 @@ const Navbar = ({ navLinksData }: NavPropTypes) => {
               height={51}
               width={150}
               sizes="100vw"
+              priority
               alt="TMS AI conference"
               className="w-full h-auto object-cover max-w-[150px]"
             />
