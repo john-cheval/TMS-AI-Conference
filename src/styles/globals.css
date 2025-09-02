@@ -4,7 +4,7 @@
   /* colors */
   --color-tms-blue: #0078bb;
   --color-tms-purple: #4d1592;
-  --color-tns-pink: #ea73e7;
+  --color-tms-pink: #ea73e7;
   --color-dark-grey: #828282;
   --color-dark-alter: #00081b;
   --color-tms-black: #000;
@@ -30,40 +30,16 @@
   --text-2xl: 25px;
   /* Font Family */
   --font-duabi: "Dubai", sans-serif;
+  --font-bolder: 800;
 
+  /* Breakpoints */
+  --breakpoint-sm: 641px;
+  --breakpoint-md: 769px;
+  --breakpoint-lg: 1025px;
+  --breakpoint-2xl: 1281px;
   --breakpoint-3xl: 1700px;
 }
 
-/* @font-face {
-  font-family: "Dubai";
-  src: url("/fonts/dubai_font/Dubai-Light.ttf") format("truetype");
-  font-weight: 300; 
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Dubai";
-  src: url("/fonts/dubai_font/Dubai-Regular.ttf") format("truetype");
-  font-weight: 400; 
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Dubai";
-  src: url("/fonts/dubai_font/Dubai-Bold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Dubai";
-  src: url("/fonts/dubai_font/Dubai-Medium.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-} */
 /* Global Styles */
 
 @layer base {
@@ -98,7 +74,6 @@ body {
   font-size: 16px;
   overflow-x: hidden;
   color: #000;
-  /* font-family: "Dubai", sans-serif; */
 }
 
 ul {
@@ -119,4 +94,35 @@ ul {
 .buttonGradient {
   background: linear-gradient(258deg, #ea73e7 -79.01%, #4d1592 50%);
   border-color: linear-gradient(258deg, #ea73e7 -79.01%, #4d1592 50%);
+}
+.home-banner-gradient {
+  background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0.2) 100%
+    ),
+    linear-gradient(180deg, rgba(0, 0, 0, 0) -23.33%, #000 88.47%);
+}
+
+.home-banner-section {
+  height: calc(100vh - 106px);
+  overflow: hidden;
+}
+.home-title-2 span {
+  font-weight: 800;
+}
+/* Headings */
+.main-heading {
+  @apply text-2xl md:text-3xl lg:text-4xl xl:text-5xl;
+}
+
+/* Countdown */
+.countdown-box {
+  @apply flex flex-col items-center gap-y-1 md:gap-y-2.5 rounded-sm bg-white/[0.05] px-5  py-3 md:py-4 min-w-[80px] md:min-w-[100px];
+}
+.countdown-box p {
+  @apply text-lg md:text-xl lg:text-2xl font-bold leading-3;
+}
+.countdown-box span {
+  @apply text-xs sm:text-sm uppercase leading-6;
 }
