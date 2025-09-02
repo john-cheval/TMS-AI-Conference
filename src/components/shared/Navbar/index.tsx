@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { NavLinkType } from "@/types/common";
 // import Menu from "@/assets/shared/menu.svg";
 import { RiMenu3Fill } from "react-icons/ri";
-import ButtonOrLink from "../Button";
+import ButtonOrLink from "../ui/Button";
 import { AnimatePresence, motion } from "framer-motion";
 import SideBar from "./SideBar";
 import { sideBarlinks } from "@/constants/linksdata";

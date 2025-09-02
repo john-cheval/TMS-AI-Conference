@@ -1,4 +1,5 @@
 import HomeSectionOne from "@/components/Home/Section1";
+import HomeSectionTwo from "@/components/Home/Section2";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
 import generateMetadDataDetails from "@/lib/generateMetaData";
@@ -30,8 +31,10 @@ const Home = async () => {
         eventDate={conferenceYear?.end_date}
         {...homePageContent?.data?.section_list?.home_banner}
       />
+      <HomeSectionTwo
+        {...homePageContent?.data?.section_list?.about_the_conference}
+      />
     </>
-    // https://tmsai.girishandco.com/public/api/getmenu
   );
 };
 
