@@ -1,0 +1,26 @@
+import Image from "next/image";
+import React from "react";
+import cardImage from "@/assets/Home/1.jpg";
+
+export type HomeCardProps = {
+  cardData?: any;
+};
+
+const HomeCards = ({ cardData }: HomeCardProps) => {
+  return (
+    <div className="relative flex">
+      <Image
+        src={cardImage}
+        alt={cardData?.descriptin}
+        width={285}
+        height={400}
+        className="w-full h-full max-w-[280px]- object-cover rounded-[10px] shrink-0"
+      />
+      <p className="absolute bottom-3 lg:bottom-6 left-3 lg:left-6 right-3 lg:right-6 text-white font-bold text-sm md:text-base lg:text-lg xl:text-xl leading-5 md:leading-4">
+        {cardData?.descriptin}
+      </p>
+    </div>
+  );
+};
+
+export default HomeCards;

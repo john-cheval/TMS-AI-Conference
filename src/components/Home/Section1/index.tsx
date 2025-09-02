@@ -3,7 +3,7 @@ import React from "react";
 import TmsAI from "@/assets/shared/ai_big_60.svg";
 import CountdownTimer from "@/components/shared/Countdown";
 import { formatDate } from "@/utils/formatDate";
-import ButtonOrLink from "@/components/shared/Button";
+import ButtonOrLink from "@/components/shared/ui/Button";
 import { SectionOnePropsTyps } from "@/types/common";
 import svgIcon from "@/assets/Home/tms.jpg";
 

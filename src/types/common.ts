@@ -12,6 +12,8 @@ export type ButtonPropsType = {
   isGradient?: boolean;
   isIcon?: boolean;
   isLink?: boolean;
+  isBig?: boolean;
+  gradient?: string;
 };
 
 export type sideBarPropsType = {
@@ -37,4 +39,14 @@ export type SectionOnePropsTyps = {
   earlyBirdsDate?: string;
   eventDate?: string;
   event_date_heading?: string;
+};
+
+export type SectionTwoPropsTyps = {
+  heading?: string;
+  small_title?: string;
+  main_heading?: string;
+  button_heading?: string;
+  button_link?: string;
+  session_heading?: string;
+  description?: string;
 };
