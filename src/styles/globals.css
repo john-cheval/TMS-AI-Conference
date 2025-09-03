@@ -110,6 +110,12 @@ ul {
   background: linear-gradient(249deg, #4d1592 13.95%, #0078bb 80.04%);
   border-color: linear-gradient(249deg, #4d1592 13.95%, #0078bb 80.04%);
 }
+
+.CardGraient {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 100%);
+}
+
+/*  */
 /* .buttonGradient-2:hover {
   background: transparent;
 } */

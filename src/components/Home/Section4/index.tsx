@@ -36,18 +36,7 @@ const HomeSectionFour = ({
               />
             )}
             <div className="flex justify-center md:justify-start ">
-              <BigButton
-                hrefs={button_link}
-                isGradient={true}
-                isIcon={true}
-                isLink={true}
-                isBig={true}
-                gradient={
-                  "linear-gradient(249deg, #4D1592 13.95%, #0078BB 80.04%)"
-                }
-              >
-                {button_text}
-              </BigButton>
+              <BigButton hrefs={button_link}>{button_text}</BigButton>
             </div>
           </article>
         </div>

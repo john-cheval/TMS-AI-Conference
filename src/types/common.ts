@@ -60,5 +60,6 @@ export type SectionOnePropsTyps = {
   image?: string;
   button_text?: string;
   video?: string;
+  short_description?: string;
   data?: SpeakersDataProps[];
 };

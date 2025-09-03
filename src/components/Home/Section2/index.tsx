@@ -37,18 +37,7 @@ const HomeSectionTwo = ({
                 </div>
               )}
               <div className="mx-auto lg:mx-0 ">
-                <BigButton
-                  hrefs={button_link}
-                  isGradient={true}
-                  isIcon={true}
-                  isLink={true}
-                  isBig={true}
-                  gradient={
-                    "linear-gradient(249deg, #4D1592 13.95%, #0078BB 80.04%)"
-                  }
-                >
-                  {button_heading}
-                </BigButton>
+                <BigButton hrefs={button_link}>{button_heading}</BigButton>
               </div>
             </div>
           </article>
