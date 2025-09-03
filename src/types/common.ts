@@ -46,4 +46,5 @@ export type SectionOnePropsTyps = {
   description?: string;
   image?: string;
   button_text?: string;
+  video?: string;
 };

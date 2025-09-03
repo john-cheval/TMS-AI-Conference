@@ -1,10 +1,13 @@
-import React from "react";
+"use client";
+import React, { useRef, useState } from "react";
 import ai from "@/assets/shared/ai_big_460.svg";
 import Image from "next/image";
 import { SectionOnePropsTyps } from "@/types/common";
 import SmallTitle from "@/components/shared/ui/Headings/SmallTitle";
 import SectionHeading from "@/components/shared/ui/Headings/SectionHeading";
 import BigButton from "@/components/shared/ui/Button/BigButton";
+import { IoVolumeMuteOutline } from "react-icons/io5";
+import { IoVolumeMediumOutline } from "react-icons/io5";
 
 const HomeSectionThree = ({
   small_title,
@@ -13,24 +16,61 @@ const HomeSectionThree = ({
   description,
   button_text,
   button_link,
+  video,
 }: SectionOnePropsTyps) => {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const [isPlay, setIsPlay] = useState(false);
+
+  const handlePlayPause = () => {
+    const videoElement = videoRef.current;
+    if (videoElement) {
+      if (isPlay) {
+        videoElement.pause();
+      } else {
+        videoElement.play();
+      }
+      setIsPlay(!isPlay);
+    }
+  };
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+  };
+
   return (
     <section className="section-wrapper  section-container ">
       <div className="grid grid-cols-12 md:gap-x-8 lg:gap-x-12 xl:gap-x-16 relative">
         <article className="relative col-span-12 md:col-span-7 lg:col-span-6  h-full z-50">
-          <Image
-            src={image ?? ""}
-            alt={small_title ?? ""}
-            width={600}
-            height={650}
+          <video
+            playsInline
+            muted={isMuted}
+            loop
+            autoPlay={isPlay}
+            poster={image}
+            id="video"
+            controlsList="nodownload"
+            ref={videoRef}
             className="h-full w-full  object-cover rounded-2xl"
-          />
+          >
+            <source src={video} type="video/mp4" />
+          </video>
           <button
             className="px-4 py-2 text-white bg-tms-black text-base font-bold leading-5 rounded-4xl absolute right-5 top-5
         "
+            onClick={handlePlayPause}
           >
-            Play Video
+            {isPlay ? "Pause Video" : "Play Video"}
           </button>
+
+          {isPlay && (
+            <div
+              onClick={toggleMute}
+              className="absolute bottom-5 right-5 text-2xl text-tms-blue cursor-pointer bg-white flex items-center justify-center p-3 rounded-full"
+            >
+              {isMuted ? <IoVolumeMuteOutline /> : <IoVolumeMediumOutline />}
+            </div>
+          )}
         </article>
         <article className="col-span-12 md:col-span-5 lg:col-span-6 relative z-50 mt-8 md:mt-0 ">
           <SmallTitle title={small_title} />
