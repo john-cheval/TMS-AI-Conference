@@ -39,14 +39,11 @@ export type SectionOnePropsTyps = {
   earlyBirdsDate?: string;
   eventDate?: string;
   event_date_heading?: string;
-};
-
-export type SectionTwoPropsTyps = {
   heading?: string;
-  small_title?: string;
-  main_heading?: string;
   button_heading?: string;
   button_link?: string;
   session_heading?: string;
   description?: string;
+  image?: string;
+  button_text?: string;
 };
