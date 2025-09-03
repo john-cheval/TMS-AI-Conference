@@ -3,7 +3,6 @@ import { SectionOnePropsTyps } from "@/types/common";
 import ExpandableHtmlText from "@/components/shared/TruncatedHTMLText";
 import BigButton from "@/components/shared/ui/Button/BigButton";
 import SwiperHome from "@/components/shared/Swiper";
-import { swiperTsAbout } from "@/constants/swiperData";
 import SmallTitle from "@/components/shared/ui/Headings/SmallTitle";
 import SectionHeading from "@/components/shared/ui/Headings/SectionHeading";
 
@@ -15,6 +14,7 @@ const HomeSectionTwo = ({
   button_heading,
   session_heading,
   button_link,
+  data,
 }: SectionOnePropsTyps) => {
   return (
     <section className="section-wrapper section-container">
@@ -47,11 +47,7 @@ const HomeSectionTwo = ({
             </p>
 
             <div className="mt-6 lg:mt-8 ">
-              <SwiperHome
-                data={swiperTsAbout}
-                slidesNumbers={2}
-                initalGap={24}
-              />
+              <SwiperHome datas={data} slidesNumbers={2} initalGap={24} />
             </div>
           </article>
         </div>

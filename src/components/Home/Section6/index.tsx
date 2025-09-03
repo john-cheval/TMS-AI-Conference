@@ -52,6 +52,10 @@ const HomeSectionSix = ({
             )}
           </div>
         </div>
+
+        <div className="flex justify-center lg:hidden mt-6 md:mt-8">
+          <BigButton hrefs={button_link}>{button_text}</BigButton>
+        </div>
       </div>
     </section>
   );

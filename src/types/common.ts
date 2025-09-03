@@ -39,6 +39,11 @@ export type SpeakersDataProps = {
   is_chairman?: string;
   image_url?: string;
 };
+export type sectionTwoCardProps = {
+  id: number;
+  image_url: string;
+  home_title?: string;
+};
 
 export type SectionOnePropsTyps = {
   small_title?: string;
@@ -61,5 +66,5 @@ export type SectionOnePropsTyps = {
   button_text?: string;
   video?: string;
   short_description?: string;
-  data?: SpeakersDataProps[];
+  data?: SpeakersDataProps[] | sectionTwoCardProps[];
 };
