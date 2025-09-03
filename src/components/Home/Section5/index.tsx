@@ -49,7 +49,7 @@ const HomeSectionFive = ({
             loop
             slidesPerView={1}
             spaceBetween={10}
-            // modules={[Navigation, Autoplay]}
+            modules={[Navigation, Autoplay]}
             autoplay={{
               delay: 2500,
               disableOnInteraction: false,

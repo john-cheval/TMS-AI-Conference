@@ -18,9 +18,7 @@ const AgendaCard = ({ imageUrl, name }: AgendacardPropsType) => {
         className="w-full h-auto object-cover "
       />
       <div className="CardGraient  absolute bottom-0 left-0 w-full h-full max-h-[120px] z-10" />
-      <p className="text-white txt-base md:text-lg lg:text-xl font-bold leading-5 absolute bottom-4 md:bottom-6  left-6 lg:left-8 z-20">
-        {name}
-      </p>
+      <p className="overlay-description">{name}</p>
     </div>
   );
 };

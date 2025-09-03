@@ -4,6 +4,7 @@ import HomeSectionThree from "@/components/Home/Section3";
 import HomeSectionFour from "@/components/Home/Section4";
 import HomeSectionFive from "@/components/Home/Section5";
 import HomeSectionSix from "@/components/Home/Section6";
+import Testimonials from "@/components/shared/Testimonials";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
 import generateMetadDataDetails from "@/lib/generateMetaData";
@@ -43,6 +44,11 @@ const Home = async () => {
       />
       <HomeSectionSix
         {...homePageContent?.data?.section_list?.agenda_featured_speakers_2}
+      />
+      <Testimonials
+        title={
+          homePageContent?.data?.section_list?.words_from_our_guests?.heading
+        }
       />
     </>
   );
