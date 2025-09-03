@@ -5,19 +5,19 @@ import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import type SwiperCore from "swiper";
-import HomeCards from "../ui/Cards";
+import HomeCards from "../ui/Cards/HomeCards";
 import {
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
 } from "react-icons/md";
 
 export type SwiperTypeProps = {
-  data?: any;
+  datas?: any[];
   slidesNumbers?: number;
   initalGap?: number;
 };
 
-const SwiperHome = ({ data, slidesNumbers, initalGap }: SwiperTypeProps) => {
+const SwiperHome = ({ datas, slidesNumbers, initalGap }: SwiperTypeProps) => {
   const swiperRef = useRef<SwiperCore | null>(null);
   return (
     <div className="relative w-full">
@@ -26,7 +26,6 @@ const SwiperHome = ({ data, slidesNumbers, initalGap }: SwiperTypeProps) => {
           swiperRef.current = swiper;
         }}
         slidesPerView={slidesNumbers}
-        // spaceBetween={initalGap}
         loop
         autoplay={{
           delay: 2500,
@@ -48,9 +47,9 @@ const SwiperHome = ({ data, slidesNumbers, initalGap }: SwiperTypeProps) => {
           },
         }}
       >
-        {data &&
-          data?.length > 0 &&
-          data?.map((item: any, index: number) => {
+        {datas &&
+          datas?.length > 0 &&
+          datas?.map((item: any, index: number) => {
             return (
               <SwiperSlide key={index + 1}>
                 <HomeCards cardData={item} />

@@ -1,5 +1,9 @@
 import HomeSectionOne from "@/components/Home/Section1";
 import HomeSectionTwo from "@/components/Home/Section2";
+import HomeSectionThree from "@/components/Home/Section3";
+import HomeSectionFour from "@/components/Home/Section4";
+import HomeSectionFive from "@/components/Home/Section5";
+import HomeSectionSix from "@/components/Home/Section6";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
 import generateMetadDataDetails from "@/lib/generateMetaData";
@@ -14,12 +18,6 @@ const Home = async () => {
     `${baseUrl}/getmasterdetails?master_name=cms&id=70`
   );
 
-  // console.log(
-  //   homePageContent?.gernalsettings?.current_year_coneference[0]
-  //     ?.Early_Bird_date,
-  //   "gghhfjhdfhjkfhuizh"
-  // );
-
   const conferenceYear =
     homePageContent?.gernalsettings?.current_year_coneference[0];
 
@@ -33,6 +31,18 @@ const Home = async () => {
       />
       <HomeSectionTwo
         {...homePageContent?.data?.section_list?.about_the_conference}
+      />
+      <HomeSectionThree
+        {...homePageContent?.data?.section_list?.highlights_from_past_edition}
+      />
+      <HomeSectionFour
+        {...homePageContent?.data?.section_list?.agenda_featured_speakers}
+      />
+      <HomeSectionFive
+        {...homePageContent?.data?.section_list?.conference_speakers}
+      />
+      <HomeSectionSix
+        {...homePageContent?.data?.section_list?.agenda_featured_speakers_2}
       />
     </>
   );

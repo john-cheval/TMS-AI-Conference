@@ -27,6 +27,24 @@ export type SideBarComponentProps = {
   sideBarLinksData: sideBarPropsType[];
 };
 
+export type SpeakersDataProps = {
+  id?: number;
+  judges_oeder?: number;
+  award_id?: number;
+  name?: string;
+  slug?: string;
+  post?: string;
+  company?: string;
+  description?: string | null;
+  is_chairman?: string;
+  image_url?: string;
+};
+export type sectionTwoCardProps = {
+  id: number;
+  image_url: string;
+  home_title?: string;
+};
+
 export type SectionOnePropsTyps = {
   small_title?: string;
   small_title_2?: string;
@@ -39,14 +57,14 @@ export type SectionOnePropsTyps = {
   earlyBirdsDate?: string;
   eventDate?: string;
   event_date_heading?: string;
-};
-
-export type SectionTwoPropsTyps = {
   heading?: string;
-  small_title?: string;
-  main_heading?: string;
   button_heading?: string;
   button_link?: string;
   session_heading?: string;
   description?: string;
+  image?: string;
+  button_text?: string;
+  video?: string;
+  short_description?: string;
+  data?: SpeakersDataProps[] | sectionTwoCardProps[];
 };
