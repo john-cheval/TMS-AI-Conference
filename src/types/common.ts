@@ -27,6 +27,19 @@ export type SideBarComponentProps = {
   sideBarLinksData: sideBarPropsType[];
 };
 
+export type SpeakersDataProps = {
+  id?: number;
+  judges_oeder?: number;
+  award_id?: number;
+  name?: string;
+  slug?: string;
+  post?: string;
+  company?: string;
+  description?: string | null;
+  is_chairman?: string;
+  image_url?: string;
+};
+
 export type SectionOnePropsTyps = {
   small_title?: string;
   small_title_2?: string;
@@ -47,4 +60,5 @@ export type SectionOnePropsTyps = {
   image?: string;
   button_text?: string;
   video?: string;
+  data?: SpeakersDataProps[];
 };

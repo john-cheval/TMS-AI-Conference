@@ -1,6 +1,8 @@
 import HomeSectionOne from "@/components/Home/Section1";
 import HomeSectionTwo from "@/components/Home/Section2";
 import HomeSectionThree from "@/components/Home/Section3";
+import HomeSectionFour from "@/components/Home/Section4";
+import HomeSectionFive from "@/components/Home/Section5";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
 import generateMetadDataDetails from "@/lib/generateMetaData";
@@ -31,6 +33,12 @@ const Home = async () => {
       />
       <HomeSectionThree
         {...homePageContent?.data?.section_list?.highlights_from_past_edition}
+      />
+      <HomeSectionFour
+        {...homePageContent?.data?.section_list?.agenda_featured_speakers}
+      />
+      <HomeSectionFive
+        {...homePageContent?.data?.section_list?.conference_speakers}
       />
     </>
   );

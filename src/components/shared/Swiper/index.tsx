@@ -5,7 +5,7 @@ import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import type SwiperCore from "swiper";
-import HomeCards from "../ui/Cards";
+import HomeCards from "../ui/Cards/HomeCards";
 import {
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,

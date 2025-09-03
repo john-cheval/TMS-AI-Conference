@@ -14,7 +14,7 @@ const HomeCards = ({ cardData }: HomeCardProps) => {
         alt={cardData?.descriptin}
         width={285}
         height={400}
-        className="w-full h-full max-w-[280px]- object-cover rounded-[10px] shrink-0"
+        className="w-full h-full max-w-[280px]- object-cover rounded-[20px] shrink-0"
       />
       <p className="absolute bottom-3 lg:bottom-6 left-3 lg:left-6 right-3 lg:right-6 text-white font-bold text-sm md:text-base lg:text-lg xl:text-xl leading-5 md:leading-4">
         {cardData?.descriptin}
