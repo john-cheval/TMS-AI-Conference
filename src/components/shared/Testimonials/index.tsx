@@ -21,7 +21,7 @@ const Testimonials = ({ title }: TestimonialsPropsType) => {
   const swiperRef = useRef<SwiperCore | null>(null);
 
   return (
-    <section className="section-wrapper section-container pb-20-">
+    <section className="section-wrapper section-container- pb-20-">
       <div className="w-full">
         <SectionHeadingTwo title={title} />
 
@@ -56,6 +56,9 @@ const Testimonials = ({ title }: TestimonialsPropsType) => {
               }}
               breakpoints={{
                 0: {
+                  slidesPerView: 1,
+                },
+                500: {
                   slidesPerView: 2,
                 },
                 768: {

@@ -4,6 +4,9 @@ import HomeSectionThree from "@/components/Home/Section3";
 import HomeSectionFour from "@/components/Home/Section4";
 import HomeSectionFive from "@/components/Home/Section5";
 import HomeSectionSix from "@/components/Home/Section6";
+import HomeSectionSeven from "@/components/Home/Section7";
+import HomeSectionEight from "@/components/Home/Section8";
+import HomeSectionNine from "@/components/Home/Section9";
 import Testimonials from "@/components/shared/Testimonials";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
@@ -48,6 +51,19 @@ const Home = async () => {
       <Testimonials
         title={
           homePageContent?.data?.section_list?.words_from_our_guests?.heading
+        }
+      />
+      <HomeSectionSeven
+        {...homePageContent?.data?.section_list?.why_sponsor_tms_ai_tech}
+      />
+      <HomeSectionEight
+        {...homePageContent?.data?.section_list?.key_sponsorship_benefits}
+      />
+      <HomeSectionNine
+        sponsors={homePageContent?.data?.section_list?.sponsors}
+        mediaParteners={homePageContent?.data?.section_list?.media_partners}
+        assosiations={
+          homePageContent?.data?.section_list?.supporting_associations
         }
       />
     </>
