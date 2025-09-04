@@ -49,7 +49,7 @@ const SponsorDetailPopover = (props: SponsorDetailPropsType) => {
               />
             )}
             <Link
-              className="text-tms-blue text-base font-bold leading-5 mt-4"
+              className="text-tms-blue text-sm md:text-base font-bold leading-5 mt-4"
               href={website_link ?? "#"}
               target="_blank"
             >
