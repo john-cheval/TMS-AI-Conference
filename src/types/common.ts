@@ -14,6 +14,7 @@ export type ButtonPropsType = {
   isLink?: boolean;
   isBig?: boolean;
   gradient?: string;
+  isSponsor?: boolean;
 };
 
 export type sideBarPropsType = {

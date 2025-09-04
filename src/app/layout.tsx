@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import ServerNavbar from "@/components/shared/Navbar/ServerNavbar";
+import Footer from "@/components/shared/Footer";
+import { baseUrl } from "@/lib/api";
+import { fetchData } from "@/lib/fetchData";
 
 export const metadata: Metadata = {
   title:
@@ -15,11 +18,25 @@ const inter = Inter({
   display: "swap",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [menuLinks, generalSettingsData] = await Promise.all([
+    fetchData(`${baseUrl}/getmenu`),
+    fetchData(`${baseUrl}/getmasterdetails?master_name=cms&id=70`),
+  ]);
+
+  const { INSTAGRAM, TWITTER, FACEBOOK, LINKEDIN, YOUTUBE } =
+    generalSettingsData?.gernalsettings?.general_settings;
+  const socialMediaLinks = [
+    INSTAGRAM,
+    TWITTER,
+    FACEBOOK,
+    LINKEDIN,
+    YOUTUBE,
+  ].filter(Boolean);
   return (
     <html lang="en" className="h-full " suppressHydrationWarning>
       <body
@@ -27,6 +44,11 @@ export default function RootLayout({
       >
         <ServerNavbar />
         <main className="flex-grow pt-[106px]">{children}</main>
+        <Footer
+          footerMainLinks={menuLinks[2]}
+          footerBottom={menuLinks[3]}
+          socialLinks={socialMediaLinks}
+        />
       </body>
     </html>
   );
