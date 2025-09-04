@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@tailwindcss/postcss": "^4.1.12",
     "dayjs": "^1.11.18",
     "html-truncate": "^1.2.2",

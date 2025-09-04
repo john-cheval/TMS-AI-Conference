@@ -46,6 +46,16 @@ export type sectionTwoCardProps = {
   home_title?: string;
 };
 
+export type ImageGalleryTypes = {
+  title?: string;
+  image_url?: string;
+};
+
+export type YoutubeTestimonialsTypes = {
+  title?: string;
+  youtube_id?: string;
+};
+
 export type SectionOnePropsTyps = {
   small_title?: string;
   small_title_2?: string;
@@ -68,4 +78,6 @@ export type SectionOnePropsTyps = {
   video?: string;
   short_description?: string;
   data?: SpeakersDataProps[] | sectionTwoCardProps[];
+  image_gallery?: ImageGalleryTypes[];
+  youtube_testimonials?: YoutubeTestimonialsTypes[];
 };

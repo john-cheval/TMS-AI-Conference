@@ -49,9 +49,7 @@ const Home = async () => {
         {...homePageContent?.data?.section_list?.agenda_featured_speakers_2}
       />
       <Testimonials
-        title={
-          homePageContent?.data?.section_list?.words_from_our_guests?.heading
-        }
+        {...homePageContent?.data?.section_list?.words_from_our_guests}
       />
       <HomeSectionSeven
         {...homePageContent?.data?.section_list?.why_sponsor_tms_ai_tech}
@@ -60,6 +58,7 @@ const Home = async () => {
         {...homePageContent?.data?.section_list?.key_sponsorship_benefits}
       />
       <HomeSectionNine
+        {...homePageContent?.data?.section_list?.key_sponsorship_benefits}
         sponsors={homePageContent?.data?.section_list?.sponsors}
         mediaParteners={homePageContent?.data?.section_list?.media_partners}
         assosiations={

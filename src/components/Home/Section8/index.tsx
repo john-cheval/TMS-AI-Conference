@@ -1,12 +1,13 @@
 import { benifitsData } from "@/constants/HomeData";
+import { SectionOnePropsTyps } from "@/types/common";
 import React from "react";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
 
-const HomeSectionEight = () => {
+const HomeSectionEight = ({ heading }: SectionOnePropsTyps) => {
   return (
     <section className="section-wrapper">
       <div className="pb-8 sm:pb-0 border-b sm:border-b-0 border-[#bdbdbd] ">
-        <h4 className="sub_heading-1">Key Sponsorship Benefits</h4>
+        <h4 className="sub_heading-1">{heading}</h4>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 sm:gap-6 md:gap-8 lg:grid-cols-4 gap-x-10 xl:gap-x-16 3xl:gap-x-20 mt-5 sm:mt-6 md:mt-8">
           {benifitsData &&

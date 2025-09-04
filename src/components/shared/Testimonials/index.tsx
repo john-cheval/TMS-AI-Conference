@@ -12,23 +12,28 @@ import {
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
 } from "react-icons/md";
+import { YoutubeTestimonialsTypes } from "@/types/common";
 
 interface TestimonialsPropsType {
-  title?: string;
+  heading?: string;
+  youtube_testimonials: YoutubeTestimonialsTypes[];
 }
 
-const Testimonials = ({ title }: TestimonialsPropsType) => {
+const Testimonials = ({
+  youtube_testimonials,
+  heading,
+}: TestimonialsPropsType) => {
   const swiperRef = useRef<SwiperCore | null>(null);
 
   return (
     <section className="section-wrapper section-container- pb-20-">
       <div className="w-full">
-        <SectionHeadingTwo title={title} />
+        <SectionHeadingTwo title={heading} />
 
         <div className="mt-10  grid-cols-4 hidden lg:grid">
-          {testimonialData &&
-            testimonialData.length > 0 &&
-            testimonialData?.map((item, index) => {
+          {youtube_testimonials &&
+            youtube_testimonials.length > 0 &&
+            youtube_testimonials?.map((item, index) => {
               return (
                 <div
                   key={index + 1}
@@ -36,7 +41,7 @@ const Testimonials = ({ title }: TestimonialsPropsType) => {
                 >
                   <YoutubePlayer {...item} />
                   <p className="overlay-description">{item?.title}</p>
-                  <div className="CardGraient absolute bottom-0 left-0 w-full h-full max-h-[150px]" />
+                  <div className="CardGraient absolute bottom-0 left-0 w-full h-full max-h-[100px]" />
                 </div>
               );
             })}
