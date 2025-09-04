@@ -56,6 +56,20 @@ export type YoutubeTestimonialsTypes = {
   youtube_id?: string;
 };
 
+export type SponsorsPropsType = {
+  award_id?: number;
+  id?: number;
+  name?: string;
+  slug?: string;
+  website_link?: string;
+  company_name?: string;
+  email?: string;
+  contact_number?: string;
+  country_code?: string;
+  image_url?: string;
+  description?: string | null;
+};
+
 export type SectionOnePropsTyps = {
   small_title?: string;
   small_title_2?: string;

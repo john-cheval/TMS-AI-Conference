@@ -1,26 +1,3 @@
-export const testimonialData = [
-  {
-    id: 1,
-    videoId: "KIEi1kgrVYk",
-    title: "Words from our guests",
-  },
-  {
-    id: 2,
-    videoId: "KIEi1kgrVYk",
-    title: "Words from our guests",
-  },
-  {
-    id: 3,
-    videoId: "KIEi1kgrVYk",
-    title: "Words from our guests",
-  },
-  {
-    id: 4,
-    videoId: "KIEi1kgrVYk",
-    title: "Words from our guests",
-  },
-];
-
 export const benifitsData = [
   {
     id: 1,

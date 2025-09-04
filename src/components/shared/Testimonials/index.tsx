@@ -1,7 +1,6 @@
 "use client";
 import React, { useRef } from "react";
 import SectionHeadingTwo from "../ui/Headings/SectionHeading2";
-import { testimonialData } from "@/constants/HomeData";
 import YoutubePlayer from "../ui/VideoPlayer";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -71,9 +70,9 @@ const Testimonials = ({
                 },
               }}
             >
-              {testimonialData &&
-                testimonialData?.length > 0 &&
-                testimonialData?.map((item, index) => {
+              {youtube_testimonials &&
+                youtube_testimonials?.length > 0 &&
+                youtube_testimonials?.map((item, index) => {
                   return (
                     <SwiperSlide
                       key={index + 1}
