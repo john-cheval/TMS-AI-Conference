@@ -8,6 +8,7 @@
   --color-dark-grey: #828282;
   --color-dark-alter: #00081b;
   --color-light-grey: #d8d8d8;
+  --color-light-grey-1: #d9d9d9;
   --color-tms-light-blue: #edf9ff;
   --color-tms-black: #000;
   --color-gradient-btn-nav: linear-gradient(
@@ -115,6 +116,10 @@ ul {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 100%);
 }
 
+.top-banner-gradient {
+  background: rgba(0, 0, 0, 0.65);
+}
+
 /*  */
 /* .buttonGradient-2:hover {
   background: transparent;
@@ -127,11 +132,19 @@ ul {
     ),
     linear-gradient(180deg, rgba(0, 0, 0, 0) -23.33%, #000 88.47%);
 }
+.gradient-seperator {
+  background: linear-gradient(90deg, #ea73e7 0%, rgba(234, 115, 231, 0) 100%);
 
-.home-banner-section {
+  height: 1px;
+}
+
+/* Sections */
+.home-banner-section,
+.top-banner-section {
   height: calc(100vh - 106px);
   overflow: hidden;
 }
+
 .home-title-2 span {
   font-weight: 800;
 }
