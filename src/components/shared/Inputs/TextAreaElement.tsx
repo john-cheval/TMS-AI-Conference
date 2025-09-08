@@ -14,6 +14,7 @@ interface TextAreaElementProps<TFieldValues extends FieldValues>
   name: Path<TFieldValues>;
   register: UseFormRegister<TFieldValues>;
   errors: FieldErrors<TFieldValues>;
+  isBlue?: boolean;
   rules?: ValidationRule<any>;
 }
 
@@ -23,6 +24,7 @@ const TextAreaElement = <TFieldValues extends FieldValues>({
   name,
   register,
   errors,
+  isBlue = false,
   rules = {},
   ...rest
 }: TextAreaElementProps<TFieldValues>) => {
@@ -30,7 +32,7 @@ const TextAreaElement = <TFieldValues extends FieldValues>({
   return (
     <div className="flex flex-col gap-y-2 flex-grow-1">
       <textarea
-        className="input  fix-autofill"
+        className={`  fix-autofill ${isBlue ? "input-alter" : "input"}`}
         id={name}
         {...register(name, rules)}
         {...rest}

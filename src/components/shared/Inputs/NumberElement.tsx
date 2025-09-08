@@ -29,7 +29,8 @@ interface NumbertElementProps<TFieldValues extends FieldValues>
   register: UseFormRegister<TFieldValues>;
   errors: FieldErrors<TFieldValues>;
   rules?: ValidationRule<any>;
-  setValue: UseFormSetValue<TFieldValues>; // Added setValue prop
+  setValue: UseFormSetValue<TFieldValues>;
+  isBlue?: boolean;
 }
 
 const formatDialCode = (idd: CountryType["idd"]): string => {
@@ -44,6 +45,7 @@ const NumberElement = <TFieldValues extends FieldValues>({
   register,
   errors,
   rules = {},
+  isBlue = false,
   setValue,
   ...rest
 }: NumbertElementProps<TFieldValues>) => {
@@ -143,7 +145,9 @@ const NumberElement = <TFieldValues extends FieldValues>({
               <li key={index}>
                 <button
                   type="button"
-                  className="inline-flex w-full px-4 py-2  text-white     hover:bg-tms-blue/[.2] dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white text-sm md:text-base"
+                  className={`inline-flex w-full px-4 py-2 ${
+                    isBlue ? "text-dark-alter" : "text-white"
+                  }     hover:bg-tms-blue/[.2] dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white text-sm md:text-base`}
                   role="menuitem"
                   onClick={() => handleCountrySelect(country)}
                 >
@@ -160,7 +164,9 @@ const NumberElement = <TFieldValues extends FieldValues>({
           <button
             id="dropdown-phone-button"
             data-dropdown-toggle="dropdown-phone"
-            className="z-10 inline-flex items-center h-full py-2.5 px-4 font-normal text-center bg-transparent text-sm md:text-base gap-x-1.5 text-white  outline-none absolute left-0 top-0"
+            className={`z-10 inline-flex items-center h-full py-2.5 px-4 font-normal text-center bg-transparent text-sm md:text-base gap-x-1.5 ${
+              isBlue ? "text-dark-alter" : "text-white"
+            }  outline-none absolute left-0 top-0`}
             type="button"
             onClick={handleButtonClick}
           >
@@ -168,7 +174,9 @@ const NumberElement = <TFieldValues extends FieldValues>({
           </button>
 
           <input
-            className="input  fix-autofill no-arrow-number !pl-[90px] w-full"
+            className={`${
+              isBlue ? "input-alter" : "input"
+            }  fix-autofill no-arrow-number !pl-[90px] w-full`}
             id={name}
             type="tel"
             {...register(name, rules)}

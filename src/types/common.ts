@@ -107,4 +107,5 @@ export type SectionOnePropsTyps = {
   image_gallery?: ImageGalleryTypes[];
   youtube_testimonials?: YoutubeTestimonialsTypes[];
   all_benefits?: benifitsType[];
+  isOpppotunity?: boolean;
 };

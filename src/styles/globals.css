@@ -111,6 +111,22 @@ ul {
   background: linear-gradient(249deg, #4d1592 13.95%, #0078bb 80.04%);
   border-color: linear-gradient(249deg, #4d1592 13.95%, #0078bb 80.04%);
 }
+.buttonGradient-3 {
+  background: linear-gradient(249deg, #4d1592, #0078bb);
+  background-size: 200% 200%;
+  background-position: left center;
+  transition: background-position 0.5s ease-in-out;
+}
+
+.buttonGradient-3:hover {
+  background-position: right center;
+}
+.gradient-text {
+  background: linear-gradient(249deg, #4d1592 13.95%, #0078bb 80.04%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
 .CardGraient {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 100%);
@@ -209,6 +225,9 @@ ul {
 /* Inputs */
 .input {
   @apply border border-white rounded-sm py-3 w-full pl-3 md:pl-5 lg:pl-8 placeholder-white outline-0 text-white text-sm md:text-base font-normal leading-3;
+}
+.input-alter {
+  @apply border border-[#1C75BC] rounded-sm py-3 w-full pl-3 md:pl-5 lg:pl-8 placeholder-dark-alter outline-0 text-dark-alter text-sm md:text-base font-normal leading-3;
 }
 
 @media (min-width: 2000px) {

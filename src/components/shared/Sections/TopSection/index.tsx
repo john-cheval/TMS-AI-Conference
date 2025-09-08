@@ -33,7 +33,7 @@ const SharedTopSection = ({
             width={500}
             height={400}
             alt="title"
-            className="w-full h-auto object-cover"
+            className="w-full h-auto object-cover  min-h-[400px] md:min-h-full"
           />
         ) : (
           <video
@@ -42,7 +42,7 @@ const SharedTopSection = ({
             muted
             loop
             playsInline
-            className="w-full h-full object-cover z-[5]"
+            className="w-full h-full object-cover z-[5]  min-h-[400px] md:min-h-full"
           />
         )}
 

@@ -15,6 +15,7 @@ interface TextElementProps<TFieldValues extends FieldValues>
   register: UseFormRegister<TFieldValues>;
   errors: FieldErrors<TFieldValues>;
   rules?: ValidationRule<any>;
+  isBlue?: boolean;
 }
 
 // Make the component function generic
@@ -24,13 +25,14 @@ const TextElement = <TFieldValues extends FieldValues>({
   register,
   errors,
   rules = {},
+  isBlue = false,
   ...rest
 }: TextElementProps<TFieldValues>) => {
   const errorMessage = errors[name]?.message;
   return (
     <div className="flex flex-col gap-y-2 flex-grow-1">
       <input
-        className="input  fix-autofill"
+        className={`  fix-autofill ${isBlue ? "input-alter" : "input"}`}
         id={name}
         {...register(name, rules)}
         {...rest}
