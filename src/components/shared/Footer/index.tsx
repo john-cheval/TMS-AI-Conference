@@ -8,21 +8,32 @@ import AiBig from "@/assets/shared/Ai_colored_big.svg";
 import Image from "next/image";
 import FooterAccordion from "./FooterAccordion";
 import * as motion from "motion/react-client";
-
-const heading = ` <span>Join Global Leaders </span> Driving the Future of AI in Transport.`;
+import { buttonApIPropsType } from "@/types/common";
 
 export type footerTypeProps = {
   footerMainLinks?: any;
   footerBottom?: any;
   socialLinks?: any;
+  footer_heading1: string;
+  footer_heading2: string;
+  newsLetterHeading: string;
+  registerNow: buttonApIPropsType;
+  sponsorBtnData: buttonApIPropsType;
 };
 const Footer = ({
   footerMainLinks,
   footerBottom,
   socialLinks,
+  footer_heading1,
+  footer_heading2,
+  registerNow,
+  sponsorBtnData,
 }: footerTypeProps) => {
   const footerMainLinksData = Object.values(footerMainLinks);
   const footerBottomlinksData = Object.values(footerBottom);
+
+  const heading = ` <span>${footer_heading1} </span> ${footer_heading2}.`;
+
   return (
     <footer className="bg-black relative pt-16 md:pt-20 lg:pt-24 pb-8 md:pb-10 section-wrapper">
       <div className="grid grid-cols-12 lg:gap-x-8 2xl:gap-x-12">
@@ -47,10 +58,12 @@ const Footer = ({
             viewport={{ once: true, amount: 0.3 }}
             className="mt-4 md:mt-6 lg:mt-8 xl:mt-10 flex items-center  gap-x-2 md:gap-x-2.5"
           >
-            <FooterButton hrefs="/" isSponsor={true}>
-              Register Now
+            <FooterButton hrefs={registerNow?.value} isSponsor={true}>
+              {registerNow?.title}
             </FooterButton>
-            <FooterButton hrefs="/">Become a Sponsor</FooterButton>
+            <FooterButton hrefs={sponsorBtnData?.value}>
+              {sponsorBtnData?.title}
+            </FooterButton>
           </motion.div>
 
           <div className="mt-4 md:mt-6 lg:mt-8">

@@ -23,13 +23,18 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [menuLinks, generalSettingsData] = await Promise.all([
-    fetchData(`${baseUrl}/getmenu`),
-    fetchData(`${baseUrl}/getmasterdetails?master_name=cms&id=70`),
-  ]);
+  const [menuLinks] = await Promise.all([fetchData(`${baseUrl}/getmenu`)]);
 
-  const { INSTAGRAM, TWITTER, FACEBOOK, LINKEDIN, YOUTUBE } =
-    generalSettingsData?.gernalsettings?.general_settings;
+  const {
+    INSTAGRAM,
+    TWITTER,
+    FACEBOOK,
+    LINKEDIN,
+    YOUTUBE,
+    COMMON_SETTINGS_VALUES_join_newsletter,
+    COMMON_SETTINGS_VALUES_register_now,
+    COMMON_SETTINGS_VALUES_become_a_sponsor,
+  } = menuLinks?.general_settings;
   const socialMediaLinks = [
     INSTAGRAM,
     TWITTER,
@@ -37,6 +42,7 @@ export default async function RootLayout({
     LINKEDIN,
     YOUTUBE,
   ].filter(Boolean);
+
   return (
     <html lang="en" className="h-full " suppressHydrationWarning>
       <body
@@ -48,6 +54,13 @@ export default async function RootLayout({
           footerMainLinks={menuLinks[2]}
           footerBottom={menuLinks[3]}
           socialLinks={socialMediaLinks}
+          footer_heading1={COMMON_SETTINGS_VALUES_join_newsletter?.title}
+          footer_heading2={COMMON_SETTINGS_VALUES_join_newsletter?.value}
+          newsLetterHeading={
+            COMMON_SETTINGS_VALUES_join_newsletter?.description
+          }
+          registerNow={COMMON_SETTINGS_VALUES_register_now}
+          sponsorBtnData={COMMON_SETTINGS_VALUES_become_a_sponsor}
         />
       </body>
     </html>

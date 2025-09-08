@@ -206,9 +206,43 @@ ul {
   @apply text-xs sm:text-sm uppercase leading-6;
 }
 
+/* Inputs */
+.input {
+  @apply border border-white rounded-sm py-3 w-full pl-3 md:pl-5 lg:pl-8 placeholder-white outline-0 text-white text-sm md:text-base font-normal leading-3;
+}
+
 @media (min-width: 2000px) {
   .section-wrapper {
     max-width: 1900px;
     margin: 0 auto;
   }
+}
+.no-arrow-number::-webkit-outer-spin-button,
+.no-arrow-number::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.no-arrow-number {
+  -moz-appearance: textfield;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari, and Edge */
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer and Edge */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+.fix-autofill:-webkit-autofill,
+.fix-autofill:-webkit-autofill:hover,
+.fix-autofill:-webkit-autofill:focus {
+  /* Use a transparent box-shadow to override the background */
+  box-shadow: 0 0 0 1000px transparent inset !important;
+
+  /* Use -webkit-text-fill-color to override the text color */
+  -webkit-text-fill-color: #fff !important;
+
+  /* You may also need to set a transition */
+  transition: background-color 5000s ease-in-out 0s;
+  color: #fff !important;
 }

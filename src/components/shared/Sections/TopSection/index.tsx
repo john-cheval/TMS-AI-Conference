@@ -1,18 +1,35 @@
 import React from "react";
-import banner_image from "@/assets/TopBanners/Sponsors.jpg";
-// import isVideo from "@/lib/CheckIsVideo";
+import isVideo from "@/lib/CheckIsVideo";
 import Image from "next/image";
 import { RiGeminiFill } from "react-icons/ri";
 import * as motion from "motion/react-client";
 import { containerVariants, itemVariants } from "@/constants/motionVariants";
+import dayjs from "dayjs";
 
-const SharedTopSection = () => {
+interface SharedTopSectionPropsTypes {
+  banner?: string;
+  title?: string;
+  awardTitle?: string;
+  conferenceTitle?: string;
+  conferenceLocation?: string;
+  conferenceDate?: string;
+}
+
+const SharedTopSection = ({
+  banner,
+  title,
+  awardTitle,
+  conferenceTitle,
+  conferenceLocation,
+  conferenceDate,
+}: SharedTopSectionPropsTypes) => {
+  const formatted = dayjs(conferenceDate).format("MMMM YYYY");
   return (
     <section className=" relative text-white ">
       <div className="relative ">
-        {/* {isVideo(banner_image) ? (
+        {!isVideo(banner ?? "") ? (
           <Image
-            src={banner_image}
+            src={banner ?? ""}
             width={500}
             height={400}
             alt="title"
@@ -20,21 +37,15 @@ const SharedTopSection = () => {
           />
         ) : (
           <video
-            src={banner_image || "/banner_video.mp4"}
+            src={banner || "/banner_video.mp4"}
             autoPlay
             muted
             loop
             playsInline
             className="w-full h-full object-cover z-[5]"
           />
-        )} */}
-        <Image
-          src={banner_image}
-          width={500}
-          height={400}
-          alt="title"
-          className="w-full h-auto object-cover min-h-[400px] md:min-h-full"
-        />
+        )}
+
         <div className="top-banner-gradient bg-red-500- w-full h-full absolute top-0 left-0 z-10" />
       </div>
 
@@ -50,21 +61,19 @@ const SharedTopSection = () => {
           className="flex gap-x-2.5 items-center mb-3 lg:mb-5"
         >
           <RiGeminiFill className="text-tms-pink text-xl" />
-          <p className=" text-sm font-bold leading-6 w-full">
-            The AI TECH Conference
-          </p>
+          <p className=" text-sm font-bold leading-6 w-full">{awardTitle}</p>
         </motion.div>
         <motion.h2
           variants={itemVariants}
           className=" text-sm text-center md:text-left font-bold leading-5 w-full mb-5 md:mb-3"
         >
-          Maritime 4.0 and Beyond: Accelerating Intelligence in Motion
+          {conferenceTitle}
         </motion.h2>
         <motion.h3
           variants={itemVariants}
           className="sub_heading-1 text-center md:text-left !text-white mb-3 md:mb-5 lg:mb-7 !font-normal"
         >
-          November 2025 | Aboard Queen Elizabeth 2 (QE2), Dubai
+          {formatted} | {conferenceLocation}
         </motion.h3>
         <motion.div
           variants={itemVariants}
@@ -75,7 +84,7 @@ const SharedTopSection = () => {
           variants={itemVariants}
           className="main-heading mt-3 md:mt-5  lg:mt-8 xl:mt-12 "
         >
-          Sponsors
+          {title}
         </motion.h1>
       </motion.div>
     </section>

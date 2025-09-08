@@ -28,6 +28,11 @@ export type SideBarComponentProps = {
   sideBarLinksData: sideBarPropsType[];
 };
 
+export type buttonApIPropsType = {
+  title: string;
+  value: string;
+};
+
 export type SpeakersDataProps = {
   id?: number;
   judges_oeder?: number;
@@ -39,6 +44,7 @@ export type SpeakersDataProps = {
   description?: string | null;
   is_chairman?: string;
   image_url?: string;
+  home_title?: string;
 };
 export type sectionTwoCardProps = {
   id: number;
@@ -70,6 +76,12 @@ export type SponsorsPropsType = {
   description?: string | null;
 };
 
+export type benifitsType = {
+  title: string;
+  description: string;
+  image_url?: string;
+};
+
 export type SectionOnePropsTyps = {
   small_title?: string;
   small_title_2?: string;
@@ -94,4 +106,5 @@ export type SectionOnePropsTyps = {
   data?: SpeakersDataProps[] | sectionTwoCardProps[];
   image_gallery?: ImageGalleryTypes[];
   youtube_testimonials?: YoutubeTestimonialsTypes[];
+  all_benefits?: benifitsType[];
 };
