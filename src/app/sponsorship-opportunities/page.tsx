@@ -1,13 +1,12 @@
 import BecomeSponsorForm from "@/components/Forms/BecomeSponsor";
-import HomeSectionTwo from "@/components/Home/Section2";
 import SharedTopSection from "@/components/shared/Sections/TopSection";
 import Sponsors from "@/components/shared/Sponsors";
-import SponsorBenifits from "@/components/Sponsors/SponsorBenifits";
+import SponsorShipOppSectionOne from "@/components/SponsorShipOpportuity/Section1";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
 import React from "react";
 
-const WhySponsor = async () => {
+const SponsorshipOppurtunities = async () => {
   const pageContent = await fetchData(
     `${baseUrl}/getmasterdetails?master_name=cms&id=71`
   );
@@ -25,16 +24,11 @@ const WhySponsor = async () => {
         conferenceLocation={conferenceData.location}
         conferenceDate={conferenceData.end_date}
       />
-      <HomeSectionTwo
-        {...pageContent?.data?.section_list?.about_the_conference}
-      />
-      <SponsorBenifits
-        {...pageContent?.data?.section_list?.key_sponsorship_benefits}
-      />
+      <SponsorShipOppSectionOne />
       <BecomeSponsorForm
         {...pageContent?.data?.section_list?.become_a_sponsor_form}
+        isOpppotunity={true}
       />
-
       <div className="section-wrapper pb-16 md:pb-20">
         <Sponsors
           data={pageContent?.data?.section_list?.sponsors}
@@ -49,4 +43,4 @@ const WhySponsor = async () => {
   );
 };
 
-export default WhySponsor;
+export default SponsorshipOppurtunities;

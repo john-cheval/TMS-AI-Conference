@@ -19,7 +19,7 @@ const FooterLinks = ({ links, splits }: FooterLinksPropsType) => {
       <motion.h6 className="text-dark-grey text-base lg:text-lg font-normal leading-5">
         {links?.name}
       </motion.h6>
-      <div className="space-y-3 lg:gap-y-4 flex flex-col">
+      <div className="space-y-3  flex flex-col">
         {Object.values(links?.submenu)?.map((link: any, index) => (
           <motion.div
             key={index + 1}

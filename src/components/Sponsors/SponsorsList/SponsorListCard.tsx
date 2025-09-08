@@ -3,7 +3,7 @@ import { SponsorsPropsType } from "@/types/common";
 import Image from "next/image";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import SponsorDetailPopover from "../SponsorDetailPopover";
+import SponsorDetailPopover from "../SponsorPopup/SponsorDetailPopover";
 
 const SponsorListCard = (props: SponsorsPropsType) => {
   const { image_url, company_name } = props;
