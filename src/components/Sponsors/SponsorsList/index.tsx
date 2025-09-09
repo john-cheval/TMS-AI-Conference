@@ -7,9 +7,10 @@ import BigButton from "@/components/shared/ui/Button/BigButton";
 
 export type SponsorsListProps = {
   sponsors: SponsorsPropsType[];
+  isButton?: boolean;
 };
 
-const SponsorsList = ({ sponsors }: SponsorsListProps) => {
+const SponsorsList = ({ sponsors, isButton = true }: SponsorsListProps) => {
   return (
     <section className="section-wrapper pt-9 md:pt-12 lg:pt-14 xl:pt-16 2xl:pt-20 pb-12 md:pb-14 lg:pb-16 xl:pb-20">
       <motion.div
@@ -25,9 +26,12 @@ const SponsorsList = ({ sponsors }: SponsorsListProps) => {
           </motion.div>
         ))}
       </motion.div>
-      <div className="flex justify-center mt-12 lg:mt-16 xl:mt-20">
-        <BigButton hrefs={"#"}>{"Become a Sponsor"}</BigButton>
-      </div>
+
+      {isButton && (
+        <div className="flex justify-center mt-12 lg:mt-16 xl:mt-20">
+          <BigButton hrefs={"#"}>{"Become a Sponsor"}</BigButton>
+        </div>
+      )}
     </section>
   );
 };
