@@ -204,6 +204,17 @@ ul {
   color: #fff;
   line-height: 24px;
 }
+.sponsor-description ul {
+  @apply flex flex-col md:flex-row md:flex-wrap md:justify-between;
+}
+.sponsor-description ul li {
+  @apply text-sm md:text-base font-normal leading-5 text-[#2a2a2a] mb-2 md:mb-3 md:w-[49%];
+  background: url("../assets//shared/tag.png");
+  background-repeat: no-repeat;
+  background-position: left 4px;
+  background-size: 20px;
+  padding-left: 30px;
+}
 .descriptionWithList2 h3 {
   @apply mt-6 lg:mt-8 text-xl md:text-2xl font-bold leading-3 text-white mb-3;
 }
@@ -230,12 +241,6 @@ ul {
   @apply border border-[#1C75BC] rounded-sm py-3 w-full pl-3 md:pl-5 lg:pl-8 placeholder-dark-alter outline-0 text-dark-alter text-sm md:text-base font-normal leading-3;
 }
 
-@media (min-width: 2000px) {
-  .section-wrapper {
-    max-width: 1900px;
-    margin: 0 auto;
-  }
-}
 .no-arrow-number::-webkit-outer-spin-button,
 .no-arrow-number::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -264,4 +269,18 @@ ul {
   /* You may also need to set a transition */
   transition: background-color 5000s ease-in-out 0s;
   color: #fff !important;
+}
+
+@media (max-width: 768px) {
+  .sponsor-description ul li {
+    background-size: 15px;
+    padding-left: 25px;
+  }
+}
+
+@media (min-width: 2000px) {
+  .section-wrapper {
+    max-width: 1900px;
+    margin: 0 auto;
+  }
 }

@@ -8,12 +8,14 @@ import React from "react";
 
 const SponsorshipOppurtunities = async () => {
   const pageContent = await fetchData(
-    `${baseUrl}/getmasterdetails?master_name=cms&id=71`
+    `${baseUrl}/getmasterdetails?master_name=cms&id=72`
   );
   const generalSettings = pageContent?.gernalsettings;
   const conferenceData =
     pageContent?.gernalsettings?.current_year_coneference[0];
   const { AWARD_YEAR } = generalSettings?.general_settings;
+
+  const sposnorshipPageContent = pageContent?.data?.section_list;
   return (
     <>
       <SharedTopSection
@@ -24,12 +26,14 @@ const SponsorshipOppurtunities = async () => {
         conferenceLocation={conferenceData.location}
         conferenceDate={conferenceData.end_date}
       />
-      <SponsorShipOppSectionOne />
+      <SponsorShipOppSectionOne
+        {...sposnorshipPageContent?.why_sponsor_tms_ai_tech_sponsorship_opportunities}
+      />
       <BecomeSponsorForm
         {...pageContent?.data?.section_list?.become_a_sponsor_form}
         isOpppotunity={true}
       />
-      <div className="section-wrapper pb-16 md:pb-20">
+      <div className="section-wrapper pb-16 md:pb-20 space-y-5">
         <Sponsors
           data={pageContent?.data?.section_list?.sponsors}
           isSponsor={true}

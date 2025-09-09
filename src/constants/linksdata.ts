@@ -41,12 +41,12 @@ export const sideBarlinks = [
       {
         id: 2,
         title: "Why Sponsor",
-        url: "/sponsors",
+        url: "/why-sponsors",
       },
       {
         id: 3,
         title: "Sponsorship Opportunity",
-        url: "/sponsors",
+        url: "/sponsorship-opportunities",
       },
     ],
   },
