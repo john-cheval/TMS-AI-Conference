@@ -1,19 +1,18 @@
-import BecomeSponsorForm from "@/components/Forms/BecomeSponsor";
 import SharedTopSection from "@/components/shared/Sections/TopSection";
 import Sponsors from "@/components/shared/Sponsors";
+import WhyAttendSectionOne from "@/components/why-attend/Section1";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
 import React from "react";
 
-const BecomePartner = async () => {
+const WhyAttend = async () => {
   const pageContent = await fetchData(
-    `${baseUrl}/getmasterdetails?master_name=cms&id=76`
+    `${baseUrl}/getmasterdetails?master_name=cms&id=77`
   );
   const generalSettings = pageContent?.gernalsettings;
   const conferenceData =
     pageContent?.gernalsettings?.current_year_coneference[0];
   const { AWARD_YEAR } = generalSettings?.general_settings;
-
   return (
     <>
       <SharedTopSection
@@ -24,19 +23,16 @@ const BecomePartner = async () => {
         conferenceLocation={conferenceData.location}
         conferenceDate={conferenceData.end_date}
       />
-
       <div
-        className="section-wrapper pt-8 md:pt-10 lg:pt-12  xl:pt-16 2xl:pt-20 description font-normal text-dark-alter pb-6 md:pb-0 text-center"
+        className="section-wrapper pt-8 md:pt-10 lg:pt-12  xl:pt-14 description font-normal text-dark-alter pb-6 md:pb-0 text-center"
         dangerouslySetInnerHTML={{
-          __html:
-            pageContent?.data?.section_list?.page_description?.description,
+          __html: pageContent?.data?.section_list?.why_attend_page?.description,
         }}
       />
-      <BecomeSponsorForm
-        {...pageContent?.data?.section_list?.become_a_sponsor_form}
+      <WhyAttendSectionOne
+        data={pageContent?.data?.section_list?.why_attend_page?.why_attend_list}
       />
-
-      <div className="section-wrapper pb-12 md:pb-20 space-y-5">
+      <div className="section-wrapper pb-12 md:pb-20 space-y-5 pt-20">
         <Sponsors
           data={pageContent?.data?.section_list?.sponsors}
           isSponsor={true}
@@ -50,4 +46,4 @@ const BecomePartner = async () => {
   );
 };
 
-export default BecomePartner;
+export default WhyAttend;

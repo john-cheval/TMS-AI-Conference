@@ -81,6 +81,11 @@ export type benifitsType = {
   description: string;
   image_url?: string;
 };
+export type WhyAttendListType={
+  title?:string;
+  description: string;
+  image_url?: string;
+}
 
 export type SectionOnePropsTyps = {
   small_title?: string;
