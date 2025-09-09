@@ -1,21 +1,20 @@
 import BecomeSponsorForm from "@/components/Forms/BecomeSponsor";
 import SharedTopSection from "@/components/shared/Sections/TopSection";
 import Sponsors from "@/components/shared/Sponsors";
-import SponsorShipOppSectionOne from "@/components/SponsorShipOpportuity/Section1";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
 import React from "react";
 
-const SponsorshipOppurtunities = async () => {
+const BecomePartner = async () => {
   const pageContent = await fetchData(
-    `${baseUrl}/getmasterdetails?master_name=cms&id=72`
+    `${baseUrl}/getmasterdetails?master_name=cms&id=76`
   );
   const generalSettings = pageContent?.gernalsettings;
   const conferenceData =
     pageContent?.gernalsettings?.current_year_coneference[0];
   const { AWARD_YEAR } = generalSettings?.general_settings;
-
-  const sposnorshipPageContent = pageContent?.data?.section_list;
+  const SponsorsData =
+    pageContent?.data?.section_list?.supporting_associations?.data;
   return (
     <>
       <SharedTopSection
@@ -26,13 +25,18 @@ const SponsorshipOppurtunities = async () => {
         conferenceLocation={conferenceData.location}
         conferenceDate={conferenceData.end_date}
       />
-      <SponsorShipOppSectionOne
-        {...sposnorshipPageContent?.why_sponsor_tms_ai_tech_sponsorship_opportunities}
+
+      <div
+        className="section-wrapper pt-8 md:pt-10 lg:pt-12  xl:pt-16 2xl:pt-20 description font-normal text-dark-alter pb-6 md:pb-0"
+        dangerouslySetInnerHTML={{
+          __html:
+            pageContent?.data?.section_list?.page_description?.description,
+        }}
       />
       <BecomeSponsorForm
         {...pageContent?.data?.section_list?.become_a_sponsor_form}
-        isOpppotunity={true}
       />
+
       <div className="section-wrapper pb-12 md:pb-20 space-y-5">
         <Sponsors
           data={pageContent?.data?.section_list?.sponsors}
@@ -47,4 +51,4 @@ const SponsorshipOppurtunities = async () => {
   );
 };
 
-export default SponsorshipOppurtunities;
+export default BecomePartner;

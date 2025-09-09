@@ -12,7 +12,11 @@ export type SponsorsListProps = {
 
 const SponsorsList = ({ sponsors, isButton = true }: SponsorsListProps) => {
   return (
-    <section className="section-wrapper pt-9 md:pt-12 lg:pt-14 xl:pt-16 2xl:pt-20 pb-12 md:pb-14 lg:pb-16 xl:pb-20">
+    <section
+      className={`section-wrapper pt-9 md:pt-12 lg:pt-14 xl:pt-16 2xl:pt-20  ${
+        isButton ? "pb-12 md:pb-14 lg:pb-16 xl:pb-20" : "pb-5 md:pb-8 xl:pb-0"
+      }`}
+    >
       <motion.div
         variants={containerVariants2}
         initial="hidden"
