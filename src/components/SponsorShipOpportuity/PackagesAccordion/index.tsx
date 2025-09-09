@@ -29,7 +29,6 @@ const PackagesAccordion = ({ packageData }: Props) => {
       {packageData?.map((item: any, index: number) => {
         const isAccordionOpen = openIndex === item?.id;
 
-        console.log(item, "this is the item");
         return (
           <div className="py-2 border-b border-b-light-grey" key={index + 1}>
             <>
