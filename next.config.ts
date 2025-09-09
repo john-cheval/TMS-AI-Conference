@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "tmsai.girishandco.com",
+        pathname: "/public/Admin/uploads/**",
       },
     ],
   },

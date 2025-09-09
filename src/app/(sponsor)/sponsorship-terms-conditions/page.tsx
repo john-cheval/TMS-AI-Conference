@@ -1,19 +1,20 @@
-import BecomeSponsorForm from "@/components/Forms/BecomeSponsor";
 import SharedTopSection from "@/components/shared/Sections/TopSection";
 import Sponsors from "@/components/shared/Sponsors";
-import SponsorShipOppSectionOne from "@/components/SponsorShipOpportuity/Section1";
+
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
 import React from "react";
 
-const SponsorshipOppurtunities = async () => {
+const SponsorshipTermsConditions = async () => {
   const pageContent = await fetchData(
-    `${baseUrl}/getmasterdetails?master_name=cms&id=71`
+    `${baseUrl}/getmasterdetails?master_name=cms&id=73`
   );
+
   const generalSettings = pageContent?.gernalsettings;
   const conferenceData =
     pageContent?.gernalsettings?.current_year_coneference[0];
   const { AWARD_YEAR } = generalSettings?.general_settings;
+  const SponsorsData = pageContent?.data?.section_list?.sponsors?.data;
   return (
     <>
       <SharedTopSection
@@ -24,12 +25,17 @@ const SponsorshipOppurtunities = async () => {
         conferenceLocation={conferenceData.location}
         conferenceDate={conferenceData.end_date}
       />
-      <SponsorShipOppSectionOne />
-      <BecomeSponsorForm
-        {...pageContent?.data?.section_list?.become_a_sponsor_form}
-        isOpppotunity={true}
-      />
-      <div className="section-wrapper pb-16 md:pb-20">
+
+      <div className="section-wrapper pt-5 md:pt-7 lg:pt-12 xl:pt-16 2xl:pt-20 pb-8 md:pb-10 lg:pb-14">
+        <div
+          className="sponsor-terms-description"
+          dangerouslySetInnerHTML={{
+            __html:
+              pageContent?.data?.section_list?.page_description?.description,
+          }}
+        />
+      </div>
+      <div className="section-wrapper pb-16 md:pb-20  space-y-5">
         <Sponsors
           data={pageContent?.data?.section_list?.sponsors}
           isSponsor={true}
@@ -43,4 +49,4 @@ const SponsorshipOppurtunities = async () => {
   );
 };
 
-export default SponsorshipOppurtunities;
+export default SponsorshipTermsConditions;

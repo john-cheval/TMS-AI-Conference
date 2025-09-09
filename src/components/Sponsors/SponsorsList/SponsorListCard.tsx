@@ -22,15 +22,17 @@ const SponsorListCard = (props: SponsorsPropsType) => {
             width={200}
             height={900}
             sizes="100vw"
-            className="w-fit h-auto object-cover"
+            className="w-fit h-auto object-cover flex-grow max-w-[200px] px-5"
           />
         </div>
 
-        <div className="bg-tms-light-blue py-4 md:py-5 lg:py-8 px-4 w-full">
-          <p className="text-sm md:text-base text-black font-bold leading-6 text-center">
-            {company_name}
-          </p>
-        </div>
+        {company_name && (
+          <div className="bg-tms-light-blue py-4 md:py-5 lg:py-8 px-4 w-full">
+            <p className="text-sm md:text-base text-black font-bold leading-6 text-center">
+              {company_name}
+            </p>
+          </div>
+        )}
       </div>
 
       <AnimatePresence>

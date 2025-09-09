@@ -82,7 +82,7 @@ const SharedTopSection = ({
 
         <motion.h1
           variants={itemVariants}
-          className="main-heading mt-3 md:mt-5  lg:mt-8 xl:mt-12 "
+          className="main-heading mt-3 md:mt-5  lg:mt-8 xl:mt-12 text-center  md:text-left"
         >
           {title}
         </motion.h1>
