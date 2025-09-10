@@ -13,7 +13,7 @@ const HomeCards = ({ cardData }: HomeCardProps) => {
         alt={cardData?.home_title}
         width={285}
         height={400}
-        className="w-full h-full max-w-[280px]- object-cover rounded-sm md:rounded-md lg:rounded-lg xl:rounded-[20px] shrink-0"
+        className="w-full h-full max-w-[280px]- object-cover responsive-radius  shrink-0"
       />
 
       {cardData?.home_title && (
