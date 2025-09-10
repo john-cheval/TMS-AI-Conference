@@ -7,6 +7,7 @@ import Link from "next/link";
 import React from "react";
 import { MdPhone } from "react-icons/md";
 import { IoMdMail } from "react-icons/io";
+import Sponsors from "@/components/shared/Sponsors";
 
 const DelegateRegistration = async () => {
   const pageContent = await fetchData(
@@ -84,6 +85,16 @@ const DelegateRegistration = async () => {
       </section>
 
       <PricingPlans {...pricing_plans} />
+      <div className="section-wrapper pb-16 md:pb-20 pt-7 md:pt-8 lg:pt-14 xl:pt-16 2xl:pt-20 space-y-5">
+        <Sponsors
+          data={pageContent?.data?.section_list?.sponsors}
+          isSponsor={true}
+        />
+        <Sponsors
+          data={pageContent?.data?.section_list?.supporting_associations}
+        />
+        <Sponsors data={pageContent?.data?.section_list?.media_partners} />
+      </div>
     </>
   );
 };

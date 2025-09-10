@@ -1,13 +1,12 @@
 import SharedTopSection from "@/components/shared/Sections/TopSection";
 import Sponsors from "@/components/shared/Sponsors";
-
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
 import React from "react";
 
-const SponsorshipTermsConditions = async () => {
+const DelegateBookingTermsAndCondtions = async () => {
   const pageContent = await fetchData(
-    `${baseUrl}/getmasterdetails?master_name=cms&id=73`
+    `${baseUrl}/getmasterdetails?master_name=cms&id=80`
   );
 
   const generalSettings = pageContent?.gernalsettings;
@@ -24,7 +23,6 @@ const SponsorshipTermsConditions = async () => {
         conferenceLocation={conferenceData.location}
         conferenceDate={conferenceData.end_date}
       />
-
       <div className="section-wrapper pt-5 md:pt-7 lg:pt-12 xl:pt-16 2xl:pt-20 pb-8 md:pb-10 lg:pb-14">
         <div
           className="sponsor-terms-description"
@@ -48,4 +46,4 @@ const SponsorshipTermsConditions = async () => {
   );
 };
 
-export default SponsorshipTermsConditions;
+export default DelegateBookingTermsAndCondtions;
