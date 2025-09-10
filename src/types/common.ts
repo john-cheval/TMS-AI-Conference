@@ -118,4 +118,9 @@ export type SectionOnePropsTyps = {
   image_alt_tag_2?:string
   description_2?:string
   heading_2?:string
+  price_list?: any;
+  table_heading_2?:string
+  table_heading?:string
+  register_heading?:string
+  register_price?:any
 };

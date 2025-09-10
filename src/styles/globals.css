@@ -220,6 +220,13 @@ ul {
 .attend-description ul li {
   @apply text-sm md:text-base font-normal leading-5 text-dark-alter mb-2 md:w-[47%];
 }
+.delegate-description h4 {
+  @apply text-2xl font-bold leading-3 text-tms-blue mb-3 md:mb-4 not-first:mt-5 lg:not-first:mt-6 xl:not-first:mt-10;
+}
+.delegate-description p {
+  @apply text-sm md:text-base  leading-5 text-white mb-2 md:mb-3;
+}
+
 .responsive-radius {
   @apply rounded-sm md:rounded-md lg:rounded-lg xl:rounded-2xl;
 }

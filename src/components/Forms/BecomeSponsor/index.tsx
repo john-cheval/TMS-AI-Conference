@@ -132,7 +132,7 @@ const BecomeSponsorForm = ({
                 register={register}
                 errors={errors}
                 rules={{
-                  required: "Email is required.",
+                  required: "Number is required.",
                   min: {
                     value: 5,
                     message: "The minimum value should be 5.",
@@ -158,7 +158,7 @@ const BecomeSponsorForm = ({
             errors={errors}
             rows={3}
             rules={{
-              required: "Email is required.",
+              required: "comments is required.",
             }}
             isBlue={isOpppotunity}
           />
