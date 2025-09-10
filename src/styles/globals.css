@@ -215,6 +215,9 @@ ul {
   background-size: 20px;
   padding-left: 30px;
 }
+.responsive-radius {
+  @apply rounded-sm md:rounded-md lg:rounded-lg xl:rounded-2xl;
+}
 .descriptionWithList2 h3 {
   @apply mt-6 lg:mt-8 text-xl md:text-2xl font-bold leading-3 text-white mb-3;
 }
