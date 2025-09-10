@@ -32,7 +32,7 @@ const WhyAttend = async () => {
       <WhyAttendSectionOne
         data={pageContent?.data?.section_list?.why_attend_page?.why_attend_list}
       />
-      <div className="section-wrapper pb-12 md:pb-20 space-y-5 pt-20">
+      <div className="section-wrapper pb-12 md:pb-20 space-y-5 pt-6 md:pt-12 lg:pt-16 xl:pt-20">
         <Sponsors
           data={pageContent?.data?.section_list?.sponsors}
           isSponsor={true}
