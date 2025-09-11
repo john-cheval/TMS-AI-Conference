@@ -18,7 +18,6 @@ const WhoShouldAttendSectionOne = ({
   heading_2,
   description_2,
 }: SectionOnePropsTyps) => {
-  console.log(image_2, "image_2");
   return (
     <section className="section-wrapper pt-5 md:pt-8 lg:pt-10 xl:pt-16 2xl:pt-20 ">
       <SmallTitle title={small_title} />

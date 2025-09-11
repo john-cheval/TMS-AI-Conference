@@ -32,7 +32,9 @@ const TextElement = <TFieldValues extends FieldValues>({
   return (
     <div className="flex flex-col gap-y-2 flex-grow-1">
       <input
-        className={`  fix-autofill ${isBlue ? "input-alter" : "input"}`}
+        className={`  fix-autofill no-arrow-number ${
+          isBlue ? "input-alter" : "input"
+        }`}
         id={name}
         {...register(name, rules)}
         {...rest}
