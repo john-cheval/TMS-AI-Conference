@@ -135,6 +135,19 @@ ul {
 .top-banner-gradient {
   background: rgba(0, 0, 0, 0.65);
 }
+.speaker-cta-gradient {
+  background: linear-gradient(90deg, rgba(0, 120, 187, 0) 0%, #0078bb 100%);
+}
+.speaker-cta-gradient-2 {
+  background: linear-gradient(251deg, #4d1592 12.68%, #0078bb 69.06%);
+}
+.gallery-btn-gradient {
+  border-radius: 8px;
+  background: var(
+    --TMS-AI-Gradient,
+    linear-gradient(249deg, #4d1592 13.95%, #0078bb 80.04%)
+  );
+}
 
 /*  */
 /* .buttonGradient-2:hover {
@@ -248,6 +261,9 @@ ul {
 }
 .sponsor-terms-description ul {
   @apply pl-4 md:pl-8 mt-4 md:mt-6 text-sm md:text-base text-dark-alter leading-3 font-normal space-y-[2px] md:space-y-1 list-disc;
+}
+.become-sponsoe-description ol {
+  @apply text-sm md:text-base  leading-5 text-dark-alter !list-decimal space-y-3 pl-5;
 }
 
 /* Countdown */
