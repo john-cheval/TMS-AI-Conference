@@ -1,91 +1,148 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
-import ai from "@/assets/shared/ai_small_24.svg";
+import { useForm } from "react-hook-form";
+import React, { useCallback, useRef, useState } from "react";
+import TextElement from "@/components/shared/Inputs/TextElement";
+import TextAreaElement from "@/components/shared/Inputs/TextAreaElement";
+import ReCaptcha from "@/utils/ReCaptcha";
+import { toast } from "sonner";
+
+type FormData = {
+  fullName: string;
+  email: string;
+  subject: string;
+  message: string;
+};
+
+interface RecaptchaRefType {
+  resetCaptcha: () => void;
+}
 
 const ContactForm = () => {
+  const recaptchaRef = useRef<RecaptchaRefType>(null);
+  const [token, setToken] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<FormData>();
+
+  const handleToken = useCallback((recaptchaToken: string | null) => {
+    if (recaptchaToken) {
+      setToken(recaptchaToken);
+    } else {
+      setToken("");
+    }
+  }, []);
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      console.log(data, "This is the form data");
+      console.log("reCAPTCHA Token:", token);
+
+      // Show a success toast notification
+      toast.success("Form submitted successfully!");
+
+      // Reset the form and reCAPTCHA widget
+      reset();
+      if (recaptchaRef.current) {
+        recaptchaRef.current.resetCaptcha();
+      }
+      setToken("");
+    } catch (error) {
+      // Handle any submission errors
+      toast.error("Failed to submit form. Please try again.");
+    }
+  };
+
   return (
-    <section className="section-wrapper  pt-6 md:pt-8 lg:pt-10 xl:pt-16 pb-8 md:pb-12 lg:pb-16 xl:pb-20">
-      <div className="px-11 pt-24 pb-12 bg-[#F4F4F4] rounded-2xl gap-x-24 grid grid-cols-2">
-        <div>
-          <h3 className="main-heading-2  !text-dark-alter pb-4 border-b border-b-tms-blue">
-            The Maritime Standard Tanker Conference Team.
-          </h3>
+    <form onSubmit={handleSubmit(onSubmit)} className="mt-4 md:mt-6">
+      <div className=" space-y-2.5 md:space-y-3 lg:space-y-4">
+        <TextElement
+          label="Your Name"
+          name="fullName"
+          type="text"
+          placeholder="Your Name"
+          register={register}
+          errors={errors}
+          rules={{
+            required: "Name is required.",
+          }}
+          isBlue={true}
+          isLight={true}
+        />
 
-          <div className="py-8 border-b border-b-tms-blue">
-            <h5 className="gradient-text w-fit text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-3">
-              Trevor Pereira
-            </h5>
-            <p className="description text-black font-bold mt-2">
-              Managing Director
-            </p>
+        <TextElement
+          label="Your E-mail"
+          name="email"
+          type="email"
+          placeholder="Your E-mail"
+          register={register}
+          errors={errors}
+          rules={{
+            required: "Email is required.",
+            pattern: {
+              value: /^\S+@\S+$/i,
+              message: "Please enter a valid email address.",
+            },
+          }}
+          isLight={true}
+          isBlue={true}
+        />
 
-            <div className="flex gap-x-5 mt-4">
-              <Link
-                href={"tel: +971 50 6255963"}
-                className="description text-dark-alter leading-3"
-              >
-                M: +971 50 6255963
-              </Link>
-              <Link
-                href={"mailto: trevor@flagshipme.com"}
-                className="description text-dark-alter leading-3"
-              >
-                E: trevor@flagshipme.com
-              </Link>
-            </div>
-          </div>
+        <TextElement
+          label="subject"
+          name="subject"
+          type="text"
+          placeholder="Subject"
+          register={register}
+          errors={errors}
+          rules={{
+            required: "Subject is required.",
+          }}
+          isBlue={true}
+          isLight={true}
+        />
 
-          <div className="py-8 ">
-            <h5 className="gradient-text w-fit text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-3">
-              Ammaar Murtaza
-            </h5>
-            <p className="description text-black font-bold mt-2">
-              Sales Manager
-            </p>
-
-            <div className="mt-4">
-              <div className="flex gap-x-5 mb-3">
-                <Link
-                  href={"tel: 971 55 245 4466"}
-                  className="description text-dark-alter leading-3"
-                >
-                  M: 971 55 245 4466
-                </Link>
-                <Link
-                  href={"tel: +971 4 380 5556"}
-                  className="description text-dark-alter leading-3"
-                >
-                  T: +971 4 380 5556
-                </Link>
-              </div>
-              <Link
-                href={"mailto: ammaar@flagshipme.com"}
-                className="description text-dark-alter leading-3 "
-              >
-                E: ammaar@flagshipme.com
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        <form>
-          <p className="flex  gap-x-2.5 text-2xl font-bold leading-3 text-dark-alter">
-            <Image
-              src={ai}
-              alt="TMS AI"
-              width={24}
-              height={24}
-              className="w-full h-fit object-contain max-w-[24px] mt-1"
-            />
-            Use the form below to send us an enquiry
-          </p>
-
-          <div></div>
-        </form>
+        <TextAreaElement
+          label="message"
+          name="message"
+          placeholder="Message"
+          register={register}
+          errors={errors}
+          rows={3}
+          rules={{
+            required: "Message is required.",
+          }}
+          isLight={true}
+          isBlue={true}
+        />
       </div>
-    </section>
+
+      <div className="mt-4 md:mt-6 flex justify-center md:justify-start">
+        <ReCaptcha
+          siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
+          callback={handleToken}
+          ref={recaptchaRef}
+        />
+      </div>
+
+      <div className=" w-full flex justify-center">
+        <button
+          type="submit"
+          className={`
+          rounded-sm text-sm sm:text-base md:text-lg font-bold leading-5 text-white bg-tms-purple md:py-5 w-fit px-7 py-3 md:w-full mt-4 
+          transition-all duration-300 
+          ${!token ? "opacity-50 cursor-not-allowed" : "hover:bg-tms-purple/90"}
+        `}
+          disabled={!token}
+        >
+          {isSubmitting ? "Submitting..." : "Send Enquire"}
+        </button>
+      </div>
+    </form>
   );
 };
 

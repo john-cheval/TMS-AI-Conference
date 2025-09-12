@@ -16,6 +16,7 @@ interface TextAreaElementProps<TFieldValues extends FieldValues>
   errors: FieldErrors<TFieldValues>;
   isBlue?: boolean;
   rules?: ValidationRule<any>;
+  isLight?: boolean;
 }
 
 // Update the component to use the new interface name
@@ -25,6 +26,7 @@ const TextAreaElement = <TFieldValues extends FieldValues>({
   register,
   errors,
   isBlue = false,
+  isLight = false,
   rules = {},
   ...rest
 }: TextAreaElementProps<TFieldValues>) => {
@@ -32,7 +34,9 @@ const TextAreaElement = <TFieldValues extends FieldValues>({
   return (
     <div className="flex flex-col gap-y-2 flex-grow-1">
       <textarea
-        className={`  fix-autofill ${isBlue ? "input-alter" : "input"}`}
+        className={` ${isLight ? "fix-autofill-dark" : "fix-autofill"}  ${
+          isBlue ? "input-alter" : "input"
+        }`}
         id={name}
         {...register(name, rules)}
         {...rest}

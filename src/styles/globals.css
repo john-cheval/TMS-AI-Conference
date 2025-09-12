@@ -279,10 +279,10 @@ ul {
 
 /* Inputs */
 .input {
-  @apply border border-white rounded-sm py-3 w-full pl-3 md:pl-5 lg:pl-8 placeholder-white outline-0 text-white text-sm md:text-base font-normal leading-3;
+  @apply border border-white rounded-sm py-3 w-full pl-3 md:pl-5 lg:pl-6 placeholder-white outline-0 text-white text-sm md:text-base font-normal leading-3;
 }
 .input-alter {
-  @apply border border-[#1C75BC] rounded-sm py-3 w-full pl-3 md:pl-5 lg:pl-8 placeholder-dark-alter outline-0 text-dark-alter text-sm md:text-base font-normal leading-3;
+  @apply border border-[#1C75BC] rounded-sm py-3 w-full pl-3 md:pl-5 lg:pl-6 placeholder-dark-alter outline-0 text-dark-alter text-sm md:text-base font-normal leading-3;
 }
 
 .no-arrow-number::-webkit-outer-spin-button,
@@ -313,6 +313,20 @@ ul {
   /* You may also need to set a transition */
   transition: background-color 5000s ease-in-out 0s;
   color: #fff !important;
+}
+
+.fix-autofill-dark:-webkit-autofill,
+.fix-autofill-dark:-webkit-autofill:hover,
+.fix-autofill-dark:-webkit-autofill:focus {
+  /* Use a transparent box-shadow to override the background */
+  box-shadow: 0 0 0 1000px transparent inset !important;
+
+  /* Use -webkit-text-fill-color to override the text color */
+  -webkit-text-fill-color: #00081b !important;
+
+  /* You may also need to set a transition */
+  transition: background-color 5000s ease-in-out 0s;
+  color: #00081b !important;
 }
 
 @media (max-width: 768px) {
