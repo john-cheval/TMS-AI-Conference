@@ -1,4 +1,14 @@
+"use client";
+import TitleSelectElement from "@/components/shared/Inputs/TitleSelectElement";
 import React from "react";
+import { Controller, useForm, Path } from "react-hook-form";
+import FormRow from "../FormRow";
+import TextElement from "@/components/shared/Inputs/TextElement";
+import NumberElement from "@/components/shared/Inputs/NumberElement";
+import ImageUploadElemet from "@/components/shared/Inputs/ImageUploadElemet";
+import BioUploadElemet from "@/components/shared/Inputs/BioUploadElement";
+import NatureOfCompanySelectElement from "@/components/shared/Inputs/NatureOfCompanySelect";
+import TextAreaElementTwo from "@/components/shared/Inputs/TextAreaElementTwo";
 interface AboutYouData {
   title: string;
   firstName: string;
@@ -6,8 +16,8 @@ interface AboutYouData {
   email: string;
   contact: number;
   linkedinUrl: string;
-  headshotFile: string;
-  bio: string;
+  headshotFile: FileList | null;
+  bio: FileList | null;
 }
 
 interface CompanyData {
@@ -32,12 +42,372 @@ type FormData = {
 };
 
 const BecomeSponsorPageForm = () => {
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<FormData>();
   return (
     <form>
-      <div className=" bg-tms-blue rounded-2xl">
-        <h4 className="main-heading-2 !text-white px-[72px] pt-14 pb-20">
-          About You
-        </h4>
+      <div className=" bg-tms-blue rounded-2xl  px-[72px] pb-20">
+        <h4 className="main-heading-2 !text-white pt-14 mb-5">About You</h4>
+
+        <div className="flex flex-col gap-y-2.5 md:gap-y-3 lg:gap-y-5">
+          <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
+            <div className="flex-1">
+              <Controller
+                name="aboutYou.title"
+                control={control}
+                rules={{ required: "Title is required." }}
+                render={({ field }) => (
+                  <TitleSelectElement
+                    {...field}
+                    name="aboutYou.title"
+                    errors={errors}
+                  />
+                )}
+              />
+            </div>
+            <div className="flex-1 hidden md:block" />
+          </FormRow>
+
+          <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
+            <TextElement
+              label="First Name"
+              name="aboutYou.firstName"
+              type="text"
+              placeholder="First Name"
+              register={register}
+              errors={errors}
+              rules={{
+                required: "First Name is required.",
+              }}
+            />
+
+            <TextElement
+              label="Last Name"
+              name="aboutYou.lastName"
+              type="text"
+              placeholder="Last Name"
+              register={register}
+              errors={errors}
+              rules={{
+                required: "Last Name is required.",
+              }}
+            />
+          </FormRow>
+
+          <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
+            <div className="flex-1">
+              <TextElement
+                label="Email"
+                name="aboutYou.email"
+                type="email"
+                placeholder="Email"
+                register={register}
+                errors={errors}
+                rules={{
+                  required: "Email is required.",
+                  pattern: {
+                    value: /^\S+@\S+$/i,
+                    message: "Please enter a valid email address.",
+                  },
+                }}
+              />
+            </div>
+
+            <div className="flex-1">
+              <NumberElement
+                label="Mobile Numberr"
+                name="aboutYou.contact"
+                type="number"
+                setValue={setValue}
+                placeholder="Mobile "
+                register={register}
+                errors={errors}
+                rules={{
+                  required: "Mobile Number is required.",
+                  min: {
+                    value: 5,
+                    message: "The minimum value should be 5.",
+                  },
+                  // max: {
+                  //   value: 15,
+                  //   message: "The maximum value should be 15.",
+                  // },
+                  pattern: {
+                    value: /^\d+$/,
+                    message: "Please enter a valid number.",
+                  },
+                }}
+              />
+            </div>
+          </FormRow>
+
+          <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
+            <div className="flex-1">
+              <TextElement
+                label="LinkedIn Profile url "
+                name="aboutYou.linkedinUrl"
+                type="text"
+                placeholder="LinkedIn Profile url"
+                register={register}
+                errors={errors}
+                rules={{
+                  required: "LinkedIn Url is required.",
+                }}
+              />
+            </div>
+
+            <div className="flex-1">
+              <Controller
+                name="aboutYou.headshotFile"
+                control={control}
+                rules={{
+                  required: "Headshot file is required.",
+                  validate: {
+                    isImage: (value: FileList | null) => {
+                      if (!value || value.length === 0)
+                        return "Image is required.";
+                      const file = value.item(0);
+                      if (!file) return "Image is required.";
+                      const validExtensions = [".jpeg", ".jpg", ".png"];
+                      const lowerName = file.name.toLowerCase();
+                      if (
+                        !validExtensions.some((ext) => lowerName.endsWith(ext))
+                      ) {
+                        return "Invalid file type. Only PNG, JPEG, and JPG are allowed.";
+                      }
+                      if (lowerName.endsWith(".webp")) {
+                        return "WebP format is not allowed.";
+                      }
+                      return true;
+                    },
+                    maxSize: (value: FileList | null) => {
+                      // Size validation should be handled in ImageUploadElemet before setting value
+                      return true;
+                    },
+                  },
+                }}
+                render={({ field: { name, onChange, value } }) => (
+                  <ImageUploadElemet
+                    name={name as Path<FormData>}
+                    onChange={onChange}
+                    value={value}
+                    errors={errors}
+                  />
+                )}
+              />
+            </div>
+          </FormRow>
+
+          <FormRow className="md:flex-row flex-col md:-mt-6 gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
+            <div className="flex-1">
+              <Controller
+                name="aboutYou.bio"
+                control={control}
+                rules={{
+                  required: "Bio file is required.",
+                  validate: {
+                    isPdf: (files: FileList | null) => {
+                      if (!files || !files[0]) return "File is required.";
+                      const file = files[0];
+                      if (file.type !== "application/pdf") {
+                        return "Invalid file type. Only PDF is allowed.";
+                      }
+                      return true;
+                    },
+                    maxSize: (files: FileList | null) => {
+                      const maxFileSize = 5 * 1024 * 1024; // 5 MB
+                      if (files && files[0] && files[0].size > maxFileSize) {
+                        return "File size must be 5MB or less.";
+                      }
+                      return true;
+                    },
+                  },
+                }}
+                render={({ field: { name, onChange, value } }) => (
+                  <BioUploadElemet
+                    name={name as Path<FormData>}
+                    onChange={onChange}
+                    value={value}
+                    errors={errors}
+                  />
+                )}
+              />
+            </div>
+            <div className="flex-1 hidden md:block" />
+          </FormRow>
+        </div>
+      </div>
+
+      <div className=" bg-tms-light-blue px-[72px] pb-20 -mt-10">
+        <div>
+          <h4 className="main-heading-2 pt-14 mb-5">About the company</h4>
+          <div className="flex flex-col gap-y-2.5 md:gap-y-3 lg:gap-y-5">
+            <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
+              <TextElement
+                label="Designation"
+                name="aboutCompany.designation"
+                type="text"
+                placeholder="Designation"
+                register={register}
+                errors={errors}
+                rules={{
+                  required: "Designation is required.",
+                }}
+                isBlue={true}
+              />
+
+              <TextElement
+                label="Company Name"
+                name="aboutCompany.company"
+                type="text"
+                placeholder="Company Name"
+                register={register}
+                errors={errors}
+                rules={{
+                  required: "Company Nameis required.",
+                }}
+                isBlue={true}
+              />
+            </FormRow>
+
+            <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
+              <div className="flex-1">
+                <Controller
+                  name="aboutCompany.natureOfCompany"
+                  control={control}
+                  rules={{ required: "Nature of Company is required." }}
+                  render={({ field }) => (
+                    <NatureOfCompanySelectElement
+                      {...field}
+                      name="aboutCompany.natureOfCompany"
+                      errors={errors}
+                    />
+                  )}
+                />
+              </div>
+
+              <div className="flex-1">
+                <TextElement
+                  label="Please specify others"
+                  name="aboutCompany.ifOthers"
+                  type="text"
+                  placeholder="Please specify others"
+                  register={register}
+                  errors={errors}
+                  isBlue={true}
+                />
+              </div>
+            </FormRow>
+          </div>
+        </div>
+
+        <div>
+          <h4 className="main-heading-2 pt-8 mb-5">About your presentation</h4>
+          <div className="flex flex-col gap-y-2.5 md:gap-y-3 lg:gap-y-5">
+            <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
+              <div className="flex-1">
+                <TextElement
+                  label="Title of your presentation"
+                  name="aboutPresentation.presentationTitle"
+                  type="text"
+                  placeholder="Title of your presentation"
+                  register={register}
+                  errors={errors}
+                  rules={{
+                    required: "Presentation Title is required.",
+                  }}
+                  isBlue={true}
+                />
+              </div>
+
+              <div className="flex-1 hidden md:block" />
+            </FormRow>
+            <TextAreaElementTwo
+              label="Abstract"
+              name="aboutPresentation.abstract"
+              placeholder="Abstract"
+              register={register}
+              errors={errors}
+              rows={3}
+              rules={{
+                required: "Abstract is required.",
+              }}
+              isBlue={true}
+              wordLimit={500}
+            />
+
+            <TextAreaElementTwo
+              label="Key Takeaways"
+              name="aboutPresentation.takewayas"
+              placeholder="What would be the three key takeaways from your session? "
+              register={register}
+              errors={errors}
+              rows={3}
+              rules={{
+                required: "Key Takeaways is required.",
+              }}
+              isBlue={true}
+              wordLimit={500}
+            />
+
+            <TextAreaElementTwo
+              label="Key Takeaways"
+              name="aboutPresentation.takewayas"
+              placeholder="What would be the three key takeaways from your session? "
+              register={register}
+              errors={errors}
+              rows={3}
+              rules={{
+                required: "Key Takeaways is required.",
+              }}
+              isBlue={true}
+              wordLimit={500}
+              isFakePlaceHolder={true}
+            />
+
+            <div className="flex-1">
+              <Controller
+                name="aboutYou.bio"
+                control={control}
+                rules={{
+                  required: "Bio file is required.",
+                  validate: {
+                    isPdf: (files: FileList | null) => {
+                      if (!files || !files[0]) return "File is required.";
+                      const file = files[0];
+                      if (file.type !== "application/pdf") {
+                        return "Invalid file type. Only PDF is allowed.";
+                      }
+                      return true;
+                    },
+                    maxSize: (files: FileList | null) => {
+                      const maxFileSize = 5 * 1024 * 1024; // 5 MB
+                      if (files && files[0] && files[0].size > maxFileSize) {
+                        return "File size must be 5MB or less.";
+                      }
+                      return true;
+                    },
+                  },
+                }}
+                render={({ field: { name, onChange, value } }) => (
+                  <BioUploadElemet
+                    name={name as Path<FormData>}
+                    onChange={onChange}
+                    value={value}
+                    errors={errors}
+                    isPresentation={true}
+                  />
+                )}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </form>
   );
