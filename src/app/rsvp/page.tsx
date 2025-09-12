@@ -1,11 +1,11 @@
-import ContactSectionOne from "@/components/Contact/ContactSectionOne";
+import RsvpSectionOne from "@/components/Rsvp/RsvpSectionOne";
 import SharedTopSection from "@/components/shared/Sections/TopSection";
 import Sponsors from "@/components/shared/Sponsors";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
 import React from "react";
 
-const ContactUs = async () => {
+const RsvpPage = async () => {
   const pageContent = await fetchData(
     `${baseUrl}/getmasterdetails?master_name=cms&id=21`
   );
@@ -18,7 +18,6 @@ const ContactUs = async () => {
     pageContent?.data?.section_list;
   return (
     <>
-      {" "}
       <SharedTopSection
         {...page_top_banner}
         title={pageContent?.data?.name}
@@ -27,7 +26,7 @@ const ContactUs = async () => {
         conferenceLocation={conferenceData.location}
         conferenceDate={conferenceData.end_date}
       />
-      <ContactSectionOne />
+      <RsvpSectionOne />
       <div className="section-wrapper pb-16 md:pb-20  space-y-5">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} />
@@ -37,4 +36,4 @@ const ContactUs = async () => {
   );
 };
 
-export default ContactUs;
+export default RsvpPage;
