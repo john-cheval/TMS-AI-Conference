@@ -5,6 +5,7 @@ import ServerNavbar from "@/components/shared/Navbar/ServerNavbar";
 import Footer from "@/components/shared/Footer";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
+import Providers from "@/Providers/ToastProviders";
 
 export const metadata: Metadata = {
   title:
@@ -49,7 +50,9 @@ export default async function RootLayout({
         className={`${inter.className} antialiased flex flex-col min-h-full `}
       >
         <ServerNavbar />
-        <main className="flex-grow pt-[106px]">{children}</main>
+        <main className="flex-grow pt-[106px]">
+          <Providers>{children}</Providers>
+        </main>
         <Footer
           footerMainLinks={menuLinks[2]}
           footerBottom={menuLinks[3]}
