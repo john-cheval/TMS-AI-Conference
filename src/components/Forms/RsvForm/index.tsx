@@ -81,7 +81,7 @@ const RsvForm = () => {
               )}
             />
           </div>
-          <div className="flex-1" />
+          <div className="flex-1hidden md:block" />
         </FormRow>
         <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
           <TextElement
