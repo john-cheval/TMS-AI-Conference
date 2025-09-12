@@ -131,6 +131,15 @@ ul {
 .CardGraient {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 100%);
 }
+.conference-card {
+  border-radius: 10px;
+  border: 1px solid #d8d8d8;
+  background: linear-gradient(
+    180deg,
+    rgba(28, 117, 188, 0) 0%,
+    rgba(28, 117, 188, 0.08) 100%
+  );
+}
 
 .top-banner-gradient {
   background: rgba(0, 0, 0, 0.65);
@@ -339,7 +348,15 @@ ul {
   fill: #fff;
   stroke: #fff;
 }
-
+.conference-time::before {
+  content: "";
+  height: 100%;
+  width: 8px;
+  background: linear-gradient(0deg, #4d1592 0.33%, #0078bb 99.67%);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
 @media (max-width: 768px) {
   .sponsor-description ul li {
     background-size: 15px;

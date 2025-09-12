@@ -1,7 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import image1 from "@/assets/archieve/pdf.png";
-import Image from "next/image";
 
 type Props = {
   data: any;
@@ -9,9 +7,9 @@ type Props = {
 
 const ArchieveGallery = ({ data }: Props) => {
   const [selectedConferece, setSelectedConference] = useState(data[0]?.name);
-  const filteredAlbum = data?.find(
-    (item: any) => item?.name === selectedConferece
-  );
+  // const filteredAlbum = data?.find(
+  //   (item: any) => item?.name === selectedConferece
+  // );
   return (
     <section className="section-wrapper pt-6 md:pt-8 lg:pt-10 xl:pt-14 pb-8 md:pb-12 lg:pb-16 xl:pb-20">
       <div className="flex gap-x-2.5 md:gap-x-3 lg:justify-center  overflow-x-auto whitespace-nowrap no-scrollbar w-full flex-nowrap border-b border-b-[#D9D9D9] pb-8">
@@ -54,8 +52,16 @@ const ArchieveGallery = ({ data }: Props) => {
 
       {/* PubHTML5 Goes Here */}
 
-      <div className="mt-4 md:mt-8">
-        <Image src={image1} alt="image1" />
+      <div className="mt-4 md:mt-6 lg:mt-8">
+        <iframe
+          className="w-full h-[250px] sm:h-[400px] md:h-[500px] lg:[650px] 2xl:h-[700px]"
+          src="https://online.pubhtml5.com/kmcsa/ezhw/"
+          // seamless="seamless"
+          scrolling="no"
+          frameBorder="0"
+          allowTransparency={true}
+          allowFullScreen={true}
+        ></iframe>
       </div>
     </section>
   );
