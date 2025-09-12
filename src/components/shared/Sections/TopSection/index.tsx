@@ -5,6 +5,7 @@ import { RiGeminiFill } from "react-icons/ri";
 import * as motion from "motion/react-client";
 import { containerVariants, itemVariants } from "@/constants/motionVariants";
 import dayjs from "dayjs";
+import Link from "next/link";
 
 interface SharedTopSectionPropsTypes {
   banner?: string;
@@ -86,6 +87,19 @@ const SharedTopSection = ({
         >
           {title}
         </motion.h1>
+
+        <motion.p
+          variants={itemVariants}
+          className="mt-2 md:mt-4 description fotn-medium text-white "
+        >
+          <Link
+            className="hover:text-tms-blue transition-colors duration-300"
+            href="/"
+          >
+            Home
+          </Link>{" "}
+          - <span>{title}</span>
+        </motion.p>
       </motion.div>
     </section>
   );
