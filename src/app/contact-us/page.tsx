@@ -1,0 +1,39 @@
+import ContactForm from "@/components/Forms/ContactForm";
+import SharedTopSection from "@/components/shared/Sections/TopSection";
+import { baseUrl } from "@/lib/api";
+import { fetchData } from "@/lib/fetchData";
+import React from "react";
+
+const ContactUs = async () => {
+  const pageContent = await fetchData(
+    `${baseUrl}/getmasterdetails?master_name=cms&id=21`
+  );
+
+  const generalSettings = pageContent?.gernalsettings;
+  const conferenceData =
+    pageContent?.gernalsettings?.current_year_coneference[0];
+  const { AWARD_YEAR } = generalSettings?.general_settings;
+  const {
+    page_top_banner,
+    photo_gallery,
+    sponsors,
+    supporting_associations,
+    media_partners,
+  } = pageContent?.data?.section_list;
+  return (
+    <>
+      {" "}
+      <SharedTopSection
+        {...page_top_banner}
+        title={pageContent?.data?.name}
+        awardTitle={AWARD_YEAR?.title}
+        conferenceTitle={conferenceData?.Coneference_title}
+        conferenceLocation={conferenceData.location}
+        conferenceDate={conferenceData.end_date}
+      />
+      <ContactForm />
+    </>
+  );
+};
+
+export default ContactUs;
