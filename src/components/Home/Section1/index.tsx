@@ -45,7 +45,7 @@ const HomeSectionOne = (props: SectionOnePropsTyps) => {
               width={60}
               height={60}
               alt="Tms_AI"
-              className="w-full h-auto object-cover max-w-10 md:max-w-[60px]"
+              className="w-full h-auto object-cover max-w-10 md:max-w-[50px]"
             />
             <p className=" text-sm font-bold leading-6 w-full">{small_title}</p>
           </div>
@@ -62,9 +62,11 @@ const HomeSectionOne = (props: SectionOnePropsTyps) => {
           </h1>
 
           <div>
-            <p className=" text-xs sm:text-sm md:text-xl lg:text-2xl font-bold leading-3 p-3 md:p-4 border rounded-sm border-tms-pink">
-              {location_heading}
-            </p>
+            <div className="animated-top-bottom-border border-r border-l border-tms-pink border-l-tms-pink rounded-sm">
+              <p className="text-xs sm:text-sm md:text-xl lg:text-2xl font-bold leading-3 p-3 md:p-4 text-white">
+                {location_heading}
+              </p>
+            </div>
           </div>
 
           <div className="flex gap-x-2 md:hidden mt-4 md:0 ">

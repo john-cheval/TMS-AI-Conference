@@ -178,7 +178,8 @@ ul {
 /* Sections */
 .home-banner-section,
 .top-banner-section {
-  height: calc(100vh - 106px);
+  /* height: calc(100vh - 106px); */
+  height: 100vh;
   overflow: hidden;
 }
 
@@ -369,4 +370,59 @@ ul {
     max-width: 1900px;
     margin: 0 auto;
   }
+}
+
+/* Define the gradient animation keyframes */
+@keyframes gradient-move-right {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Base class for the animated border container */
+.animated-top-bottom-border {
+  position: relative; /* Needed for the absolute positioning of pseudo-elements */
+  overflow: hidden; /* Clips the animating gradient */
+  padding: 2px 0; /* Creates space for the top and bottom borders */
+}
+
+/* ::before for the top gradient border */
+.animated-top-bottom-border::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px; /* Set the thickness of the border */
+
+  /* Top Gradient */
+  background: linear-gradient(90deg, #ea73e7 0%, #4d1592 100%);
+  background-size: 200% 100%; /* Make it larger for the animation */
+  animation: gradient-move-right 4s linear infinite; /* Animate smoothly */
+}
+
+/* ::after for the bottom gradient border */
+.animated-top-bottom-border::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px; /* Same thickness as the top border */
+
+  /* Bottom Gradient (reversed) */
+  background: linear-gradient(90deg, #4d1592 0%, #ea73e7 100%);
+  background-size: 200% 100%; /* Make it larger for the animation */
+  animation: gradient-move-right 4s linear infinite; /* Same animation to move simultaneously */
+}
+
+/* Styling for the inner <p> tag */
+.animated-top-bottom-border > p {
+  background-color: transparent; /* Set background to transparent */
+  /* Remove any border styles from here */
+  position: relative;
+  z-index: 1; /* Keep content above the pseudo-elements */
 }
