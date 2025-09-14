@@ -1,4 +1,5 @@
 import SharedTopSection from "@/components/shared/Sections/TopSection";
+import Sponsors from "@/components/shared/Sponsors";
 import BecomeASpeakerSectionThree from "@/components/Speakers/BecomeASpeaker/BecomeASpeakerSection3";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
@@ -40,6 +41,17 @@ const BecomeASpeaker = async () => {
       </section>
 
       <BecomeASpeakerSectionThree {...become_a_speaker_page} />
+
+      <div className="section-wrapper pb-12 md:pb-20 space-y-5">
+        <Sponsors
+          data={pageContent?.data?.section_list?.sponsors}
+          isSponsor={true}
+        />
+        <Sponsors
+          data={pageContent?.data?.section_list?.supporting_associations}
+        />
+        <Sponsors data={pageContent?.data?.section_list?.media_partners} />
+      </div>
     </>
   );
 };

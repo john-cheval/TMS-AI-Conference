@@ -1,3 +1,4 @@
+import BigButton from "@/components/shared/ui/Button/BigButton";
 import SectionHeadingTwo from "@/components/shared/ui/Headings/SectionHeading2";
 import { SectionOnePropsTyps } from "@/types/common";
 import Image from "next/image";
@@ -5,7 +6,7 @@ import React from "react";
 
 const SponsorBenifits = ({ heading, all_benefits }: SectionOnePropsTyps) => {
   return (
-    <section className="section-wrapper">
+    <section className="section-wrapper mb-5 md:mt-0">
       <SectionHeadingTwo title={heading} isDark={true} />
       {all_benefits && (
         <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3  md:gap-4 xl:gap-6 mt-6 md:mt-8 xl:mt-10 ">
@@ -37,6 +38,12 @@ const SponsorBenifits = ({ heading, all_benefits }: SectionOnePropsTyps) => {
           })}
         </div>
       )}
+
+      <div className="flex justify-center mt-5 md:mt-8">
+        <BigButton hrefs="/">
+          View the range of Sponsorship Opportunities here
+        </BigButton>
+      </div>
     </section>
   );
 };

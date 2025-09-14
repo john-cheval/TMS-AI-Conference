@@ -9,6 +9,9 @@ import ImageUploadElemet from "@/components/shared/Inputs/ImageUploadElemet";
 import BioUploadElemet from "@/components/shared/Inputs/BioUploadElement";
 import NatureOfCompanySelectElement from "@/components/shared/Inputs/NatureOfCompanySelect";
 import TextAreaElementTwo from "@/components/shared/Inputs/TextAreaElementTwo";
+import useMediaQuery from "@/hooks/useMediaQuery";
+import Link from "next/link";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 interface AboutYouData {
   title: string;
   firstName: string;
@@ -50,10 +53,14 @@ const BecomeSponsorPageForm = () => {
     formState: { errors, isSubmitting },
     reset,
   } = useForm<FormData>();
+  const isSmallScreen = useMediaQuery("(max-width: 650px)");
+
   return (
     <form>
-      <div className=" bg-tms-blue rounded-2xl  px-[72px] pb-20">
-        <h4 className="main-heading-2 !text-white pt-14 mb-5">About You</h4>
+      <div className=" bg-tms-blue rounded-2xl px-5 md:px-10 lg:px-16  xl:px-[72px]pb-8 md:pb-12 lg:pb-16 xl:pb-20">
+        <h4 className="main-heading-2 !text-white pt-8 md:pt-10 lg:pt-14 mb-4  md:mb-5">
+          About You
+        </h4>
 
         <div className="flex flex-col gap-y-2.5 md:gap-y-3 lg:gap-y-5">
           <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
@@ -244,9 +251,11 @@ const BecomeSponsorPageForm = () => {
         </div>
       </div>
 
-      <div className=" bg-tms-light-blue px-[72px] pb-20 -mt-10">
+      <div className=" bg-tms-light-blue px-5 md:px-10 lg:px-16  xl:px-[72px] pb-6 md:pb-8  lg:pb-11 -mt-12 md:-mt-10">
         <div>
-          <h4 className="main-heading-2 pt-14 mb-5">About the company</h4>
+          <h4 className="main-heading-2 pt-8 md:pt-10 lg:pt-14 mb-4  md:mb-5">
+            About the company
+          </h4>
           <div className="flex flex-col gap-y-2.5 md:gap-y-3 lg:gap-y-5">
             <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
               <TextElement
@@ -308,7 +317,9 @@ const BecomeSponsorPageForm = () => {
         </div>
 
         <div>
-          <h4 className="main-heading-2 pt-8 mb-5">About your presentation</h4>
+          <h4 className="main-heading-2 pt-6 md:pt-8 mb-4  md:mb-5">
+            About your presentation
+          </h4>
           <div className="flex flex-col gap-y-2.5 md:gap-y-3 lg:gap-y-5">
             <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
               <div className="flex-1">
@@ -357,14 +368,14 @@ const BecomeSponsorPageForm = () => {
             />
 
             <TextAreaElementTwo
-              label="Key Takeaways"
-              name="aboutPresentation.takewayas"
-              placeholder="What would be the three key takeaways from your session? "
+              label="About Presentation"
+              name="aboutPresentation.aboutPresentation"
+              placeholder="Tell us a little more about you and your presentation "
               register={register}
               errors={errors}
-              rows={3}
+              rows={isSmallScreen ? 8 : 4}
               rules={{
-                required: "Key Takeaways is required.",
+                required: "About Presentation is required.",
               }}
               isBlue={true}
               wordLimit={500}
@@ -407,6 +418,39 @@ const BecomeSponsorPageForm = () => {
               />
             </div>
           </div>
+        </div>
+
+        <div className="mt-3 md:mt-5 lg:mt-7 space-y-3 md:space-y-4">
+          <p className="text-dark-alter description">
+            By submitting the form I agree to receive email communication from
+            TMS AI Tech including the latest events, news and exclusive deals
+          </p>
+
+          <p className="text-dark-alter description">
+            We need the contact information you provide to us to contact you
+            about our products and services. By clicking submit below, you
+            consent to allow A to store and process the personal information
+            submitted above to provide you the content requested. You may
+            unsubscribe from these communications at any time. For information
+            on how to unsubscribe, as well as our privacy practices and
+            commitment to protecting your privacy, please review our{" "}
+            <Link
+              href={"/privacy-policy"}
+              className="hover:underline hover:bg-tms-purple transition-all duration-300"
+            >
+              Privacy Policy.
+            </Link>
+          </p>
+        </div>
+
+        <div className="mt-4 md:mt-6 flex justify-center">
+          <button
+            type="submit"
+            className="bg-tms-purple text-white text-base md:text-lg font-bold leading-5 rounded-lg py-4 md:py-6 px-10 md:px-7 flex gap-x-2.5 group items-center"
+          >
+            Submit
+            <MdOutlineKeyboardArrowRight className="text-2xl text-white group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
+          </button>
         </div>
       </div>
     </form>

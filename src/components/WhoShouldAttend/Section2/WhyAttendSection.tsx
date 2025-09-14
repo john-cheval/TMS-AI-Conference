@@ -1,3 +1,4 @@
+import BigButton from "@/components/shared/ui/Button/BigButton";
 import WhyAttendCard from "@/components/shared/ui/Cards/WhyAttendCard";
 import { WhyAttendListType } from "@/types/common";
 import React from "react";
@@ -36,6 +37,13 @@ const WhyAttendSection = (props: Props) => {
             return <WhyAttendCard key={index} {...item} />;
           })}
         </div>
+      </div>
+
+      <div className="flex justify-center mt-5 md:mt-8">
+        <BigButton hrefs="/">
+          Don’t miss out—register today and take advantage of our special group
+          booking rates!
+        </BigButton>
       </div>
     </section>
   );

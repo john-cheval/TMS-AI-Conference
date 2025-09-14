@@ -60,7 +60,7 @@ const ImageUploadElemet = <TFieldValues extends FieldValues>({
           />
         </label>
       </div>
-      <span className="text-white text-sm font-normal leading-5">
+      <span className="text-white text-xs md:text-sm font-normal leading-5">
         Upload a HIGH-RES professional picture to be added on the website. Max
         5MB.
       </span>

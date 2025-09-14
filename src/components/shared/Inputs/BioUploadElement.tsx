@@ -88,7 +88,11 @@ const BioUploadElemet = <TFieldValues extends FieldValues>({
           />
         </label>
       </div>
-      <span className="text-white text-sm font-normal leading-5">
+      <span
+        className={` ${
+          isPresentation ? "text-dark-alter" : "text-white"
+        } text-xs md:text-sm font-normal leading-5`}
+      >
         Upload your bio in pdf format. Max 5MB
       </span>
       {errorMessage && (

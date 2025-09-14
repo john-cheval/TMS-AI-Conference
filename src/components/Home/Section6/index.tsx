@@ -18,11 +18,8 @@ const HomeSectionSix = ({
       <div className="w-full">
         <div>
           <SmallTitle title={small_title} isBorder={false} />
-          <div className="flex lg:justify-between mt-3 lg:gap-x-5 items-center mb-2">
+          <div className="flex lg:justify-between mt-3  items-center mb-2">
             <SectionHeadingTwo title={heading} />
-            <div className="hidden lg:block">
-              <BigButton hrefs={button_link}>{button_text}</BigButton>
-            </div>
           </div>
           <p className="description text-dark-alter">{short_description}</p>
         </div>
@@ -51,8 +48,10 @@ const HomeSectionSix = ({
           </div>
         </div>
 
-        <div className="flex justify-center lg:hidden mt-6 md:mt-8">
-          <BigButton hrefs={button_link}>{button_text}</BigButton>
+        <div className="flex justify-center lg:hidden- mt-6 md:mt-8">
+          <BigButton hrefs={button_link} isBig={true}>
+            {button_text}
+          </BigButton>
         </div>
       </div>
     </section>
