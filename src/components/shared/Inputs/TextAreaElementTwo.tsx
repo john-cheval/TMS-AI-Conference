@@ -79,7 +79,7 @@ const TextAreaElementTwo = <TFieldValues extends FieldValues>({
         {isFakePlaceHolder && !value && (
           <p className=" absolute top-5 left-5 text-dark-alter text-base pointer-events-none">
             Tell us a little more about you and your presentation{" "}
-            <span className="text-sm text-[#828282]">
+            <span className="text-xs md:text-sm text-[#828282]">
               (For example, have there been any papers you have published with
               details of the area on which you would like to present? How are
               you unique/different in the way you apply AI or work in the space?
@@ -90,7 +90,7 @@ const TextAreaElementTwo = <TFieldValues extends FieldValues>({
         )}
 
         {/* Word counter */}
-        <p className="absolute right-5 bottom-5 text-dark-alter text-sm leading-3">
+        <p className="absolute right-3 md:right-5 bottom-2 md:bottom-5 text-dark-alter text-xs md:text-sm leading-3">
           {wordCount} / {wordLimit} Words
         </p>
       </div>

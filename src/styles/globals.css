@@ -289,10 +289,10 @@ ul {
 
 /* Inputs */
 .input {
-  @apply border border-white rounded-sm py-3 w-full pl-3 md:pl-5 lg:pl-6 placeholder-white outline-0 text-white text-sm md:text-base font-normal leading-3;
+  @apply border border-white rounded-sm py-3 w-full pl-3 md:pl-5 lg:pl-6 placeholder-white outline-0 text-white text-sm md:text-base font-normal leading-4 md:leading-3;
 }
 .input-alter {
-  @apply border border-[#1C75BC] rounded-sm py-3 w-full pl-3 md:pl-5 lg:pl-6 placeholder-dark-alter outline-0 text-dark-alter text-sm md:text-base font-normal leading-3;
+  @apply border border-[#1C75BC] rounded-sm py-3 w-full pl-3 md:pl-5 lg:pl-6 placeholder-dark-alter outline-0 text-dark-alter text-sm md:text-base font-normal leading-4 md:leading-3;
 }
 
 .no-arrow-number::-webkit-outer-spin-button,
