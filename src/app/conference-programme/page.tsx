@@ -39,8 +39,8 @@ const ConferenceProgramme = async () => {
         conferenceDate={conferenceData.end_date}
       />
       <ConferenceProgrammeSectionOne {...event_overview} />
-      <ConferenceProgrammeSectionTwo />
-      <div className="section-wrapper pb-16 md:pb-20  space-y-5 pt-6 md:pt-8 lg:pt-14  ">
+      <ConferenceProgrammeSectionTwo content={event_overview?.data} />
+      <div className="section-wrapper pb-16 md:pb-20  space-y-5   ">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} />
         <Sponsors data={media_partners} />
