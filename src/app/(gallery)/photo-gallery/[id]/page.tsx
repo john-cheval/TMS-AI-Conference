@@ -3,12 +3,23 @@ import SharedTopSection from "@/components/shared/Sections/TopSection";
 import Sponsors from "@/components/shared/Sponsors";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
+import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
 
 interface Props {
   params: {
     id: string;
   };
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { id } = await params;
+  return await generateMetadDataDetails(
+    Number(id),
+    `photo-gallery/${id}`,
+    false,
+    "photogallery"
+  );
 }
 
 const ConfernceGalleryPhotos = async ({ params }: Props) => {

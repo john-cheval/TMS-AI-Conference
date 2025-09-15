@@ -5,7 +5,12 @@ import Sponsors from "@/components/shared/Sponsors";
 import SponsorBenifits from "@/components/Sponsors/SponsorBenifits";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
+import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
+
+export async function generateMetadata() {
+  return await generateMetadDataDetails(71, "why-sponsor", false);
+}
 
 const WhySponsor = async () => {
   const pageContent = await fetchData(

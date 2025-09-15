@@ -3,7 +3,16 @@ import Sponsors from "@/components/shared/Sponsors";
 
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
+import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
+
+export async function generateMetadata() {
+  return await generateMetadDataDetails(
+    73,
+    "sponsorship-terms-conditions",
+    false
+  );
+}
 
 const SponsorshipTermsConditions = async () => {
   const pageContent = await fetchData(

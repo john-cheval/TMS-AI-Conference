@@ -3,11 +3,16 @@ import SharedTopSection from "@/components/shared/Sections/TopSection";
 import Sponsors from "@/components/shared/Sponsors";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
+import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
+
+export async function generateMetadata() {
+  return await generateMetadDataDetails(85, "archives", false);
+}
 
 const Archives = async () => {
   const pageContent = await fetchData(
-    `${baseUrl}/getmasterdetails?master_name=cms&id=21`
+    `${baseUrl}/getmasterdetails?master_name=cms&id=85`
   );
 
   const generalSettings = pageContent?.gernalsettings;
@@ -19,7 +24,7 @@ const Archives = async () => {
     sponsors,
     supporting_associations,
     media_partners,
-    photo_gallery,
+    archive_section,
   } = pageContent?.data?.section_list;
   return (
     <>
@@ -31,7 +36,7 @@ const Archives = async () => {
         conferenceLocation={conferenceData.location}
         conferenceDate={conferenceData.end_date}
       />
-      <ArchieveGallery data={photo_gallery?.data} />
+      <ArchieveGallery data={archive_section?.data} />
       <div className="section-wrapper pb-16 md:pb-20  space-y-5">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} />

@@ -1,8 +1,33 @@
-import { navLinks } from "@/constants/linksdata";
 import React from "react";
 import Navbar from "@/components/shared/Navbar";
 
-const ServerNavbar = () => {
+type Props = {
+  mainLinks: any;
+  sidebarLinks: any;
+};
+
+const ServerNavbar = ({ mainLinks, sidebarLinks }: Props) => {
+  // Step 1: Create a single, flat array of all navigation links
+  const allSeoLinks: any[] = [];
+
+  Object.values(mainLinks).forEach((link: any) => {
+    allSeoLinks.push(link);
+    if (link.submenu) {
+      Object.values(link.submenu).forEach((subItem: any) => {
+        allSeoLinks.push(subItem);
+      });
+    }
+  });
+
+  Object.values(sidebarLinks).forEach((link: any) => {
+    allSeoLinks.push(link);
+    if (link.submenu) {
+      Object.values(link.submenu).forEach((subItem: any) => {
+        allSeoLinks.push(subItem);
+      });
+    }
+  });
+
   return (
     <>
       {/* Static HTML for SEO */}
@@ -11,19 +36,19 @@ const ServerNavbar = () => {
         style={{ display: "none", visibility: "hidden" }}
         className="seo-nav hidden lg:flex items-center text-sm font-medium space-x-6 md:space-x-8 lg:space-x-10 uppercase"
       >
-        {navLinks?.map(({ title, url }, index) => (
+        {allSeoLinks?.map((item: any, index) => (
           <a
-            key={index}
-            /* title={attr_title} */ href={url}
+            key={item.id || item.link || index}
+            href={item?.link}
             className="seo-nav-link"
           >
-            {title}
+            {item?.name}
           </a>
         ))}
       </nav>
 
       {/* Client-side enhanced navbar */}
-      <Navbar navLinksData={navLinks} />
+      <Navbar mainMenuLinks={mainLinks} sideBarLinksDatas={sidebarLinks} />
     </>
   );
 };

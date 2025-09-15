@@ -2,7 +2,16 @@ import SharedTopSection from "@/components/shared/Sections/TopSection";
 import Sponsors from "@/components/shared/Sponsors";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
+import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
+
+export async function generateMetadata() {
+  return await generateMetadDataDetails(
+    80,
+    "delegate-booking-terms-and-conditions",
+    false
+  );
+}
 
 const DelegateBookingTermsAndCondtions = async () => {
   const pageContent = await fetchData(

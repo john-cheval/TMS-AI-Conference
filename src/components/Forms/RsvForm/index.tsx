@@ -25,7 +25,11 @@ interface RecaptchaRefType {
   resetCaptcha: () => void;
 }
 
-const RsvForm = () => {
+type Props = {
+  description: string;
+};
+
+const RsvForm = ({ description }: Props) => {
   const recaptchaRef = useRef<RecaptchaRefType>(null);
   const [token, setToken] = useState("");
   const {
@@ -214,12 +218,7 @@ const RsvForm = () => {
         </FormRow>
       </div>
 
-      <p className="description text-white leading-3 mt-5">
-        To secure your pass to our event you must allow us to provide your name,
-        email, mobile number and nationality to DTCM on your behalf. The
-        government body states it will not disclose the data to any third
-        parties unless required to do so by law.
-      </p>
+      <p className="description text-white leading-3 mt-5">{description}</p>
 
       <div className="mt-4 md:mt-6 flex justify-center ">
         <ReCaptcha

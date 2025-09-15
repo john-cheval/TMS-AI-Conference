@@ -4,7 +4,12 @@ import WhoShouldAttendSectionOne from "@/components/WhoShouldAttend/Section1";
 import WhyAttendSection from "@/components/WhoShouldAttend/Section2/WhyAttendSection";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
+import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
+
+export async function generateMetadata() {
+  return await generateMetadDataDetails(78, "who-should-attend", false);
+}
 
 const WhoShouldAttend = async () => {
   const pageContent = await fetchData(

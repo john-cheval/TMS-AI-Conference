@@ -1,6 +1,6 @@
 "use client";
 import TitleSelectElement from "@/components/shared/Inputs/TitleSelectElement";
-import React from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { Controller, useForm, Path } from "react-hook-form";
 import FormRow from "../FormRow";
 import TextElement from "@/components/shared/Inputs/TextElement";
@@ -12,6 +12,8 @@ import TextAreaElementTwo from "@/components/shared/Inputs/TextAreaElementTwo";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import Link from "next/link";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { toast } from "sonner";
+import ReCaptcha from "@/utils/ReCaptcha";
 interface AboutYouData {
   title: string;
   firstName: string;
@@ -44,7 +46,15 @@ type FormData = {
   aboutPresentation: PresentationData;
 };
 
+interface RecaptchaRefType {
+  resetCaptcha: () => void;
+}
+
 const BecomeSponsorPageForm = () => {
+  const recaptchaRef = useRef<RecaptchaRefType>(null);
+  const [token, setToken] = useState("");
+  const isSmallScreen = useMediaQuery("(max-width: 650px)");
+
   const {
     register,
     handleSubmit,
@@ -53,10 +63,39 @@ const BecomeSponsorPageForm = () => {
     formState: { errors, isSubmitting },
     reset,
   } = useForm<FormData>();
-  const isSmallScreen = useMediaQuery("(max-width: 650px)");
+
+  const handleToken = useCallback((recaptchaToken: string | null) => {
+    if (recaptchaToken) {
+      setToken(recaptchaToken);
+    } else {
+      setToken("");
+    }
+  }, []);
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      console.log(data, "This is the form data");
+      console.log("reCAPTCHA Token:", token);
+
+      // Show a success toast notification
+      toast.success("Form submitted successfully!");
+
+      // Reset the form and reCAPTCHA widget
+      reset();
+      if (recaptchaRef.current) {
+        recaptchaRef.current.resetCaptcha();
+      }
+      setToken("");
+    } catch (error) {
+      // Handle any submission errors
+      toast.error("Failed to submit form. Please try again.");
+    }
+  };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className=" bg-tms-blue rounded-2xl px-5 md:px-10 lg:px-16  xl:px-[72px]pb-8 md:pb-12 lg:pb-16 xl:pb-20">
         <h4 className="main-heading-2 !text-white pt-8 md:pt-10 lg:pt-14 mb-4  md:mb-5">
           About You
@@ -443,7 +482,14 @@ const BecomeSponsorPageForm = () => {
           </p>
         </div>
 
-        <div className="mt-4 md:mt-6 flex justify-center">
+        <div className="mt-4 md:mt-6 flex justify-center ">
+          <ReCaptcha
+            siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
+            callback={handleToken}
+            ref={recaptchaRef}
+          />
+        </div>
+        <div className="mt-4 md:mt-5 flex justify-center">
           <button
             type="submit"
             className="bg-tms-purple text-white text-base md:text-lg font-bold leading-5 rounded-lg py-4 md:py-6 px-10 md:px-7 flex gap-x-2.5 group items-center"

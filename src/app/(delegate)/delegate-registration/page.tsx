@@ -8,6 +8,11 @@ import React from "react";
 import { MdPhone } from "react-icons/md";
 import { IoMdMail } from "react-icons/io";
 import Sponsors from "@/components/shared/Sponsors";
+import generateMetadDataDetails from "@/lib/generateMetaData";
+
+export async function generateMetadata() {
+  return await generateMetadDataDetails(79, "delegate-registration", false);
+}
 
 const DelegateRegistration = async () => {
   const pageContent = await fetchData(

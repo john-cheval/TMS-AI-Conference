@@ -1,13 +1,14 @@
 import { baseUrl } from "./api";
 
 async function generateMetadDataDetails(
-  id: number,
+  id: number | string,
   path: string,
-  slug = false
+  slug = false,
+  innerUrl = "cms"
 ) {
   try {
     const res = await fetch(
-      `${baseUrl}/getmasterdetails?master_name=cms&${
+      `${baseUrl}/getmasterdetails?master_name=${innerUrl}&${
         slug ? "slug" : "id"
       }=${id}`
     );
@@ -23,14 +24,13 @@ async function generateMetadDataDetails(
       title,
       description,
       alternates: {
-        // canonical: `https://www.whitelabelmedia.live/${path}`,
-        canonical: `https://white-label-media.vercel.app/${path}`,
+        canonical: `https://tms-ai-conference.vercel.app/${path}`,
       },
       openGraph: {
         title,
         description,
-        // url: `https://www.whitelabelmedia.live/${path}`,
-        url: `https://white-label-media.vercel.app/${path}`,
+
+        url: `https://tms-ai-conference.vercel.app/${path}`,
         type: "website",
         images: [{ url: image, width: 1200, height: 630, alt: title }],
       },

@@ -4,19 +4,18 @@ import Logo from "@/assets/Logo/tms_logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { NavLinkType } from "@/types/common";
 // import Menu from "@/assets/shared/menu.svg";
 import { RiMenu3Fill } from "react-icons/ri";
 import ButtonOrLink from "../ui/Button";
 import { AnimatePresence, motion } from "framer-motion";
 import SideBar from "./SideBar";
-import { sideBarlinks } from "@/constants/linksdata";
 
 export type NavPropTypes = {
-  navLinksData?: NavLinkType[];
+  mainMenuLinks: any;
+  sideBarLinksDatas: any;
 };
 
-const Navbar = ({ navLinksData }: NavPropTypes) => {
+const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
@@ -70,24 +69,22 @@ const Navbar = ({ navLinksData }: NavPropTypes) => {
 
           <div className="flex items-center gap-x-5 2xl:gap-x-7">
             <ul className=" items-center gap-x-5 2xl:gap-x-7 hidden md:flex">
-              {navLinksData &&
-                navLinksData?.length > 0 &&
-                navLinksData?.map((nav, index) => {
-                  let isActive = pathname === nav?.url;
-                  if (nav?.url !== "/") {
-                    isActive = pathname.startsWith(nav?.url);
-                  }
-                  return (
-                    <li
-                      key={index + 1}
-                      className={`nav-links ${
-                        isActive ? "text-tms-blue" : "text-tms-black"
-                      }`}
-                    >
-                      <Link href={nav?.url}>{nav?.title}</Link>
-                    </li>
-                  );
-                })}
+              {Object.values(mainMenuLinks)?.map((nav: any, index: number) => {
+                let isActive = pathname === nav?.link;
+                if (nav?.link !== "/") {
+                  isActive = pathname.startsWith(nav?.link);
+                }
+                return (
+                  <li
+                    key={index + 1}
+                    className={`nav-links ${
+                      isActive ? "text-tms-blue" : "text-tms-black"
+                    }`}
+                  >
+                    <Link href={nav?.link}>{nav?.name}</Link>
+                  </li>
+                );
+              })}
             </ul>
 
             <RiMenu3Fill
@@ -129,7 +126,7 @@ const Navbar = ({ navLinksData }: NavPropTypes) => {
               onClick={() => setIsOpen(false)}
             />
 
-            <SideBar sideBarLinksData={sideBarlinks} isClose={setIsOpen} />
+            <SideBar sideBarLinksData={sideBarLinksDatas} isClose={setIsOpen} />
           </>
         )}
       </AnimatePresence>
