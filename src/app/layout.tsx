@@ -44,12 +44,14 @@ export default async function RootLayout({
     YOUTUBE,
   ].filter(Boolean);
 
+  const mainMenuLinks = menuLinks?.[1];
+  const sideBarlinks = menuLinks?.[4];
   return (
     <html lang="en" className="h-full " suppressHydrationWarning>
       <body
         className={`${inter.className} antialiased flex flex-col min-h-full `}
       >
-        <ServerNavbar />
+        <ServerNavbar mainLinks={mainMenuLinks} sidebarLinks={sideBarlinks} />
         <main className="flex-grow pt-[106px]">
           <Providers>{children}</Providers>
         </main>

@@ -9,7 +9,7 @@ type Props = {
 const PlansTable = ({ data, heading_1, heading_2 }: Props) => {
   return (
     <>
-      <div className="relative hidden sm:block max-w-5xl overflow-x-auto  border-tms-blue rounded-sm border mx-auto">
+      <div className="relative  block max-w-5xl overflow-x-auto  border-tms-blue rounded-sm border mx-auto">
         <table className="w-full text-sm  text-left rtl:text-right   ">
           <thead
             className="text-sm md:text-base lg:text-2xl text-white border-b border-b-tms-blue border-dotted  "
@@ -21,7 +21,7 @@ const PlansTable = ({ data, heading_1, heading_2 }: Props) => {
             <tr>
               <th
                 scope="col"
-                className="px-6 py-5 w-1/2 text-center border-r border-r-tms-blue border-dotted"
+                className="px-6 py-4  sm:py-5 w-1/2 text-center border-r border-r-tms-blue border-dotted"
               >
                 {heading_1}
               </th>
@@ -39,7 +39,7 @@ const PlansTable = ({ data, heading_1, heading_2 }: Props) => {
                 >
                   <td
                     scope="row"
-                    className="w-1/2 text-center py-7 border-r border-r-tms-blue border-dotted"
+                    className="w-1/2 text-center py-4  sm:py-7 border-r border-r-tms-blue border-dotted px-4 "
                   >
                     {item?.title}
                   </td>
@@ -51,7 +51,7 @@ const PlansTable = ({ data, heading_1, heading_2 }: Props) => {
         </table>
       </div>
 
-      <div className="border-tms-blue border-b-0 overflow-hidden rounded-t-sm border sm:hidden">
+      {/* <div className="border-tms-blue border-b-0 overflow-hidden rounded-t-sm border sm:hidden">
         <div>
           <h3
             className="text-base   text-white border-b border-b-tms-blue border-dotted px-6 py-4 text-left font-bold   "
@@ -112,7 +112,7 @@ const PlansTable = ({ data, heading_1, heading_2 }: Props) => {
             })}
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

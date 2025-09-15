@@ -3,7 +3,12 @@ import SharedTopSection from "@/components/shared/Sections/TopSection";
 import SponsorsList from "@/components/Sponsors/SponsorsList";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
+import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
+
+export async function generateMetadata() {
+  return await generateMetadDataDetails(75, "media-partners", false);
+}
 
 const MediaPartners = async () => {
   const pageContent = await fetchData(
@@ -29,6 +34,7 @@ const MediaPartners = async () => {
       <div className="pb-5 md:pb-10">
         <BecomeSponsorForm
           {...pageContent?.data?.section_list?.become_a_sponsor_form}
+          isPartnerForm={true}
         />
       </div>
     </>

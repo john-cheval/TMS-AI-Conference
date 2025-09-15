@@ -150,6 +150,9 @@ ul {
 .speaker-cta-gradient-2 {
   background: linear-gradient(251deg, #4d1592 12.68%, #0078bb 69.06%);
 }
+.speaker-cta-gradient-3 {
+  background: linear-gradient(0deg, #4d1592 12.68%, #0078bb 69.06%);
+}
 .gallery-btn-gradient {
   border-radius: 8px;
   background: var(

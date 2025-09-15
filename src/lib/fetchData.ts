@@ -1,11 +1,11 @@
-import { cache } from "react";
+// import { cache } from "react";
 
-export const fetchData = cache(async (url: string) => {
+export const fetchData = /*cache*/ async (url: string) => {
   try {
     const response = await fetch(url, {
-      next: {
-        revalidate: 120,
-      },
+      // next: {
+      //   revalidate: 120,
+      // },
     });
 
     if (!response.ok) {
@@ -26,4 +26,4 @@ export const fetchData = cache(async (url: string) => {
     console.error("Fetch failed:", error);
     return null;
   }
-});
+};

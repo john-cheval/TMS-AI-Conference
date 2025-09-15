@@ -25,12 +25,19 @@ const Home = async () => {
   const conferenceYear =
     homePageContent?.gernalsettings?.current_year_coneference[0];
 
+  const {
+    COMMON_SETTINGS_VALUES_register_now,
+    COMMON_SETTINGS_VALUES_become_a_sponsor,
+  } = homePageContent?.gernalsettings?.general_settings;
+
   return (
     <>
       <HomeSectionOne
         callForPaperDate={conferenceYear?.Call_for_papers_date}
         earlyBirdsDate={conferenceYear?.Early_Bird_date}
         eventDate={conferenceYear?.end_date}
+        registerNow={COMMON_SETTINGS_VALUES_register_now}
+        sponsorBtnData={COMMON_SETTINGS_VALUES_become_a_sponsor}
         {...homePageContent?.data?.section_list?.home_banner}
       />
       <HomeSectionTwo

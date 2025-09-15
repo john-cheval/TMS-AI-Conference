@@ -3,7 +3,12 @@ import Sponsors from "@/components/shared/Sponsors";
 import BecomeASpeakerSectionThree from "@/components/Speakers/BecomeASpeaker/BecomeASpeakerSection3";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
+import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
+
+export async function generateMetadata() {
+  return await generateMetadDataDetails(82, "become-a-speaker", false);
+}
 
 const BecomeASpeaker = async () => {
   const pageContent = await fetchData(

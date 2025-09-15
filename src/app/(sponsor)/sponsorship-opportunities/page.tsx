@@ -4,7 +4,12 @@ import Sponsors from "@/components/shared/Sponsors";
 import SponsorShipOppSectionOne from "@/components/SponsorShipOpportuity/Section1";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
+import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
+
+export async function generateMetadata() {
+  return await generateMetadDataDetails(72, "sponsorship-opportunities", false);
+}
 
 const SponsorshipOppurtunities = async () => {
   const pageContent = await fetchData(
@@ -28,11 +33,9 @@ const SponsorshipOppurtunities = async () => {
       />
       <SponsorShipOppSectionOne
         {...sposnorshipPageContent?.why_sponsor_tms_ai_tech_sponsorship_opportunities}
+        formData={pageContent?.data?.section_list?.become_a_sponsor_form}
       />
-      <BecomeSponsorForm
-        {...pageContent?.data?.section_list?.become_a_sponsor_form}
-        isOpppotunity={true}
-      />
+
       <div className="section-wrapper pb-12 md:pb-20 space-y-5">
         <Sponsors
           data={pageContent?.data?.section_list?.sponsors}

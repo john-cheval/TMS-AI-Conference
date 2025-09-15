@@ -3,7 +3,12 @@ import Sponsors from "@/components/shared/Sponsors";
 import WhyAttendSectionOne from "@/components/why-attend/Section1";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
+import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
+
+export async function generateMetadata() {
+  return await generateMetadDataDetails(77, "why-attend", false);
+}
 
 const WhyAttend = async () => {
   const pageContent = await fetchData(

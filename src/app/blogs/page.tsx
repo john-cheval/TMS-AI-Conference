@@ -3,14 +3,19 @@ import SharedTopSection from "@/components/shared/Sections/TopSection";
 import Sponsors from "@/components/shared/Sponsors";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
+import generateMetadDataDetails from "@/lib/generateMetaData";
 import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+export async function generateMetadata() {
+  return await generateMetadDataDetails(68, "blogs", false);
+}
+
 const Blogs = async () => {
   const pageContent = await fetchData(
-    `${baseUrl}/getmasterdetails?master_name=cms&id=17`
+    `${baseUrl}/getmasterdetails?master_name=cms&id=68`
   );
 
   const generalSettings = pageContent?.gernalsettings;
@@ -22,7 +27,7 @@ const Blogs = async () => {
     sponsors,
     supporting_associations,
     media_partners,
-    press_release,
+    blog_list,
   } = pageContent?.data?.section_list;
   return (
     <>
@@ -40,7 +45,7 @@ const Blogs = async () => {
           className="grid grid-cols-1 md:grid-cols-2 gap-y-6 md:gap-y-0
          md:gap-x-4 lg:gap-x-6"
         >
-          {press_release?.data?.slice(0, 2)?.map((item: any, index: number) => {
+          {blog_list?.data?.slice(0, 2)?.map((item: any, index: number) => {
             return (
               <div key={index + 1}>
                 <Image
@@ -74,41 +79,44 @@ const Blogs = async () => {
           })}
         </div>
       </section>
-      <section className=" section-wrapper grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-6 lg:mt-8 xl:mt-10  hidden sm:grid">
-        {press_release?.data?.slice(2)?.map((item: any, index: number) => {
-          return (
-            <div key={index + 1} className="space-y-4 lg:space-y-6">
-              <Image
-                src={item?.image_url}
-                alt={item?.title}
-                width={700}
-                height={350}
-                className="responsive-radius overflow-hidden w-full h-auto object-cover  "
-              />
 
-              <div>
-                <p className="description text-tms-purple font-medium !leading-3">
-                  {dayjs(item.date).format("MMMM YYYY")}
-                </p>
-                <h6 className="text-dark-alter text-lg lg:text-xl lg:leading-3  font-normal mb-2">
-                  {" "}
-                  {item.title}
-                </h6>
+      {blog_list?.data?.length > 2 && (
+        <section className=" section-wrapper grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-6 lg:mt-8 xl:mt-10  hidden sm:grid">
+          {blog_list?.data?.slice(2)?.map((item: any, index: number) => {
+            return (
+              <div key={index + 1} className="space-y-4 lg:space-y-6">
+                <Image
+                  src={item?.image_url}
+                  alt={item?.title}
+                  width={700}
+                  height={350}
+                  className="responsive-radius overflow-hidden w-full h-auto object-cover  "
+                />
 
-                <Link
-                  href={`press-release/${item.slug}`}
-                  className="description text-dark-alter !leading-3 hover:underline hover:text-tms-purple transition-all duration-300"
-                >
-                  Read More
-                </Link>
+                <div>
+                  <p className="description text-tms-purple font-medium !leading-3">
+                    {dayjs(item.date).format("MMMM YYYY")}
+                  </p>
+                  <h6 className="text-dark-alter text-lg lg:text-xl lg:leading-3  font-normal mb-2">
+                    {" "}
+                    {item.title}
+                  </h6>
+
+                  <Link
+                    href={`press-release/${item.slug}`}
+                    className="description text-dark-alter !leading-3 hover:underline hover:text-tms-purple transition-all duration-300"
+                  >
+                    Read More
+                  </Link>
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </section>
+            );
+          })}
+        </section>
+      )}
 
       <div className="sm:hidden section-wrapper mt-10">
-        <PreReleaseCardResponsive detail={press_release?.data} />
+        <PreReleaseCardResponsive detail={blog_list?.data} />
       </div>
       <div className="section-wrapper pb-16 md:pb-20  space-y-5 pt-6 md:pt-8 lg:pt-14  ">
         <Sponsors data={sponsors} isSponsor={true} />

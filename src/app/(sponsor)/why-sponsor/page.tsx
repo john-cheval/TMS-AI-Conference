@@ -5,7 +5,12 @@ import Sponsors from "@/components/shared/Sponsors";
 import SponsorBenifits from "@/components/Sponsors/SponsorBenifits";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
+import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
+
+export async function generateMetadata() {
+  return await generateMetadDataDetails(71, "why-sponsor", false);
+}
 
 const WhySponsor = async () => {
   const pageContent = await fetchData(
@@ -33,6 +38,7 @@ const WhySponsor = async () => {
       />
       <BecomeSponsorForm
         {...pageContent?.data?.section_list?.become_a_sponsor_form}
+        whySponsorPage={true}
       />
 
       <div className="section-wrapper pb-16 md:pb-20">

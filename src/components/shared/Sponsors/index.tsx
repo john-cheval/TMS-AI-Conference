@@ -39,8 +39,39 @@ const Sponsors = ({
     };
   }, [data?.data, isSponsor]);
 
+  // useGSAP(() => {
+  //   if (containerRef1.current) {
+  //     gsap.to(containerRef1.current, {
+  //       xPercent: -50,
+  //       repeat: -1,
+  //       duration: 15,
+  //       ease: "none",
+  //     });
+  //   }
+  // }, [listsData.firstList]);
+
+  // Check the number of items in the first list
+  const shouldAnimateFirstList = listsData.firstList.length >= 5;
+
+  // Check the number of items in the second list
+  const shouldAnimateSecondList = isSponsor && listsData.secondList.length >= 5;
+
+  // useGSAP(() => {
+  //   if (isSponsor && containerRef2.current) {
+  //     gsap.set(containerRef2.current, { xPercent: -50 });
+  //     gsap.to(containerRef2.current, {
+  //       xPercent: 0,
+  //       repeat: -1,
+  //       duration: 15,
+  //       ease: "none",
+  //     });
+  //   }
+  // }, [isSponsor, listsData.secondList]);
+
+  // New One
+
   useGSAP(() => {
-    if (containerRef1.current) {
+    if (containerRef1.current && shouldAnimateFirstList) {
       gsap.to(containerRef1.current, {
         xPercent: -50,
         repeat: -1,
@@ -48,10 +79,10 @@ const Sponsors = ({
         ease: "none",
       });
     }
-  }, [listsData.firstList]);
+  }, [listsData.firstList, shouldAnimateFirstList]);
 
   useGSAP(() => {
-    if (isSponsor && containerRef2.current) {
+    if (containerRef2.current && shouldAnimateSecondList) {
       gsap.set(containerRef2.current, { xPercent: -50 });
       gsap.to(containerRef2.current, {
         xPercent: 0,
@@ -60,7 +91,7 @@ const Sponsors = ({
         ease: "none",
       });
     }
-  }, [isSponsor, listsData.secondList]);
+  }, [isSponsor, listsData.secondList, shouldAnimateSecondList]);
 
   const renderSponsorList = (items: any[], isReversed: boolean) => (
     <div
@@ -97,7 +128,7 @@ const Sponsors = ({
                 }`}
               />
             </div>
-            <p className="mt-2.5 md:mt-5 text-black text-center text-sm md:text-base lg:text-lg - font-semibold leading-[18px] capitalize max-w-[100px] ">
+            <p className="mt-2.5 md:mt-5 text-black text-center text-sm md:text-base lg:text-lg - font-semibold leading-[18px] capitalize max-w-[100px]- ">
               {item?.name}
             </p>
           </div>

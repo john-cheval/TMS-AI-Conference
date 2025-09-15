@@ -3,9 +3,14 @@ import Sponsors from "@/components/shared/Sponsors";
 import OurSpeakersSectionOne from "@/components/Speakers/OurSpeakersSection1";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
+import generateMetadDataDetails from "@/lib/generateMetaData";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+
+export async function generateMetadata() {
+  return await generateMetadDataDetails(81, "our-speakers", false);
+}
 
 const OurSpeakers = async () => {
   const pageContent = await fetchData(
@@ -48,10 +53,16 @@ const OurSpeakers = async () => {
             className="w-full h-auto object-cover flex-grow-1"
           />
           <div className="speaker-cta-gradient absolute md:right-0 bottom-0 z-50 w-full h-full hidden md:block" />
-          <div className="speaker-cta-gradient absolute  bottom-0 z-50 w-full h-full  md:hidden" />
+          <div
+            className="absolute  bottom-0 z-50 w-full h-full  md:hidden"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(0, 120, 187, 0) 0%, #0078bb 100%)",
+            }}
+          />
         </div>
         <div
-          className="col-span-12 md:col-span-6 lg:col-span-7 speaker-cta-gradient-2  md:rounded-r-2xl overflow-hidden relative
+          className="col-span-12 md:col-span-6 lg:col-span-7 speaker-cta-gradient-3 md:speaker-cta-gradient-2  md:rounded-r-2xl overflow-hidden relative
         z-50 p-6 lg:py-8 lg:px-10 xl:px-14 flex flex-col justify-center rounded-b-2xl md:rounded-bl-none"
         >
           <h4 className="main-heading-2 !text-white">

@@ -4,10 +4,15 @@ import TmsAI from "@/assets/shared/ai_big_60.svg";
 import CountdownTimer from "@/components/shared/Countdown";
 import { formatDate } from "@/utils/formatDate";
 import ButtonOrLink from "@/components/shared/ui/Button";
-import { SectionOnePropsTyps } from "@/types/common";
+import { buttonApIPropsType, SectionOnePropsTyps } from "@/types/common";
 import svgIcon from "@/assets/Home/tms.jpg";
 
-const HomeSectionOne = (props: SectionOnePropsTyps) => {
+type Props = SectionOnePropsTyps & {
+  registerNow: buttonApIPropsType;
+  sponsorBtnData: buttonApIPropsType;
+};
+
+const HomeSectionOne = (props: Props) => {
   const {
     small_title,
     small_title_2,
@@ -20,6 +25,8 @@ const HomeSectionOne = (props: SectionOnePropsTyps) => {
     call_for_papers_heading,
     eirly_bird_offer_heading,
     event_date_heading,
+    registerNow,
+    sponsorBtnData,
   } = props;
 
   return (
@@ -71,20 +78,20 @@ const HomeSectionOne = (props: SectionOnePropsTyps) => {
 
           <div className="flex gap-x-2 md:hidden mt-4 md:0 ">
             <ButtonOrLink
-              hrefs="/"
+              hrefs={registerNow?.value}
               isGradient={false}
               isIcon={false}
               isLink={true}
             >
-              Register Now
+              {registerNow?.title}
             </ButtonOrLink>
             <ButtonOrLink
-              hrefs="/"
+              hrefs={sponsorBtnData?.value}
               isGradient={true}
               isIcon={true}
               isLink={true}
             >
-              Become a Sponsor
+              {sponsorBtnData?.title}
             </ButtonOrLink>
           </div>
           <CountdownTimer targetDate={earlyBirdsDate} />

@@ -9,6 +9,7 @@ import Image from "next/image";
 import FooterAccordion from "./FooterAccordion";
 import * as motion from "motion/react-client";
 import { buttonApIPropsType } from "@/types/common";
+import FooterNewsLetterForm from "@/components/Forms/FooterNewsLetterForm";
 
 export type footerTypeProps = {
   footerMainLinks?: any;
@@ -28,6 +29,7 @@ const Footer = ({
   footer_heading2,
   registerNow,
   sponsorBtnData,
+  newsLetterHeading,
 }: footerTypeProps) => {
   const footerMainLinksData = Object.values(footerMainLinks);
   const footerBottomlinksData = Object.values(footerBottom);
@@ -68,14 +70,14 @@ const Footer = ({
 
           <div className="mt-4 md:mt-6 lg:mt-8">
             <div className="sub_heading-1 !text-white !font-semibold mb-6 ">
-              <motion.h6
+              <motion.div
                 initial={{ y: 50, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
                 viewport={{ once: true, amount: 0.3 }}
-              >
-                Sign-up for our newsletter{" "}
-              </motion.h6>
+                dangerouslySetInnerHTML={{ __html: newsLetterHeading }}
+              />
+
               <motion.div
                 initial={{ y: 50, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
@@ -83,19 +85,7 @@ const Footer = ({
                 viewport={{ once: true, amount: 0.3 }}
                 className="w-full max-w-sm min-w-[200px] relative mt-4 lg:mt-6"
               >
-                <div className="relative">
-                  <input
-                    type="email"
-                    className="w-full bg-transparent placeholder:text-[#bbbbbbba]   text-white text-base border border-[#1C75BC] rounded-sm pl-6 pr-24 py-2.5 transition duration-300 ease-in-out focus:outline-none focus:border-[#1C75BC] hover:border-tms-purple"
-                    placeholder="Enter your email here"
-                  />
-                  <button
-                    className="absolute right-0 top-0 rounded-tr-sm rounded-br-sm bg-[#1C75BC] py-4 px-7 border border-transparent text-center text-base font-medium text-white transition-all  focus:bg-[#1C75BC]  active:bg-[#1C75BC]    hover:bg-[#1C75BC]  disabled:pointer-events-none h-full flex items-center justify-center "
-                    type="button"
-                  >
-                    Send
-                  </button>
-                </div>
+                <FooterNewsLetterForm />
               </motion.div>
             </div>
           </div>

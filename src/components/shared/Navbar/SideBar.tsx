@@ -9,6 +9,7 @@ import { accordionVariants } from "@/constants/motionVariants";
 
 export type SideBarProps = SideBarComponentProps & {
   isClose?: React.Dispatch<React.SetStateAction<boolean>>;
+  sideBarLinksData: any;
 };
 
 const SideBar = ({ sideBarLinksData, isClose }: SideBarProps) => {
@@ -36,24 +37,25 @@ const SideBar = ({ sideBarLinksData, isClose }: SideBarProps) => {
 
       <ul>
         {sideBarLinksData &&
-          sideBarLinksData?.length > 0 &&
-          sideBarLinksData?.map((link, index) => {
+          Object.values(sideBarLinksData)?.length > 0 &&
+          Object.values(sideBarLinksData)?.map((link: any, index: number) => {
             // const url = link?.url === "/" ? "/" : link?.url;
             // const isActive = pathname === url;
-            const hasChildren = Array.isArray(link?.children);
+            const hasChildren =
+              link?.submenu && Object.values(link.submenu)?.length > 0;
             const isAccordionOpen = openId === link?.id;
             return (
               <li
-                key={index + 1}
+                key={index + 21}
                 className="py-5 md:py-6 border-b border-white"
               >
                 {!hasChildren ? (
                   <Link
-                    href={link?.url ?? ""}
+                    href={link?.link ?? "#"}
                     className="text-white text-lg font-medium leading-5"
                     onClick={() => isClose?.(false)}
                   >
-                    {link?.title}
+                    {link?.name}
                   </Link>
                 ) : (
                   <>
@@ -61,7 +63,7 @@ const SideBar = ({ sideBarLinksData, isClose }: SideBarProps) => {
                       className="flex items-center justify-between w-full text-white text-lg font-medium leading-5"
                       onClick={() => handleLinkClick(link.id as number)}
                     >
-                      {link?.title}
+                      {link?.name}
                       <IoMdArrowDropdown
                         className={`${
                           isAccordionOpen ? "rotate-180" : ""
@@ -70,7 +72,7 @@ const SideBar = ({ sideBarLinksData, isClose }: SideBarProps) => {
                     </button>
 
                     <AnimatePresence>
-                      {isAccordionOpen && Array.isArray(link.children) && (
+                      {isAccordionOpen && (
                         <motion.div
                           key="accordion-content"
                           initial="closed"
@@ -80,17 +82,21 @@ const SideBar = ({ sideBarLinksData, isClose }: SideBarProps) => {
                           className="overflow-hidden"
                         >
                           <ul className="pl-4 sm:pl-5 lg:pl-8 pt-3 md:space-y-1">
-                            {link.children.map((childLink) => (
-                              <li key={childLink.id}>
-                                <Link
-                                  href={childLink.url ?? ""}
-                                  className="text-white transition-colors text-[15px] sm:text-base font-light leading-[37px]"
-                                  onClick={() => isClose?.(false)}
-                                >
-                                  {childLink.title}
-                                </Link>
-                              </li>
-                            ))}
+                            {Object.values(link.submenu).map(
+                              (childLink: any) => {
+                                return (
+                                  <li key={childLink.id}>
+                                    <Link
+                                      href={childLink.link ?? ""}
+                                      className="text-white transition-colors text-[15px] sm:text-base font-light leading-[37px]"
+                                      onClick={() => isClose?.(false)}
+                                    >
+                                      {childLink.name}
+                                    </Link>
+                                  </li>
+                                );
+                              }
+                            )}
                           </ul>
                         </motion.div>
                       )}
