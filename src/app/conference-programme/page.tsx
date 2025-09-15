@@ -8,20 +8,25 @@ import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
 
 export async function generateMetadata() {
-  return await generateMetadDataDetails(84, "", false);
+  return await generateMetadDataDetails(84, "conference-programme", false);
 }
 
 const ConferenceProgramme = async () => {
   const pageContent = await fetchData(
-    `${baseUrl}/getmasterdetails?master_name=cms&id=21`
+    `${baseUrl}/getmasterdetails?master_name=cms&id=84`
   );
 
   const generalSettings = pageContent?.gernalsettings;
   const conferenceData =
     pageContent?.gernalsettings?.current_year_coneference[0];
   const { AWARD_YEAR } = generalSettings?.general_settings;
-  const { page_top_banner, sponsors, supporting_associations, media_partners } =
-    pageContent?.data?.section_list;
+  const {
+    page_top_banner,
+    sponsors,
+    supporting_associations,
+    media_partners,
+    event_overview,
+  } = pageContent?.data?.section_list;
   return (
     <>
       {" "}
@@ -33,8 +38,8 @@ const ConferenceProgramme = async () => {
         conferenceLocation={conferenceData.location}
         conferenceDate={conferenceData.end_date}
       />
-      <ConferenceProgrammeSectionOne />
-      <ConferenceProgrammeSectionTwo />{" "}
+      <ConferenceProgrammeSectionOne {...event_overview} />
+      <ConferenceProgrammeSectionTwo />
       <div className="section-wrapper pb-16 md:pb-20  space-y-5 pt-6 md:pt-8 lg:pt-14  ">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} />
