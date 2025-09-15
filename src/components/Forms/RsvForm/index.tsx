@@ -19,6 +19,7 @@ type FormData = {
   contactNumber: number;
   nationality: string;
   countryOfResidence: string;
+  contactCountryCode: string;
 };
 
 interface RecaptchaRefType {
@@ -162,11 +163,12 @@ const RsvForm = ({ description }: Props) => {
             <NumberElement
               label="Mobile Numberr"
               name="contactNumber"
-              type="number"
+              type="tel"
               setValue={setValue}
               placeholder="Mobile Number"
               register={register}
               errors={errors}
+              codeName="contactCountryCode"
               rules={{
                 required: "Mobile Number is required.",
                 min: {

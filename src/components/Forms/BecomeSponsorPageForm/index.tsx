@@ -23,6 +23,7 @@ interface AboutYouData {
   linkedinUrl: string;
   headshotFile: FileList | null;
   bio: FileList | null;
+  contactCountryCode: string;
 }
 
 interface CompanyData {
@@ -49,8 +50,10 @@ type FormData = {
 interface RecaptchaRefType {
   resetCaptcha: () => void;
 }
-
-const BecomeSponsorPageForm = () => {
+type Props = {
+  formDescription: string;
+};
+const BecomeSponsorPageForm = ({ formDescription }: Props) => {
   const recaptchaRef = useRef<RecaptchaRefType>(null);
   const [token, setToken] = useState("");
   const isSmallScreen = useMediaQuery("(max-width: 650px)");
@@ -169,7 +172,8 @@ const BecomeSponsorPageForm = () => {
               <NumberElement
                 label="Mobile Numberr"
                 name="aboutYou.contact"
-                type="number"
+                codeName="aboutYou.contactCountryCode"
+                type="tel"
                 setValue={setValue}
                 placeholder="Mobile "
                 register={register}
@@ -459,28 +463,10 @@ const BecomeSponsorPageForm = () => {
           </div>
         </div>
 
-        <div className="mt-3 md:mt-5 lg:mt-7 space-y-3 md:space-y-4">
-          <p className="text-dark-alter description">
-            By submitting the form I agree to receive email communication from
-            TMS AI Tech including the latest events, news and exclusive deals
-          </p>
-
-          <p className="text-dark-alter description">
-            We need the contact information you provide to us to contact you
-            about our products and services. By clicking submit below, you
-            consent to allow A to store and process the personal information
-            submitted above to provide you the content requested. You may
-            unsubscribe from these communications at any time. For information
-            on how to unsubscribe, as well as our privacy practices and
-            commitment to protecting your privacy, please review our{" "}
-            <Link
-              href={"/privacy-policy"}
-              className="hover:underline hover:bg-tms-purple transition-all duration-300"
-            >
-              Privacy Policy.
-            </Link>
-          </p>
-        </div>
+        <div
+          className="mt-3 md:mt-5 lg:mt-7 space-y-3 md:space-y-4"
+          dangerouslySetInnerHTML={{ __html: formDescription }}
+        />
 
         <div className="mt-4 md:mt-6 flex justify-center ">
           <ReCaptcha

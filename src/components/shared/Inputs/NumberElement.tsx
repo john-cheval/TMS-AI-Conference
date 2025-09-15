@@ -6,7 +6,7 @@ import {
   ValidationRule,
   Path,
   UseFormSetValue,
-  PathValue, // Import PathValue
+  PathValue,
 } from "react-hook-form";
 import { IoMdArrowDropdown } from "react-icons/io";
 
@@ -25,12 +25,14 @@ interface CountryType {
 interface NumbertElementProps<TFieldValues extends FieldValues>
   extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
+  codeName: Path<TFieldValues>;
   name: Path<TFieldValues>;
   register: UseFormRegister<TFieldValues>;
   errors: FieldErrors<TFieldValues>;
   rules?: ValidationRule<any>;
   setValue: UseFormSetValue<TFieldValues>;
   isBlue?: boolean;
+  isLight?: boolean;
 }
 
 const formatDialCode = (idd: CountryType["idd"]): string => {
@@ -42,11 +44,13 @@ const formatDialCode = (idd: CountryType["idd"]): string => {
 const NumberElement = <TFieldValues extends FieldValues>({
   label,
   name,
+  codeName,
   register,
   errors,
   rules = {},
   isBlue = false,
   setValue,
+  isLight = false,
   ...rest
 }: NumbertElementProps<TFieldValues>) => {
   const errorMessage = errors[name]?.message;
@@ -90,7 +94,7 @@ const NumberElement = <TFieldValues extends FieldValues>({
           setCountries([uae, ...otherCountries]);
           setSelectedCountry(uae);
           setValue(
-            name,
+            codeName,
             uae.dialCode as PathValue<TFieldValues, Path<TFieldValues>>
           );
         } else {
@@ -99,7 +103,7 @@ const NumberElement = <TFieldValues extends FieldValues>({
           if (formattedCountries.length > 0) {
             setSelectedCountry(formattedCountries[0]);
             setValue(
-              name,
+              codeName,
               formattedCountries[0].dialCode as PathValue<
                 TFieldValues,
                 Path<TFieldValues>
@@ -112,7 +116,7 @@ const NumberElement = <TFieldValues extends FieldValues>({
       }
     };
     fetchCountries();
-  }, [setValue, name]);
+  }, [setValue, codeName]);
 
   const handleButtonClick = () => {
     setIsOpen(!isOpen);
@@ -123,9 +127,30 @@ const NumberElement = <TFieldValues extends FieldValues>({
     setIsOpen(false);
 
     setValue(
-      name,
+      codeName,
       country.dialCode as PathValue<TFieldValues, Path<TFieldValues>>
     );
+  };
+
+  const { onChange, ...registeredProps } = register(name, rules);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+
+    const maxLengthRule = rules?.maxLength as {
+      value: number;
+      message: string;
+    };
+    const maxLength = maxLengthRule?.value || 15;
+
+    const truncatedValue = value.slice(0, maxLength);
+
+    setValue(
+      name,
+      truncatedValue as PathValue<TFieldValues, Path<TFieldValues>>
+    );
+
+    onChange(e);
   };
 
   return (
@@ -133,12 +158,12 @@ const NumberElement = <TFieldValues extends FieldValues>({
       <div className="flex items-center relative">
         <div
           id="dropdown-phone"
-          className={`absolute left-0 top-full mt-2 w-52 overflow-y-scroll   max-h-52 bg-tms-blue rounded-md border border-light-grey  shadow-sm z-50 no-scrollbar ${
+          className={`absolute left-0 top-full mt-2 w-52 overflow-y-scroll max-h-52 bg-tms-blue rounded-md border border-light-grey shadow-sm z-50 no-scrollbar ${
             isOpen ? "block" : "hidden"
           }`}
         >
           <ul
-            className="py-2  text-white text-sm md:text-base  "
+            className="py-2 text-white text-sm md:text-base"
             aria-labelledby="dropdown-phone-button"
           >
             {countries.map((country, index) => (
@@ -147,7 +172,7 @@ const NumberElement = <TFieldValues extends FieldValues>({
                   type="button"
                   className={`inline-flex w-full px-4 py-2 ${
                     isBlue ? "text-dark-alter" : "text-white"
-                  }     hover:bg-tms-blue/[.2] dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white text-sm md:text-base`}
+                  } hover:bg-tms-blue/[.2] dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white text-sm md:text-base`}
                   role="menuitem"
                   onClick={() => handleCountrySelect(country)}
                 >
@@ -166,7 +191,7 @@ const NumberElement = <TFieldValues extends FieldValues>({
             data-dropdown-toggle="dropdown-phone"
             className={`z-10 inline-flex items-center h-full py-2.5 px-4 font-normal text-center bg-transparent text-sm md:text-base gap-x-1.5 ${
               isBlue ? "text-dark-alter" : "text-white"
-            }  outline-none absolute left-0 top-0`}
+            } outline-none absolute left-0 top-0`}
             type="button"
             onClick={handleButtonClick}
           >
@@ -174,12 +199,19 @@ const NumberElement = <TFieldValues extends FieldValues>({
           </button>
 
           <input
-            className={`${
-              isBlue ? "input-alter" : "input"
-            }  fix-autofill no-arrow-number !pl-[90px] w-full`}
+            type="hidden"
+            {...register(codeName as Path<TFieldValues>)}
+            value={selectedCountry?.dialCode || ""}
+          />
+
+          <input
+            className={`${isBlue ? "input-alter" : "input"}  ${
+              isLight ? "fix-autofill-dark" : "fix-autofill"
+            } no-arrow-number !pl-[90px] w-full`}
             id={name}
             type="tel"
-            {...register(name, rules)}
+            {...registeredProps}
+            onChange={handleInputChange}
             {...rest}
           />
           {errorMessage && (

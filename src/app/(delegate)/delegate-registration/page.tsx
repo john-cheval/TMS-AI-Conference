@@ -63,28 +63,21 @@ const DelegateRegistration = async () => {
             }}
           />
 
-          <div className="mt-5 lg:mt-6 ">
-            <h4 className="text-2xl font-bold leading-3 text-tms-blue mb-3 md:mb-4 ">
-              Contact Details
-            </h4>
+          <div>
+            <Link
+              className="text-sm md:text-base  leading-5 flex items-center gap-x-2 text-white mb-2 md:mb-3"
+              href={`phone:${delegate_registration?.phone_number}`}
+            >
+              <MdPhone color="#0078BB" /> {delegate_registration?.phone_number}
+            </Link>
 
-            <div>
-              <Link
-                className="text-sm md:text-base  leading-5 flex items-center gap-x-2 text-white mb-2 md:mb-3"
-                href={`phone:${delegate_registration?.phone_number}`}
-              >
-                <MdPhone color="#0078BB" />{" "}
-                {delegate_registration?.phone_number}
-              </Link>
-
-              <Link
-                className="text-sm md:text-base  leading-5 flex items-center gap-x-2 text-white"
-                href={`mailto:${delegate_registration?.email_address}`}
-              >
-                <IoMdMail color="#0078BB" />{" "}
-                {delegate_registration?.email_address}
-              </Link>
-            </div>
+            <Link
+              className="text-sm md:text-base  leading-5 flex items-center gap-x-2 text-white"
+              href={`mailto:${delegate_registration?.email_address}`}
+            >
+              <IoMdMail color="#0078BB" />{" "}
+              {delegate_registration?.email_address}
+            </Link>
           </div>
         </div>
       </section>

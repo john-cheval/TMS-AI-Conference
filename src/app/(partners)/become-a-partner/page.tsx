@@ -39,6 +39,7 @@ const BecomePartner = async () => {
       />
       <BecomeSponsorForm
         {...pageContent?.data?.section_list?.become_a_sponsor_form}
+        isPartnerForm={true}
       />
 
       <div className="section-wrapper pb-12 md:pb-20 space-y-5">

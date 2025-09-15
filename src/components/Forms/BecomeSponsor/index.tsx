@@ -12,6 +12,7 @@ import ai from "@/assets/shared/ai_small_24.svg";
 import Image from "next/image";
 import { toast } from "sonner";
 import ReCaptcha from "@/utils/ReCaptcha";
+import { baseUrl } from "@/lib/api";
 
 type FormData = {
   fullName: string;
@@ -19,17 +20,29 @@ type FormData = {
   company: string;
   contact: number;
   comments: string;
+  contactCountryCode: string;
 };
 
 interface RecaptchaRefType {
   resetCaptcha: () => void;
 }
 
+type Props = SectionOnePropsTyps & {
+  whySponsorPage?: boolean;
+  packageName?: string;
+  packageId?: number;
+  isPartnerForm?: boolean;
+};
+
 const BecomeSponsorForm = ({
   small_title,
   heading,
   isOpppotunity = false,
-}: SectionOnePropsTyps) => {
+  whySponsorPage = false,
+  packageName = "",
+  packageId = 0,
+  isPartnerForm = false,
+}: Props) => {
   const recaptchaRef = useRef<RecaptchaRefType>(null);
   const [token, setToken] = useState("");
   const {
@@ -49,21 +62,60 @@ const BecomeSponsorForm = ({
   }, []);
 
   const onSubmit = async (data: FormData) => {
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      console.log(data, "This is the form data");
-      console.log("reCAPTCHA Token:", token);
-
-      // Show a success toast notification
-      toast.success("Form submitted successfully!");
-
-      // Reset the form and reCAPTCHA widget
-      reset();
-      if (recaptchaRef.current) {
-        recaptchaRef.current.resetCaptcha();
+    if (!whySponsorPage && !packageName && !isPartnerForm) {
+      toast.error("Please Select a package first");
+      const packagesSection = document.getElementById("packages");
+      if (packagesSection) {
+        packagesSection.scrollIntoView({ behavior: "smooth", block: "start" });
       }
-      setToken("");
+      return;
+    }
+
+    let apiUrl;
+    let requestBody;
+
+    if (isPartnerForm) {
+      apiUrl = `${baseUrl}/becomeasponsor`;
+      requestBody = {
+        name: data.fullName,
+        email: data?.email,
+        comments: data?.comments,
+        company: data?.company,
+        contactno: data?.contact,
+        country_code: data?.contactCountryCode,
+      };
+    } else {
+      apiUrl = `${baseUrl}/becomeasponsor`;
+
+      requestBody = {
+        sponsor_cate: packageId ? packageId : 0,
+        sponsor_cate_name: packageName ? packageName : "",
+        name: data.fullName,
+        email: data?.email,
+        companyName: data?.company,
+        contactno: data?.contact,
+        comments: data?.comments,
+        country_code: data?.contactCountryCode,
+      };
+    }
+    try {
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (response.ok) {
+        toast.success("Form submitted successfully!");
+        reset();
+
+        if (recaptchaRef.current) {
+          recaptchaRef.current.resetCaptcha();
+        }
+        setToken("");
+      }
     } catch (error) {
       // Handle any submission errors
       toast.error("Failed to submit form. Please try again.");
@@ -72,6 +124,7 @@ const BecomeSponsorForm = ({
 
   return (
     <form
+      id="sponsor-form"
       onSubmit={handleSubmit(onSubmit)}
       className=" pt-5 md:pt-8 lg:pt-12 xl:pt-16 pb-10 md:pb-16 lg:pb-20 section-wrapper"
     >
@@ -122,6 +175,7 @@ const BecomeSponsorForm = ({
                 required: "Name is required.",
               }}
               isBlue={isOpppotunity}
+              isLight={isOpppotunity}
             />
 
             <TextElement
@@ -139,6 +193,7 @@ const BecomeSponsorForm = ({
                 },
               }}
               isBlue={isOpppotunity}
+              isLight={isOpppotunity}
             />
           </FormRow>
           <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
@@ -154,6 +209,7 @@ const BecomeSponsorForm = ({
                   required: "Company is required.",
                 }}
                 isBlue={isOpppotunity}
+                isLight={isOpppotunity}
               />
             </div>
 
@@ -161,27 +217,29 @@ const BecomeSponsorForm = ({
               <NumberElement
                 label="Contact Number"
                 name="contact"
-                type="number"
+                codeName="contactCountryCode"
+                type="tel"
                 setValue={setValue}
                 placeholder="Contact Number"
                 register={register}
                 errors={errors}
                 rules={{
                   required: "Number is required.",
-                  min: {
+                  minLength: {
                     value: 5,
                     message: "The minimum value should be 5.",
                   },
-                  // max: {
-                  //   value: 15,
-                  //   message: "The maximum value should be 15.",
-                  // },
+                  maxLength: {
+                    value: 15,
+                    message: "The maximum value should be 15.",
+                  },
                   pattern: {
                     value: /^\d+$/,
                     message: "Please enter a valid number.",
                   },
                 }}
                 isBlue={isOpppotunity}
+                isLight={isOpppotunity}
               />
             </div>
           </FormRow>
@@ -196,6 +254,7 @@ const BecomeSponsorForm = ({
               required: "comments is required.",
             }}
             isBlue={isOpppotunity}
+            isLight={isOpppotunity}
           />
 
           <div className="mt-4 md:mt-6 flex justify-center ">
@@ -211,7 +270,9 @@ const BecomeSponsorForm = ({
               isOpppotunity
                 ? "text-white bg-tms-purple"
                 : "text-tms-purple bg-white"
-            } text-sm md:text-base lg:text-lg leading-5 font-semibold flex gap-x-2   items-center group  rounded-sm py-3 md:py-4 px-5 md:px-6 w-fit  mx-auto mt-4- md:mt-6-`}
+            } text-sm md:text-base lg:text-lg leading-5 font-semibold flex gap-x-2   items-center group  rounded-sm py-3 md:py-4 px-5 md:px-6 w-fit  mx-auto mt-4- md:mt-6- ${
+              !token ? "cursor-not-allowed" : "cursor-pointer"
+            }`}
             disabled={!token}
           >
             Send Enquiry{" "}

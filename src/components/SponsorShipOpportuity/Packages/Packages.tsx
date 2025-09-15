@@ -6,9 +6,15 @@ import arrowDown from "@/assets/shared/chevron-right.png";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 type Props = {
   packageData?: any;
+  getSelectedPackage?: any;
+  getSelectedPackageCategoryId?: any;
 };
 
-const Packages = ({ packageData }: Props) => {
+const Packages = ({
+  packageData,
+  getSelectedPackage,
+  getSelectedPackageCategoryId,
+}: Props) => {
   const [activeTitle, setActiveTitle] = useState(packageData[0]?.title);
   const handleTitleClick = (item: string) => {
     setActiveTitle(item);
@@ -17,6 +23,8 @@ const Packages = ({ packageData }: Props) => {
   const selectedPackage = packageData?.find(
     (item: any) => item?.title === activeTitle
   );
+
+  // console.log(selectedPackage, "selectedPackage");
 
   return (
     <div>
@@ -50,7 +58,7 @@ const Packages = ({ packageData }: Props) => {
       </div>
 
       {selectedPackage?.sponsors && selectedPackage?.sponsors.length > 0 ? (
-        <div className="space-y-10">
+        <div className="space-y-10" id="packages">
           {selectedPackage?.sponsors?.map((sponsor: any, index: number) => (
             <div key={index + 1}>
               <div className="grid grid-cols-12">
@@ -93,8 +101,14 @@ const Packages = ({ packageData }: Props) => {
                 </button>
                 <div className="col-span-3 lg:col-span-4 xl:col-span-3">
                   <Link
-                    href={"#"}
+                    href={"#sponsor-form"}
                     className=" buttonGradient-2 rounded-br-sm block- flex items-center justify-center text-white py-4 lg:py-6 text-base lg:text-lg font-bold leading-5 group"
+                    onClick={() => {
+                      getSelectedPackage(
+                        `${sponsor?.title} -   ${activeTitle} ${selectedPackage?.small_title}`
+                      );
+                      getSelectedPackageCategoryId(sponsor?.id);
+                    }}
                   >
                     Send Enquiry{" "}
                     <MdOutlineKeyboardArrowRight className="text-2xl  group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />

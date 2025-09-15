@@ -1,4 +1,5 @@
 "use client";
+import { baseUrl } from "@/lib/api";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -11,7 +12,7 @@ const FooterNewsLetterForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
     reset,
   } = useForm<FormData>({
     mode: "onChange",
@@ -19,14 +20,27 @@ const FooterNewsLetterForm = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log("Form submitted with data:", data);
-      toast.success("Newsletter subscribed successfully.");
+      const response = await fetch(`${baseUrl}/submitnewsletter`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: data?.email }),
+      });
+
+      const result = await response.json();
+
+      if (result.errors) {
+        const errorMessage =
+          result.errors.email[0] || "An unexpected error occurred.";
+        toast.error(errorMessage);
+      } else {
+        toast.success("Newsletter subscribed successfully.");
+        reset();
+      }
 
       // Reset the form after successful submission
-      reset();
     } catch (error) {
-      console.error("Submission Failed", error);
       toast.error("Failed to subscribe. Please try again.");
     }
   };

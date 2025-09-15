@@ -34,6 +34,7 @@ const MediaPartners = async () => {
       <div className="pb-5 md:pb-10">
         <BecomeSponsorForm
           {...pageContent?.data?.section_list?.become_a_sponsor_form}
+          isPartnerForm={true}
         />
       </div>
     </>

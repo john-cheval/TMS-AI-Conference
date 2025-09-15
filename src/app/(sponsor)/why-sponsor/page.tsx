@@ -38,6 +38,7 @@ const WhySponsor = async () => {
       />
       <BecomeSponsorForm
         {...pageContent?.data?.section_list?.become_a_sponsor_form}
+        whySponsorPage={true}
       />
 
       <div className="section-wrapper pb-16 md:pb-20">

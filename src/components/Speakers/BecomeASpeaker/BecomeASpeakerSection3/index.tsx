@@ -18,7 +18,14 @@ type Props = {
 };
 
 const BecomeASpeakerSectionThree = (props: Props) => {
-  const { list_of_date, note, heading_2, description_2, form_heading } = props;
+  const {
+    list_of_date,
+    note,
+    heading_2,
+    description_2,
+    form_heading,
+    form_description,
+  } = props;
   return (
     <section className=" mt-5 md:mt-8 lg:mt-10 mb-12">
       {/* Announcement */}
@@ -39,7 +46,7 @@ const BecomeASpeakerSectionThree = (props: Props) => {
 
         <div className="mt-5 md:mt-8 lg:mt-11 space-y-4 md:space-y-6">
           <h4 className="main-heading-2 !text-dark-alter">{form_heading}</h4>
-          <BecomeSponsorPageForm />
+          <BecomeSponsorPageForm formDescription={form_description} />
         </div>
       </div>
     </section>
