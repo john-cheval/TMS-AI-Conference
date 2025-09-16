@@ -11,6 +11,27 @@ interface ImageUploadProps<TFieldValues extends FieldValues> {
   value: FileList | null;
 }
 
+const getNestedError = <TFieldValues extends FieldValues>(
+  errors: FieldErrors<TFieldValues>,
+  name: Path<TFieldValues>
+) => {
+  const parts = name.split(".");
+  let currentError = errors;
+  for (const part of parts) {
+    if (
+      currentError &&
+      typeof currentError === "object" &&
+      part in currentError &&
+      currentError[part] !== undefined
+    ) {
+      currentError = currentError[part] as FieldErrors<TFieldValues>;
+    } else {
+      return undefined;
+    }
+  }
+  return currentError?.message;
+};
+
 const ImageUploadElemet = <TFieldValues extends FieldValues>({
   name,
   onChange,
@@ -36,7 +57,8 @@ const ImageUploadElemet = <TFieldValues extends FieldValues>({
     }
   };
 
-  const errorMessage = errors[name]?.message;
+  // const errorMessage = errors[name]?.message;
+  const errorMessage = getNestedError(errors, name);
 
   return (
     <div className="flex flex-col gap-y2 flex-grow-1">
@@ -66,7 +88,13 @@ const ImageUploadElemet = <TFieldValues extends FieldValues>({
       </span>
       {errorMessage && (
         <p className="text-red-500 text-sm font-normal leading-5 mt-1">
-          {errorMessage as string}
+          {typeof errorMessage === "string"
+            ? errorMessage
+            : typeof errorMessage === "object" &&
+              errorMessage &&
+              "message" in errorMessage
+            ? String((errorMessage as any).message)
+            : ""}
         </p>
       )}
     </div>

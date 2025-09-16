@@ -1,7 +1,7 @@
 "use client";
 import { PhotoGalleryType } from "@/components/Gallery/GalleryAlbums";
 import GalleryModal from "@/components/Gallery/GalleryModal";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";

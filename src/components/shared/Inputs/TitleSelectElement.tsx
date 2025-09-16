@@ -1,5 +1,6 @@
+// TitleSelectElement.tsx
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import Select, {
   ActionMeta,
   DropdownIndicatorProps,
@@ -12,9 +13,8 @@ import { MdOutlineArrowDropDown } from "react-icons/md";
 interface TitleSelectProps<TFieldValues extends FieldValues> {
   name: Path<TFieldValues>;
   errors: FieldErrors<TFieldValues>;
-  // Props from react-hook-form's Controller
   onChange: (
-    newValue: SingleValue<string>, // The Controller's onChange expects a string
+    newValue: SingleValue<string>,
     actionMeta: ActionMeta<any>
   ) => void;
   onBlur: (e: React.FocusEvent) => void;
@@ -41,113 +41,139 @@ const DropdownIndicator = (
   );
 };
 
-const TitleSelectElement = <TFieldValues extends FieldValues>({
-  name,
-  onChange,
-  onBlur,
-  value,
-  errors,
-}: TitleSelectProps<TFieldValues>) => {
-  const [windowWidth, setWindowWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 0
-  );
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  const getPaddingLeft = () => {
-    if (windowWidth >= 1025) {
-      return "15px";
-    } else if (windowWidth >= 769) {
-      return "15px";
+const getNestedError = <TFieldValues extends FieldValues>(
+  errors: FieldErrors<TFieldValues>,
+  name: Path<TFieldValues>
+) => {
+  const parts = name.split(".");
+  let currentError: any = errors;
+  for (const part of parts) {
+    if (
+      currentError &&
+      typeof currentError === "object" &&
+      part in currentError
+    ) {
+      currentError = currentError[part];
     } else {
-      return "12px";
+      return undefined;
     }
-  };
-
-  const options = [
-    { value: "Mr", label: "Mr" },
-    { value: "Mrs", label: "Mrs" },
-    { value: "Ms", label: "Ms" },
-    { value: "Dr", label: "Dr" },
-  ];
-
-  const customStyles = {
-    control: (styles: any) => ({
-      ...styles,
-      borderColor: "#fff",
-      borderRadius: "8px",
-      backgroundColor: "transparent",
-      paddingBlock: "8px",
-      paddingLeft: getPaddingLeft(),
-      color: "#fff",
-      "&:hover": {
-        borderColor: "#fff",
-      },
-    }),
-    menu: (styles: any) => ({
-      ...styles,
-      marginTop: "10px",
-      borderRadius: "8px",
-      backgroundColor: "#0078bb",
-    }),
-    option: (
-      styles: any,
-      { isFocused, isSelected }: { isFocused: boolean; isSelected: boolean }
-    ) => ({
-      ...styles,
-      backgroundColor: isFocused ? "#0078ee" : isSelected ? "#4d1592" : "",
-      color: "#fff",
-      borderRadius: "4px",
-      "&:hover": {
-        borderColor: "#fff",
-      },
-    }),
-    placeholder: (styles: any) => ({
-      ...styles,
-      color: "#fff",
-    }),
-    singleValue: (styles: any) => ({
-      ...styles,
-      color: "#fff",
-    }),
-  };
-
-  return (
-    <div>
-      <Select
-        options={options}
-        onChange={(newValue, actionMeta) => {
-          const valueStr =
-            newValue && typeof newValue === "object" && "value" in newValue
-              ? (newValue as { value: string }).value
-              : "";
-          onChange(valueStr, actionMeta);
-        }}
-        onBlur={onBlur}
-        value={options.find((option) => option.value === value) || null}
-        styles={customStyles}
-        placeholder="Title"
-        // CORRECTED: Pass an object with the component
-        components={{ DropdownIndicator: DropdownIndicator }}
-      />
-      {errors[name]?.message && (
-        <p className="text-red-500 text-sm mt-1">
-          {errors[name]?.message as string}
-        </p>
-      )}
-    </div>
-  );
+  }
+  return currentError?.message;
 };
+// Use React.forwardRef to pass the ref down
+const TitleSelectElement = forwardRef(
+  <TFieldValues extends FieldValues>(
+    { name, onChange, onBlur, value, errors }: TitleSelectProps<TFieldValues>,
+    ref: React.ForwardedRef<any> // The ref is passed as the second argument
+  ) => {
+    const [windowWidth, setWindowWidth] = useState(
+      typeof window !== "undefined" ? window.innerWidth : 0
+    );
+
+    useEffect(() => {
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+
+      window.addEventListener("resize", handleResize);
+      handleResize();
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }, []);
+
+    const getPaddingLeft = () => {
+      if (windowWidth >= 1025) {
+        return "15px";
+      } else if (windowWidth >= 769) {
+        return "15px";
+      } else {
+        return "12px";
+      }
+    };
+
+    const options = [
+      { value: "Mr", label: "Mr" },
+      { value: "Mrs", label: "Mrs" },
+      { value: "Ms", label: "Ms" },
+      { value: "Dr", label: "Dr" },
+    ];
+
+    const customStyles = {
+      control: (styles: any) => ({
+        ...styles,
+        borderColor: "#fff",
+        borderRadius: "8px",
+        backgroundColor: "transparent",
+        paddingBlock: "8px",
+        paddingLeft: getPaddingLeft(),
+        color: "#fff",
+        "&:hover": {
+          borderColor: "#fff",
+        },
+      }),
+      menu: (styles: any) => ({
+        ...styles,
+        marginTop: "10px",
+        borderRadius: "8px",
+        backgroundColor: "#0078bb",
+      }),
+      option: (
+        styles: any,
+        { isFocused, isSelected }: { isFocused: boolean; isSelected: boolean }
+      ) => ({
+        ...styles,
+        backgroundColor: isFocused ? "#0078ee" : isSelected ? "#4d1592" : "",
+        color: "#fff",
+        borderRadius: "4px",
+        "&:hover": {
+          borderColor: "#fff",
+        },
+      }),
+      placeholder: (styles: any) => ({
+        ...styles,
+        color: "#fff",
+      }),
+      singleValue: (styles: any) => ({
+        ...styles,
+        color: "#fff",
+      }),
+    };
+    // const errorMessage = getNestedError(errors, name);
+    const errorMessage = getNestedError<TFieldValues>(errors, name);
+
+    return (
+      <div>
+        <Select
+          ref={ref as any} // Pass the ref down to the Select component
+          options={options}
+          onChange={(newValue, actionMeta) => {
+            const valueStr =
+              newValue && typeof newValue === "object" && "value" in newValue
+                ? (newValue as { value: string }).value
+                : "";
+            onChange(valueStr, actionMeta);
+          }}
+          onBlur={onBlur}
+          value={options.find((option) => option.value === value) || null}
+          styles={customStyles}
+          placeholder="Title"
+          components={{ DropdownIndicator: DropdownIndicator }}
+        />
+        {/* {errors[name]?.message && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors[name]?.message as string}
+          </p>
+        )} */}
+        {errorMessage && (
+          <p className="text-red-500 text-sm mt-1">{errorMessage as string}</p>
+        )}
+      </div>
+    );
+  }
+);
+
+TitleSelectElement.displayName = "TitleSelectElement";
 
 export default TitleSelectElement;

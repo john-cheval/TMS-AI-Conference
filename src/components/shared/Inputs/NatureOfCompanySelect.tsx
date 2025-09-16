@@ -9,6 +9,26 @@ import { FieldValues, FieldErrors, Path } from "react-hook-form";
 import { MdOutlineArrowDropDown } from "react-icons/md";
 
 // Define the types for the props
+
+const getNestedError = <TFieldValues extends FieldValues>(
+  errors: FieldErrors<TFieldValues>,
+  name: Path<TFieldValues>
+) => {
+  const parts = name.split(".");
+  let currentError: any = errors;
+  for (const part of parts) {
+    if (
+      currentError &&
+      typeof currentError === "object" &&
+      part in currentError
+    ) {
+      currentError = currentError[part];
+    } else {
+      return undefined;
+    }
+  }
+  return currentError?.message;
+};
 interface TitleSelectProps<TFieldValues extends FieldValues> {
   name: Path<TFieldValues>;
   errors: FieldErrors<TFieldValues>;
@@ -122,6 +142,7 @@ const NatureOfCompanySelectElement = <TFieldValues extends FieldValues>({
       color: "#00081b",
     }),
   };
+  const errorMessage = getNestedError<TFieldValues>(errors, name);
 
   return (
     <div>
@@ -138,13 +159,10 @@ const NatureOfCompanySelectElement = <TFieldValues extends FieldValues>({
         value={options.find((option) => option.value === value) || null}
         styles={customStyles}
         placeholder="Nationality"
-        // CORRECTED: Pass an object with the component
         components={{ DropdownIndicator: DropdownIndicator }}
       />
-      {errors[name]?.message && (
-        <p className="text-red-500 text-sm mt-1">
-          {errors[name]?.message as string}
-        </p>
+      {errorMessage && (
+        <p className="text-red-500 text-sm mt-1">{errorMessage as string}</p>
       )}
     </div>
   );
