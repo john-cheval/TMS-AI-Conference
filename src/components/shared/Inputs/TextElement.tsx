@@ -19,6 +19,25 @@ interface TextElementProps<TFieldValues extends FieldValues>
   isLight?: boolean;
 }
 
+const getNestedError = (errors: any, name: any) => {
+  const parts = name.split(".");
+  let currentError = errors;
+
+  for (const part of parts) {
+    if (
+      currentError &&
+      typeof currentError === "object" &&
+      part in currentError
+    ) {
+      currentError = currentError[part];
+    } else {
+      return undefined;
+    }
+  }
+
+  return currentError?.message;
+};
+
 // Make the component function generic
 const TextElement = <TFieldValues extends FieldValues>({
   label,
@@ -30,7 +49,7 @@ const TextElement = <TFieldValues extends FieldValues>({
   isLight = false,
   ...rest
 }: TextElementProps<TFieldValues>) => {
-  const errorMessage = errors[name]?.message;
+  const errorMessage = getNestedError(errors, name);
   return (
     <div className="flex flex-col gap-y-2 flex-grow-1">
       <input

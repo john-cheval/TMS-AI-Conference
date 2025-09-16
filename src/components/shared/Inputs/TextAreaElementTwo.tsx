@@ -20,7 +20,24 @@ interface TextAreaElementProps<TFieldValues extends FieldValues>
   fakePlaceholderText?: string;
   rules?: RegisterOptions<TFieldValues, Path<TFieldValues>>;
 }
+const getNestedError = (errors: any, name: any) => {
+  const parts = name.split(".");
+  let currentError = errors;
 
+  for (const part of parts) {
+    if (
+      currentError &&
+      typeof currentError === "object" &&
+      part in currentError
+    ) {
+      currentError = currentError[part];
+    } else {
+      return undefined;
+    }
+  }
+
+  return currentError?.message;
+};
 const TextAreaElementTwo = <TFieldValues extends FieldValues>({
   label,
   name,
@@ -35,7 +52,6 @@ const TextAreaElementTwo = <TFieldValues extends FieldValues>({
   ...rest
 }: TextAreaElementProps<TFieldValues>) => {
   const { onChange, ...restRegister } = register(name, rules);
-  const errorMessage = errors[name]?.message;
 
   const [wordCount, setWordCount] = useState(0);
   const [value, setValue] = useState("");
@@ -57,6 +73,7 @@ const TextAreaElementTwo = <TFieldValues extends FieldValues>({
       onChange(e);
     }
   };
+  const errorMessage = getNestedError(errors, name);
 
   return (
     <div

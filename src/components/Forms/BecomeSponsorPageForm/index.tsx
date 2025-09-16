@@ -10,7 +10,6 @@ import BioUploadElemet from "@/components/shared/Inputs/BioUploadElement";
 import NatureOfCompanySelectElement from "@/components/shared/Inputs/NatureOfCompanySelect";
 import TextAreaElementTwo from "@/components/shared/Inputs/TextAreaElementTwo";
 import useMediaQuery from "@/hooks/useMediaQuery";
-import Link from "next/link";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { toast } from "sonner";
 import ReCaptcha from "@/utils/ReCaptcha";
@@ -38,7 +37,7 @@ interface PresentationData {
   abstract: string;
   takewayas: string;
   aboutPresentation: string;
-  paperSubmit: string;
+  paperSubmit: FileList | null;
 }
 
 type FormData = {
@@ -63,8 +62,9 @@ const BecomeSponsorPageForm = ({ formDescription }: Props) => {
     handleSubmit,
     control,
     setValue,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     reset,
+    setFocus,
   } = useForm<FormData>();
 
   const handleToken = useCallback((recaptchaToken: string | null) => {
@@ -97,8 +97,45 @@ const BecomeSponsorPageForm = ({ formDescription }: Props) => {
     }
   };
 
+  // This is the new function to find the first nested error
+  const getFirstErrorPath = (errors: any, path: string = ""): string | null => {
+    const errorKeys = Object.keys(errors);
+
+    for (const key of errorKeys) {
+      const currentPath = path ? `${path}.${key}` : key;
+
+      // If the current field has an error message, we've found it
+      if (errors[key]?.message) {
+        return currentPath;
+      }
+
+      // If it's a nested object, check for errors inside it
+      if (
+        typeof errors[key] === "object" &&
+        errors[key] !== null &&
+        !Array.isArray(errors[key])
+      ) {
+        const nestedErrorPath = getFirstErrorPath(errors[key], currentPath);
+        if (nestedErrorPath) {
+          return nestedErrorPath;
+        }
+      }
+    }
+    return null;
+  };
+
+  const onError = (errors: any) => {
+    // Find the full path to the first error
+    const firstErrorName = getFirstErrorPath(errors);
+
+    // If a field with an error is found, set focus on it
+    if (firstErrorName) {
+      setFocus(firstErrorName as Path<FormData>);
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit, onError)}>
       <div className=" bg-tms-blue rounded-2xl px-5 md:px-10 lg:px-16  xl:px-[72px]pb-8 md:pb-12 lg:pb-16 xl:pb-20">
         <h4 className="main-heading-2 !text-white pt-8 md:pt-10 lg:pt-14 mb-4  md:mb-5">
           About You
@@ -208,6 +245,11 @@ const BecomeSponsorPageForm = ({ formDescription }: Props) => {
                 errors={errors}
                 rules={{
                   required: "LinkedIn Url is required.",
+                  pattern: {
+                    // Regex to validate a URL format (including http/https)
+                    value: /^(http|https):\/\/[^ "]+$/,
+                    message: "Please enter a valid URL.",
+                  },
                 }}
               />
             </div>
@@ -217,7 +259,7 @@ const BecomeSponsorPageForm = ({ formDescription }: Props) => {
                 name="aboutYou.headshotFile"
                 control={control}
                 rules={{
-                  required: "Headshot file is required.",
+                  required: "Image is required.",
                   validate: {
                     isImage: (value: FileList | null) => {
                       if (!value || value.length === 0)
@@ -427,7 +469,7 @@ const BecomeSponsorPageForm = ({ formDescription }: Props) => {
 
             <div className="flex-1">
               <Controller
-                name="aboutYou.bio"
+                name="aboutPresentation.paperSubmit"
                 control={control}
                 rules={{
                   required: "Bio file is required.",

@@ -35,6 +35,26 @@ interface NumbertElementProps<TFieldValues extends FieldValues>
   isLight?: boolean;
 }
 
+const getNestedError = <TFieldValues extends FieldValues>(
+  errors: FieldErrors<TFieldValues>,
+  name: Path<TFieldValues>
+) => {
+  const parts = name.split(".");
+  let currentError: any = errors;
+  for (const part of parts) {
+    if (
+      currentError &&
+      typeof currentError === "object" &&
+      part in currentError
+    ) {
+      currentError = currentError[part];
+    } else {
+      return undefined;
+    }
+  }
+  return currentError?.message;
+};
+
 const formatDialCode = (idd: CountryType["idd"]): string => {
   if (!idd || !idd.root) return "";
   const suffix = idd.suffixes && idd.suffixes.length > 0 ? idd.suffixes[0] : "";
@@ -53,7 +73,9 @@ const NumberElement = <TFieldValues extends FieldValues>({
   isLight = false,
   ...rest
 }: NumbertElementProps<TFieldValues>) => {
-  const errorMessage = errors[name]?.message;
+  // const errorMessage = errors[name]?.message;
+  const errorMessage = getNestedError(errors, name);
+  console.log(errorMessage, "this is error message");
 
   const [isOpen, setIsOpen] = useState(false);
   const [countries, setCountries] = useState<CountryType[]>([]);
@@ -191,7 +213,9 @@ const NumberElement = <TFieldValues extends FieldValues>({
             data-dropdown-toggle="dropdown-phone"
             className={`z-10 inline-flex items-center h-full py-2.5 px-4 font-normal text-center bg-transparent text-sm md:text-base gap-x-1.5 ${
               isBlue ? "text-dark-alter" : "text-white"
-            } outline-none absolute left-0 top-0`}
+            } outline-none absolute left-0 ${
+              errorMessage ? "-top-3s" : "top-0"
+            }`}
             type="button"
             onClick={handleButtonClick}
           >
@@ -215,7 +239,9 @@ const NumberElement = <TFieldValues extends FieldValues>({
             {...rest}
           />
           {errorMessage && (
-            <p className="text-red-500 text-sm">{errorMessage as string}</p>
+            <p className="text-red-500 text-sm mt-2">
+              {errorMessage as string}
+            </p>
           )}
         </div>
       </div>

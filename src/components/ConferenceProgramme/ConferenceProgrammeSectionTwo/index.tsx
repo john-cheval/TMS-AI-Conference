@@ -57,110 +57,117 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                           {formattedTime}
                         </p>
                         {/* Main content container */}
-                        <div className="px-5  mt-3 md:mt-5  flex flex-col flex-grow">
+                        <div className="px-5 mt-3 md:mt-5 flex flex-col flex-grow">
                           <h3 className="text-lg md:text-xl text-tms-blue font-medium leading-3">
                             {item?.name}
                           </h3>
 
-                          {item?.sponsor_list?.length > 0 && (
-                            <div className="mt-auto- mt-5 md:mt-8 lg:mt-14">
-                              <p className="description text-dark-alter mb-5">
-                                Sponsor
-                              </p>
-                              {item?.sponsor_list?.map(
-                                (
-                                  sponsorListItem: any,
-                                  sponsorListIndex: number
-                                ) => {
-                                  return (
-                                    <Image
-                                      key={sponsorListIndex}
-                                      src={
-                                        sponsorListItem?.image_url ?? "imnagw2"
-                                      }
-                                      alt={sponsorListItem?.name}
-                                      width={360}
-                                      height={80}
-                                      className="w-fit object-contain max-w-[200px] md:max-w-full"
-                                    />
-                                  );
-                                }
-                              )}
-                            </div>
-                          )}
-
-                          {item?.speakers_users !== null &&
-                            item?.speakers_users?.length > 0 && (
-                              <div className="pt-3 md:pt-7 mt-auto space-y-4 md:space-y-6">
-                                {item?.speakers_users?.map(
-                                  (speakerItem: any, speakerindex: number) => {
+                          {/* Wrap all the content you want at the bottom in this div */}
+                          <div className="mt-auto space-y-4 md:space-y-6">
+                            {item?.sponsor_list?.length > 0 && (
+                              <div className="mt-5 md:mt-8 lg:mt-14">
+                                <p className="description text-dark-alter mb-5">
+                                  Sponsor
+                                </p>
+                                {item?.sponsor_list?.map(
+                                  (
+                                    sponsorListItem: any,
+                                    sponsorListIndex: number
+                                  ) => {
                                     return (
-                                      <div
-                                        key={speakerindex + 1}
-                                        className="flex gap-x-3"
-                                      >
-                                        <Image
-                                          src={speakerItem?.image_url}
-                                          alt={speakerItem?.title}
-                                          width={63}
-                                          height={63}
-                                          className="rounded-md w-[65px] h-[65px]"
-                                        />
-
-                                        <div>
-                                          <p className="text-base md:text-lg lg:text-xl text-[#2a2a2a] font-medium leading-[28px]">
-                                            {speakerItem?.title}
-                                          </p>
-                                          <p className="description text-[#2a2a2a] leading-5 mt-1">
-                                            {speakerItem?.description}
-                                          </p>
-                                        </div>
-                                      </div>
+                                      <Image
+                                        key={sponsorListIndex}
+                                        src={
+                                          sponsorListItem?.image_url ??
+                                          "imnagw2"
+                                        }
+                                        alt={sponsorListItem?.name}
+                                        width={360}
+                                        height={80}
+                                        className="w-fit object-contain max-w-[200px] md:max-w-full"
+                                      />
                                     );
                                   }
                                 )}
                               </div>
                             )}
 
-                          {item?.moderator_list && (
-                            <div className="mt-4 md:mt-6">
-                              <p className="text-dark text-base md:text-lg lg:text-2xl font-semibold leding-5">
-                                Moderator
-                              </p>
+                            {item?.speakers_users !== null &&
+                              item?.speakers_users?.length > 0 && (
+                                <div className="pt-3 md:pt-7 space-y-3 md:space-y-4">
+                                  {item?.speakers_users?.map(
+                                    (
+                                      speakerItem: any,
+                                      speakerindex: number
+                                    ) => {
+                                      return (
+                                        <div
+                                          key={speakerindex + 1}
+                                          className="flex gap-x-3"
+                                        >
+                                          <Image
+                                            src={speakerItem?.image_url}
+                                            alt={speakerItem?.title}
+                                            width={63}
+                                            height={63}
+                                            className="rounded-md w-[65px] h-[65px]"
+                                          />
 
-                              <div className="mt-3 space-y-4">
-                                {item?.moderator_list?.map(
-                                  (
-                                    moderatorItem: any,
-                                    moderatorIndex: number
-                                  ) => {
-                                    return (
-                                      <div
-                                        className="flex gap-x-3"
-                                        key={moderatorIndex + 1}
-                                      >
-                                        <Image
-                                          src={moderatorItem?.image_url}
-                                          alt={moderatorItem?.name}
-                                          width={63}
-                                          height={63}
-                                          className="rounded-md w-[65px] h-[65px]"
-                                        />
-                                        <div>
-                                          <p className="text-base md:text-lg lg:text-xl text-[#2a2a2a] font-medium leading-[28px]">
-                                            {moderatorItem?.name}
-                                          </p>
-                                          <p className="description text-[#2a2a2a] leading-5 md:mt-1">
-                                            {moderatorItem?.post}
-                                          </p>
+                                          <div>
+                                            <p className="text-base md:text-lg lg:text-xl text-[#2a2a2a] font-medium leading-[28px]">
+                                              {speakerItem?.title}
+                                            </p>
+                                            <p className="description text-[#2a2a2a] leading-5 mt-1">
+                                              {speakerItem?.description}
+                                            </p>
+                                          </div>
                                         </div>
-                                      </div>
-                                    );
-                                  }
-                                )}
+                                      );
+                                    }
+                                  )}
+                                </div>
+                              )}
+
+                            {item?.moderator_list && (
+                              <div className="mt-4 md:mt-6">
+                                <p className="text-dark text-base md:text-lg lg:text-2xl font-semibold leding-5">
+                                  Moderator
+                                </p>
+
+                                <div className="mt-3 space-y-3 md:space-y-4">
+                                  {item?.moderator_list?.map(
+                                    (
+                                      moderatorItem: any,
+                                      moderatorIndex: number
+                                    ) => {
+                                      return (
+                                        <div
+                                          className="flex gap-x-3"
+                                          key={moderatorIndex + 1}
+                                        >
+                                          <Image
+                                            src={moderatorItem?.image_url}
+                                            alt={moderatorItem?.name}
+                                            width={63}
+                                            height={63}
+                                            className="rounded-md w-[65px] h-[65px]"
+                                          />
+                                          <div>
+                                            <p className="text-base md:text-lg lg:text-xl text-[#2a2a2a] font-medium leading-[28px]">
+                                              {moderatorItem?.name}
+                                            </p>
+                                            <p className="description text-[#2a2a2a] leading-5 md:mt-1">
+                                              {moderatorItem?.post}
+                                            </p>
+                                          </div>
+                                        </div>
+                                      );
+                                    }
+                                  )}
+                                </div>
                               </div>
-                            </div>
-                          )}
+                            )}
+                          </div>
                         </div>
                       </>
                     )}
@@ -220,7 +227,7 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                             {item?.name}
                           </h4>
 
-                          <div className="space-y-4">
+                          {/* <div className="space-y-4">
                             <p className="description text-dark-alter">
                               This session explores the integration of AI and
                               emerging technologies in reshaping the entire
@@ -278,7 +285,14 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                                 decision-making.
                               </p>
                             </div>
-                          </div>
+                          </div> */}
+
+                          <div
+                            className="space-y-4 description text-dark-alter"
+                            dangerouslySetInnerHTML={{
+                              __html: item?.description,
+                            }}
+                          />
 
                           {item?.moderator_list && (
                             <div className="mt-4 md:mt-6">

@@ -16,6 +16,24 @@ interface BioUploadProps<TFieldValues extends FieldValues> {
   isPresentation?: boolean;
 }
 
+const getNestedError = (errors: FieldErrors<any>, name: any) => {
+  const parts = name.split(".");
+  let currentError: any = errors;
+  for (const part of parts) {
+    if (
+      currentError &&
+      typeof currentError === "object" &&
+      part in currentError &&
+      currentError[part] !== undefined
+    ) {
+      currentError = currentError[part];
+    } else {
+      return undefined;
+    }
+  }
+  return currentError?.message;
+};
+
 const BioUploadElemet = <TFieldValues extends FieldValues>({
   name,
   onChange,
@@ -42,12 +60,12 @@ const BioUploadElemet = <TFieldValues extends FieldValues>({
     }
   };
 
-  const errorMessage = errors[name]?.message;
+  const errorMessage = getNestedError(errors, name);
 
   const uploadText = isPresentation ? "Submit your papers" : "Upload Bio";
-  const heaperText = isPresentation
+  const helperText = isPresentation
     ? "Please upload your papers in pdf format. Max 5MB"
-    : "Upload Bio";
+    : "Upload your bio in pdf format. Max 5MB";
 
   return (
     <div className="flex flex-col gap-y2 flex-grow-1">
@@ -93,7 +111,7 @@ const BioUploadElemet = <TFieldValues extends FieldValues>({
           isPresentation ? "text-dark-alter" : "text-white"
         } text-xs md:text-sm font-normal leading-5`}
       >
-        Upload your bio in pdf format. Max 5MB
+        {helperText}
       </span>
       {errorMessage && (
         <p className="text-red-500 text-sm font-normal leading-5 mt-1">
