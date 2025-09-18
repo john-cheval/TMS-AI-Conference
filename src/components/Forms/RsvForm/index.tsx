@@ -8,6 +8,7 @@ import TextElement from "@/components/shared/Inputs/TextElement";
 import NumberElement from "@/components/shared/Inputs/NumberElement";
 import NationalitySelectElement from "@/components/shared/Inputs/NationalitySElectElement";
 import ReCaptcha from "@/utils/ReCaptcha";
+import { baseUrl } from "@/lib/api";
 
 type FormData = {
   title: string;
@@ -52,22 +53,34 @@ const RsvForm = ({ description }: Props) => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const response = await fetch(`${baseUrl}/becomearsvp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: data?.title,
+          fname: data?.firstName,
+          lname: data?.lastName,
+          c_name: data?.companyName,
+          country_code: data?.contactCountryCode,
+          telephone: data?.contactNumber,
+          email_address: data?.email,
+          designation: data?.designation,
+          nationality: data?.nationality,
+          messcountryage: data?.countryOfResidence,
+        }),
+      });
+      if (response.ok) {
+        toast.success("Form submitted successfully!");
+        reset();
 
-      console.log(data, "This is the form data");
-      console.log("reCAPTCHA Token:", token);
-
-      // Show a success toast notification
-      toast.success("Form submitted successfully!");
-
-      // Reset the form and reCAPTCHA widget
-      reset();
-      if (recaptchaRef.current) {
-        recaptchaRef.current.resetCaptcha();
+        if (recaptchaRef.current) {
+          recaptchaRef.current.resetCaptcha();
+        }
+        setToken("");
       }
-      setToken("");
     } catch (error) {
-      // Handle any submission errors
       toast.error("Failed to submit form. Please try again.");
     }
   };
@@ -108,9 +121,9 @@ const RsvForm = ({ description }: Props) => {
             placeholder="Last Name"
             register={register}
             errors={errors}
-            rules={{
-              required: "Last Name is required.",
-            }}
+            // rules={{
+            //   required: "Last Name is required.",
+            // }}
           />
         </FormRow>
 
@@ -235,7 +248,11 @@ const RsvForm = ({ description }: Props) => {
           className={`
           rounded-sm text-sm sm:text-base md:text-lg font-bold leading-5 text-dark-alter bg-white md:py-5 w-fit  py-3 px-8 md:px-16 lg:px-[100px] text-center mt-4 
           transition-all duration-300 
-          ${!token ? "opacity-50 cursor-not-allowed" : "hover:bg-tms-purple/90"}
+          ${
+            !token
+              ? "opacity-50 cursor-not-allowed"
+              : "hover:bg-tms-purple/90 hover:text-white"
+          }
         `}
           disabled={!token}
         >

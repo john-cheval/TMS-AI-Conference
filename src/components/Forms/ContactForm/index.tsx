@@ -5,6 +5,7 @@ import TextElement from "@/components/shared/Inputs/TextElement";
 import TextAreaElement from "@/components/shared/Inputs/TextAreaElement";
 import ReCaptcha from "@/utils/ReCaptcha";
 import { toast } from "sonner";
+import { baseUrl } from "@/lib/api";
 
 type FormData = {
   fullName: string;
@@ -37,22 +38,28 @@ const ContactForm = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const response = await fetch(`${baseUrl}/submitcontactus`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data?.fullName,
+          email: data?.email,
+          subject: data?.subject,
+          message: data?.message,
+        }),
+      });
+      if (response.ok) {
+        toast.success("Form submitted successfully!");
+        reset();
 
-      console.log(data, "This is the form data");
-      console.log("reCAPTCHA Token:", token);
-
-      // Show a success toast notification
-      toast.success("Form submitted successfully!");
-
-      // Reset the form and reCAPTCHA widget
-      reset();
-      if (recaptchaRef.current) {
-        recaptchaRef.current.resetCaptcha();
+        if (recaptchaRef.current) {
+          recaptchaRef.current.resetCaptcha();
+        }
+        setToken("");
       }
-      setToken("");
     } catch (error) {
-      // Handle any submission errors
       toast.error("Failed to submit form. Please try again.");
     }
   };
