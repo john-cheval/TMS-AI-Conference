@@ -75,12 +75,12 @@ const BecomeSponsorForm = ({
     let requestBody;
 
     if (isPartnerForm) {
-      apiUrl = `${baseUrl}/becomeasponsor`;
+      apiUrl = `${baseUrl}/becomeapartners`;
       requestBody = {
         name: data.fullName,
         email: data?.email,
         comments: data?.comments,
-        company: data?.company,
+        companyName: data?.company,
         contactno: data?.contact,
         country_code: data?.contactCountryCode,
       };

@@ -13,6 +13,7 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { toast } from "sonner";
 import ReCaptcha from "@/utils/ReCaptcha";
+import { baseUrl } from "@/lib/api";
 interface AboutYouData {
   title: string;
   firstName: string;
@@ -77,22 +78,42 @@ const BecomeSponsorPageForm = ({ formDescription }: Props) => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const response = await fetch(`${baseUrl}/becomeaspeaker`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: data?.aboutYou?.title,
+          fname: data?.aboutYou.firstName,
+          lname: data?.aboutYou.lastName,
+          email_address: data?.aboutYou?.email,
+          country_code: data?.aboutYou?.contactCountryCode,
+          telephone: data?.aboutYou?.contact,
+          linkedin_url: data?.aboutYou?.linkedinUrl,
+          headshot: data?.aboutYou?.headshotFile,
+          bio: data?.aboutYou?.bio,
+          designation: data?.aboutCompany?.designation,
+          c_name: data?.aboutCompany?.company,
+          nature_company: data?.aboutCompany?.natureOfCompany,
+          nature_company_other: data?.aboutCompany?.ifOthers,
+          job_title: data?.aboutPresentation?.presentationTitle,
+          abstract_details: data?.aboutPresentation?.abstract,
+          your_presentation: data?.aboutPresentation?.aboutPresentation,
+          additional_details: data?.aboutPresentation?.takewayas,
+          papers_details: data?.aboutPresentation?.paperSubmit,
+        }),
+      });
+      if (response.ok) {
+        toast.success("Form submitted successfully!");
+        reset();
 
-      console.log(data, "This is the form data");
-      console.log("reCAPTCHA Token:", token);
-
-      // Show a success toast notification
-      toast.success("Form submitted successfully!");
-
-      // Reset the form and reCAPTCHA widget
-      reset();
-      if (recaptchaRef.current) {
-        recaptchaRef.current.resetCaptcha();
+        if (recaptchaRef.current) {
+          recaptchaRef.current.resetCaptcha();
+        }
+        setToken("");
       }
-      setToken("");
     } catch (error) {
-      // Handle any submission errors
       toast.error("Failed to submit form. Please try again.");
     }
   };

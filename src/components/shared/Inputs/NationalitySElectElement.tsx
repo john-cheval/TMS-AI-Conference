@@ -21,6 +21,7 @@ interface TitleSelectProps<TFieldValues extends FieldValues> {
 }
 
 import { GroupBase } from "react-select";
+import { baseUrl } from "@/lib/api";
 
 const DropdownIndicator = (
   props: DropdownIndicatorProps<
@@ -51,6 +52,30 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
     typeof window !== "undefined" ? window.innerWidth : 0
   );
 
+  const [countryList, setCountryList] = useState([]);
+
+  useEffect(() => {
+    const fetcCountries = async () => {
+      try {
+        const response = await fetch(
+          `${baseUrl}/getmasterdetails?master_name=countries`
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data && data?.data) {
+          setCountryList(data?.data);
+        }
+      } catch (error) {
+        console.error("Could not fetch the countries data:", error);
+      }
+    };
+    fetcCountries();
+  }, []);
+
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -73,13 +98,6 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
       return "12px";
     }
   };
-
-  const options = [
-    { value: "Indian", label: "Indian" },
-    { value: "American", label: "American" },
-    { value: "British", label: "British" },
-    { value: "Brazilian", label: "Brazilian" },
-  ];
 
   const customStyles = {
     control: (styles: any) => ({
@@ -121,6 +139,11 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
       color: "#fff",
     }),
   };
+
+  const options = countryList.map((country: any) => ({
+    value: country.countryCode,
+    label: country.countryName,
+  }));
 
   return (
     <div>

@@ -75,7 +75,6 @@ const NumberElement = <TFieldValues extends FieldValues>({
 }: NumbertElementProps<TFieldValues>) => {
   // const errorMessage = errors[name]?.message;
   const errorMessage = getNestedError(errors, name);
-  console.log(errorMessage, "this is error message");
 
   const [isOpen, setIsOpen] = useState(false);
   const [countries, setCountries] = useState<CountryType[]>([]);

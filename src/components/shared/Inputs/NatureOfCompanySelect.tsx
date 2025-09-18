@@ -158,7 +158,7 @@ const NatureOfCompanySelectElement = <TFieldValues extends FieldValues>({
         onBlur={onBlur}
         value={options.find((option) => option.value === value) || null}
         styles={customStyles}
-        placeholder="Nationality"
+        placeholder="Nature of Company"
         components={{ DropdownIndicator: DropdownIndicator }}
       />
       {errorMessage && (
