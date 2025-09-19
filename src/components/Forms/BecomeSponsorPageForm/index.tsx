@@ -52,8 +52,9 @@ interface RecaptchaRefType {
 }
 type Props = {
   formDescription: string;
+  NatureOfCompany: any;
 };
-const BecomeSponsorPageForm = ({ formDescription }: Props) => {
+const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
   const recaptchaRef = useRef<RecaptchaRefType>(null);
   const [token, setToken] = useState("");
   const isSmallScreen = useMediaQuery("(max-width: 650px)");
@@ -63,7 +64,7 @@ const BecomeSponsorPageForm = ({ formDescription }: Props) => {
     handleSubmit,
     control,
     setValue,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
     setFocus,
   } = useForm<FormData>();
@@ -78,32 +79,51 @@ const BecomeSponsorPageForm = ({ formDescription }: Props) => {
 
   const onSubmit = async (data: FormData) => {
     try {
+      const formData = new FormData();
+
+      // Append all text fields to the FormData object
+      formData.append("title", data?.aboutYou?.title);
+      formData.append("fname", data?.aboutYou.firstName);
+      formData.append("lname", data?.aboutYou.lastName);
+      formData.append("email_address", data?.aboutYou?.email);
+      formData.append("country_code", data?.aboutYou?.contactCountryCode);
+      formData.append("telephone", data?.aboutYou?.contact.toString()); // Convert number to string
+      formData.append("linkedin_url", data?.aboutYou?.linkedinUrl);
+
+      formData.append("designation", data?.aboutCompany?.designation);
+      formData.append("c_name", data?.aboutCompany?.company);
+      formData.append("nature_company", data?.aboutCompany?.natureOfCompany);
+      formData.append("nature_company_other", data?.aboutCompany?.ifOthers);
+
+      formData.append("job_title", data?.aboutPresentation?.presentationTitle);
+      formData.append("abstract_details", data?.aboutPresentation?.abstract);
+      formData.append(
+        "your_presentation",
+        data?.aboutPresentation?.aboutPresentation
+      );
+      formData.append("additional_details", data?.aboutPresentation?.takewayas);
+
+      // Append file fields to FormData
+      // Always check if the file exists before appending
+      if (data?.aboutYou?.headshotFile?.[0]) {
+        formData.append("headshot", data.aboutYou.headshotFile[0]);
+      }
+      if (data?.aboutYou?.bio?.[0]) {
+        formData.append("bio", data.aboutYou.bio[0]);
+      }
+      if (data?.aboutPresentation?.paperSubmit?.[0]) {
+        formData.append(
+          "papers_details",
+          data.aboutPresentation.paperSubmit[0]
+        );
+      }
+
       const response = await fetch(`${baseUrl}/becomeaspeaker`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: data?.aboutYou?.title,
-          fname: data?.aboutYou.firstName,
-          lname: data?.aboutYou.lastName,
-          email_address: data?.aboutYou?.email,
-          country_code: data?.aboutYou?.contactCountryCode,
-          telephone: data?.aboutYou?.contact,
-          linkedin_url: data?.aboutYou?.linkedinUrl,
-          headshot: data?.aboutYou?.headshotFile,
-          bio: data?.aboutYou?.bio,
-          designation: data?.aboutCompany?.designation,
-          c_name: data?.aboutCompany?.company,
-          nature_company: data?.aboutCompany?.natureOfCompany,
-          nature_company_other: data?.aboutCompany?.ifOthers,
-          job_title: data?.aboutPresentation?.presentationTitle,
-          abstract_details: data?.aboutPresentation?.abstract,
-          your_presentation: data?.aboutPresentation?.aboutPresentation,
-          additional_details: data?.aboutPresentation?.takewayas,
-          papers_details: data?.aboutPresentation?.paperSubmit,
-        }),
+
+        body: formData,
       });
+
       if (response.ok) {
         toast.success("Form submitted successfully!");
         reset();
@@ -112,8 +132,14 @@ const BecomeSponsorPageForm = ({ formDescription }: Props) => {
           recaptchaRef.current.resetCaptcha();
         }
         setToken("");
+      } else {
+        // You might want to handle error responses from the server here
+        const errorData = await response.json();
+        console.error("Server error:", errorData);
+        toast.error("Failed to submit form. Please try again.");
       }
     } catch (error) {
+      console.error("Fetch error:", error);
       toast.error("Failed to submit form. Please try again.");
     }
   };
@@ -402,6 +428,7 @@ const BecomeSponsorPageForm = ({ formDescription }: Props) => {
                       {...field}
                       name="aboutCompany.natureOfCompany"
                       errors={errors}
+                      companyListData={NatureOfCompany}
                     />
                   )}
                 />
@@ -541,9 +568,14 @@ const BecomeSponsorPageForm = ({ formDescription }: Props) => {
         <div className="mt-4 md:mt-5 flex justify-center">
           <button
             type="submit"
-            className="bg-tms-purple text-white text-base md:text-lg font-bold leading-5 rounded-lg py-4 md:py-6 px-10 md:px-7 flex gap-x-2.5 group items-center"
+            className={`bg-tms-purple text-white text-base md:text-lg font-bold leading-5 rounded-lg py-4 md:py-6 px-10 md:px-7 flex gap-x-2.5 group items-center ${
+              !token
+                ? "opacity-50 cursor-not-allowed"
+                : "hover:bg-tms-purple/90 hover:text-white"
+            }`}
+            disabled={!token}
           >
-            Submit
+            {isSubmitting ? "Submitting..." : "Submit"}
             <MdOutlineKeyboardArrowRight className="text-2xl text-white group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
           </button>
         </div>

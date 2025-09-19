@@ -142,7 +142,11 @@ const ContactForm = () => {
           className={`
           rounded-sm text-sm sm:text-base md:text-lg font-bold leading-5 text-white bg-tms-purple md:py-5 w-fit px-7 py-3 md:w-full mt-4 
           transition-all duration-300 
-          ${!token ? "opacity-50 cursor-not-allowed" : "hover:bg-tms-purple/90"}
+          ${
+            !token
+              ? "opacity-50 cursor-not-allowed"
+              : "hover:bg-tms-purple/90 hover:text-white"
+          }
         `}
           disabled={!token}
         >
