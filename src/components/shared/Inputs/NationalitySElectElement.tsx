@@ -117,6 +117,9 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
       marginTop: "10px",
       borderRadius: "8px",
       backgroundColor: "#0078bb",
+      zIndex: 999999999999999999,
+      scrollBarWidth: "none",
+      msOverflowStyle: "none",
     }),
     option: (
       styles: any,

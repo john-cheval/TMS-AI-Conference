@@ -10,6 +10,7 @@ const PricingPlans = ({
   table_heading_2,
   register_heading,
   register_price,
+  companyList,
 }: SectionOnePropsTyps) => {
   return (
     <section className="pt-5 md:pt-8 lg:pt-12  xl:pt-16 2xl:pt-20 section-wrapper">
@@ -28,6 +29,7 @@ const PricingPlans = ({
       <DelegateRegisterForm
         heading={register_heading}
         priceDetails={register_price}
+        NatureOfCompanyList={companyList}
       />
     </section>
   );

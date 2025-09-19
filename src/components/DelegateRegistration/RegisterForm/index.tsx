@@ -1,5 +1,7 @@
 "use client";
 import FormRow from "@/components/Forms/FormRow";
+import NationalitySelectElement from "@/components/shared/Inputs/NationalitySElectElement";
+import NatureOfCompanySelectElement from "@/components/shared/Inputs/NatureOfCompanySelect";
 import NumberElement from "@/components/shared/Inputs/NumberElement";
 import TextAreaElement from "@/components/shared/Inputs/TextAreaElement";
 import TextElement from "@/components/shared/Inputs/TextElement";
@@ -24,6 +26,7 @@ type Props = {
     min_delegates: string;
     price: string;
   }[];
+  NatureOfCompanyList: any;
 };
 
 interface DelegateData {
@@ -51,7 +54,11 @@ interface FormData {
 interface RecaptchaRefType {
   resetCaptcha: () => void;
 }
-const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
+const DelegateRegisterForm = ({
+  heading,
+  priceDetails,
+  NatureOfCompanyList,
+}: Props) => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -79,6 +86,7 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
 
   const termsAccepted = watch("termsAccepted");
   const isFormValid = termsAccepted && token;
+  console.log(isFormValid, "this is form valid");
 
   const handleToken = useCallback((recaptchaToken: string | null) => {
     if (recaptchaToken) {
@@ -358,17 +366,6 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
                             </p>
 
                             <div className=" flex flex-col gap-y-2.5 md:gap-y-3 lg:gap-y-5">
-                              {/* <TextElement
-                                label="Title"
-                                name={`delegates.${index}.title`}
-                                type="text"
-                                placeholder="Title"
-                                register={register}
-                                errors={errors}
-                                rules={{
-                                  required: "Title is required.",
-                                }}
-                              /> */}
                               <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
                                 <div className="flex-1">
                                   <Controller
@@ -413,30 +410,37 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
                               </FormRow>
 
                               <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
-                                <TextElement
-                                  label="Nationality"
-                                  name={`delegates.${index}.nationality`}
-                                  type="text"
-                                  placeholder="Nationality"
-                                  register={register}
-                                  errors={errors}
-                                  rules={{
-                                    required: "Nationality is required.",
-                                  }}
-                                />
+                                <div className="flex-1">
+                                  <Controller
+                                    name={`delegates.${index}.nationality`}
+                                    control={control}
+                                    rules={{
+                                      required: "Nationality is required.",
+                                    }}
+                                    render={({ field }) => (
+                                      <NationalitySelectElement
+                                        {...field}
+                                        name={`delegates.${index}.nationality`}
+                                        errors={errors}
+                                      />
+                                    )}
+                                  />
+                                </div>
 
-                                <TextElement
-                                  label="Country of Residence"
-                                  name={`delegates.${index}.country`}
-                                  type="text"
-                                  placeholder="Country of Residence"
-                                  register={register}
-                                  errors={errors}
-                                  rules={{
-                                    required:
-                                      "Country of Residence is required.",
-                                  }}
-                                />
+                                <div className=" flex-1">
+                                  <TextElement
+                                    label="Country of Residence"
+                                    name={`delegates.${index}.country`}
+                                    type="text"
+                                    placeholder="Country of Residence"
+                                    register={register}
+                                    errors={errors}
+                                    rules={{
+                                      required:
+                                        "Country of Residence is required.",
+                                    }}
+                                  />
+                                </div>
                               </FormRow>
 
                               <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
@@ -524,30 +528,40 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
                               </FormRow>
 
                               <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
-                                <TextElement
-                                  label="Tax Registration Number"
-                                  name={`delegates.${index}.taxRegisterationNumber`}
-                                  type="number"
-                                  placeholder="Tax Registration Number"
-                                  register={register}
-                                  errors={errors}
-                                  rules={{
-                                    required:
-                                      "Tax Registration Number is required.",
-                                  }}
-                                />
+                                <div className="flex-1">
+                                  <TextElement
+                                    label="Tax Registration Number"
+                                    name={`delegates.${index}.taxRegisterationNumber`}
+                                    type="number"
+                                    placeholder="Tax Registration Number"
+                                    register={register}
+                                    errors={errors}
+                                    rules={{
+                                      required:
+                                        "Tax Registration Number is required.",
+                                    }}
+                                  />
+                                </div>
 
-                                <TextElement
-                                  label="Nature of Company"
-                                  name={`delegates.${index}.natureOfCompany`}
-                                  type="text"
-                                  placeholder="Nature of Company"
-                                  register={register}
-                                  errors={errors}
-                                  rules={{
-                                    required: "Nature of Company is required.",
-                                  }}
-                                />
+                                <div className="flex-1">
+                                  <Controller
+                                    name={`delegates.${index}.natureOfCompany`}
+                                    control={control}
+                                    rules={{
+                                      required:
+                                        "Nature of Company is required.",
+                                    }}
+                                    render={({ field }) => (
+                                      <NatureOfCompanySelectElement
+                                        {...field}
+                                        name={`delegates.${index}.natureOfCompany`}
+                                        errors={errors}
+                                        companyListData={NatureOfCompanyList}
+                                        isDark={true}
+                                      />
+                                    )}
+                                  />
+                                </div>
                               </FormRow>
 
                               <TextAreaElement
@@ -585,7 +599,8 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
             <input
               id="default-checkbox"
               type="checkbox"
-              value=""
+              // value=""
+              {...register("termsAccepted", { required: true })}
               className="w-5 h-5 text-blue-600 outline-0  border-white rounded-sm focus:ring-0 dark:bg-gray-700 bg-transparent "
             />{" "}
             <label
@@ -593,11 +608,19 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
               className="ms-2 description text-white leading-3"
             >
               I agree to the delegate booking{" "}
-              <Link href="#" className="underline">
+              <Link
+                href="/delegate-booking-terms-and-conditions"
+                className="underline"
+              >
                 Terms and Conditions
               </Link>
             </label>
           </div>
+          {errors.termsAccepted && (
+            <p className="text-red-500 text-sm mt-1">
+              Please accept the terms and conditions.
+            </p>
+          )}
           <div className="mt-4 md:mt-6 flex justify-center ">
             <ReCaptcha
               siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
