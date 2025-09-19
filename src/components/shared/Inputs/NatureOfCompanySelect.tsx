@@ -38,6 +38,7 @@ interface TitleSelectProps<TFieldValues extends FieldValues> {
   ) => void;
   onBlur: (e: React.FocusEvent) => void;
   value: any;
+  companyListData: any;
 }
 
 import { GroupBase } from "react-select";
@@ -66,6 +67,7 @@ const NatureOfCompanySelectElement = <TFieldValues extends FieldValues>({
   onBlur,
   value,
   errors,
+  companyListData,
 }: TitleSelectProps<TFieldValues>) => {
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 0
@@ -94,12 +96,10 @@ const NatureOfCompanySelectElement = <TFieldValues extends FieldValues>({
     }
   };
 
-  const options = [
-    { value: "Mohre", label: "Mohre" },
-    { value: "FreeZone", label: "FreeZone" },
-    { value: "OutSource", label: "OutSource" },
-    { value: "Contract", label: "Contract" },
-  ];
+  const options = companyListData?.value.map((item: any) => ({
+    value: item,
+    label: item,
+  }));
 
   const customStyles = {
     control: (styles: any) => ({
@@ -156,7 +156,7 @@ const NatureOfCompanySelectElement = <TFieldValues extends FieldValues>({
           onChange(valueStr, actionMeta);
         }}
         onBlur={onBlur}
-        value={options.find((option) => option.value === value) || null}
+        value={options.find((option: any) => option.value === value) || null}
         styles={customStyles}
         placeholder="Nature of Company"
         components={{ DropdownIndicator: DropdownIndicator }}
