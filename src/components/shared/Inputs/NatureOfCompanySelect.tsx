@@ -39,27 +39,10 @@ interface TitleSelectProps<TFieldValues extends FieldValues> {
   onBlur: (e: React.FocusEvent) => void;
   value: any;
   companyListData: any;
+  isDark?: boolean;
 }
 
 import { GroupBase } from "react-select";
-
-const DropdownIndicator = (
-  props: DropdownIndicatorProps<
-    { value: string; label: string },
-    false,
-    GroupBase<{ value: string; label: string }>
-  >
-) => {
-  return (
-    <div
-      {...props.innerProps}
-      style={{ padding: "8px" }}
-      className="cursor-pointer"
-    >
-      <MdOutlineArrowDropDown className="text-2xl text-[#1C75BC] mr-3" />
-    </div>
-  );
-};
 
 const NatureOfCompanySelectElement = <TFieldValues extends FieldValues>({
   name,
@@ -68,10 +51,33 @@ const NatureOfCompanySelectElement = <TFieldValues extends FieldValues>({
   value,
   errors,
   companyListData,
+  isDark = false,
 }: TitleSelectProps<TFieldValues>) => {
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 0
   );
+
+  const DropdownIndicator = (
+    props: DropdownIndicatorProps<
+      { value: string; label: string },
+      false,
+      GroupBase<{ value: string; label: string }>
+    >
+  ) => {
+    return (
+      <div
+        {...props.innerProps}
+        style={{ padding: "8px" }}
+        className="cursor-pointer"
+      >
+        <MdOutlineArrowDropDown
+          className={`text-2xl ${
+            isDark ? "text-white" : "text-[#1C75BC]"
+          } mask-r-from-3`}
+        />
+      </div>
+    );
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -104,14 +110,14 @@ const NatureOfCompanySelectElement = <TFieldValues extends FieldValues>({
   const customStyles = {
     control: (styles: any) => ({
       ...styles,
-      borderColor: "#1C75BC",
+      borderColor: isDark ? "#fff" : "#1C75BC",
       borderRadius: "8px",
       backgroundColor: "transparent",
       paddingBlock: "8px",
       paddingLeft: getPaddingLeft(),
       color: "",
       "&:hover": {
-        borderColor: "#1C75BC",
+        borderColor: isDark ? "#fff" : "#1C75BC",
       },
     }),
     menu: (styles: any) => ({
@@ -135,11 +141,11 @@ const NatureOfCompanySelectElement = <TFieldValues extends FieldValues>({
     }),
     placeholder: (styles: any) => ({
       ...styles,
-      color: "#00081b",
+      color: isDark ? "#fff" : "#00081b",
     }),
     singleValue: (styles: any) => ({
       ...styles,
-      color: "#00081b",
+      color: isDark ? "#fff" : "#00081b",
     }),
   };
   const errorMessage = getNestedError<TFieldValues>(errors, name);

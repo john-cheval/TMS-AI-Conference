@@ -21,7 +21,8 @@ const DelegateRegistration = async () => {
   const generalSettings = pageContent?.gernalsettings;
   const conferenceData =
     pageContent?.gernalsettings?.current_year_coneference[0];
-  const { AWARD_YEAR } = generalSettings?.general_settings;
+  const { AWARD_YEAR, Enquery_emails_nature_of_company_list } =
+    generalSettings?.general_settings;
   const { delegate_registration, pricing_plans } =
     pageContent?.data?.section_list;
   return (
@@ -82,7 +83,10 @@ const DelegateRegistration = async () => {
         </div>
       </section>
 
-      <PricingPlans {...pricing_plans} />
+      <PricingPlans
+        {...pricing_plans}
+        companyList={Enquery_emails_nature_of_company_list}
+      />
       <div className="section-wrapper pb-16 md:pb-20 pt-7 md:pt-8 lg:pt-14 xl:pt-16 2xl:pt-20 space-y-5">
         <Sponsors
           data={pageContent?.data?.section_list?.sponsors}
