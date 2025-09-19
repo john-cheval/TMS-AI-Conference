@@ -31,7 +31,7 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
     const currentScrollY = window.scrollY;
     const handleScroll = () => {
       setBgColor(currentScrollY > 80);
-      if (window.scrollY > lastScrollY && window.scrollY > 150) {
+      if (window.scrollY && window.scrollY > 150) {
         setIsVisible(false);
       } else {
         setIsVisible(true);
@@ -47,13 +47,15 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
       <header
         className={` fixed top-0 w-full z-[999955] transition-all duration-300 ${
           bgColor ? "bg-white" : "bg-transparent"
-        } ease-in-out ${isVisible ? "translate-y-0 " : "-translate-y-full"}`}
+        } ease-in-out ${isVisible ? "translate-y-0- " : "-translate-y-full-"}`}
       >
         <nav
-          className="wrapper-nav py-7 flex items-center justify-between "
-          style={{
-            willChange: "transform",
-          }}
+          className={`wrapper-nav transition-all duration-300 ${
+            bgColor ? "py-5 shadow-sm" : "py-7"
+          } flex items-center justify-between`}
+          // style={{
+          //   willChange: "transform",
+          // }}
         >
           <Link href="/">
             <Image

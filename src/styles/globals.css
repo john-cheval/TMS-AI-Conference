@@ -419,7 +419,7 @@ ul {
   /* Bottom Gradient (reversed) */
   background: linear-gradient(90deg, #4d1592 0%, #ea73e7 100%);
   background-size: 200% 100%; /* Make it larger for the animation */
-  animation: gradient-move-right 4s linear infinite; /* Same animation to move simultaneously */
+  animation: gradient-move-right 2s linear infinite; /* Same animation to move simultaneously */
 }
 
 /* Styling for the inner <p> tag */
