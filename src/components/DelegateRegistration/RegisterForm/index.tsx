@@ -3,14 +3,18 @@ import FormRow from "@/components/Forms/FormRow";
 import NumberElement from "@/components/shared/Inputs/NumberElement";
 import TextAreaElement from "@/components/shared/Inputs/TextAreaElement";
 import TextElement from "@/components/shared/Inputs/TextElement";
+import TitleSelectElement from "@/components/shared/Inputs/TitleSelectElement";
 import { accordionVariants } from "@/constants/motionVariants";
+import { baseUrl } from "@/lib/api";
+import ReCaptcha from "@/utils/ReCaptcha";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { useForm, useFieldArray } from "react-hook-form";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { RiGeminiFill } from "react-icons/ri";
+import { toast } from "sonner";
 
 type Props = {
   heading?: string;
@@ -44,12 +48,16 @@ interface FormData {
   numberOfDelegates: number;
   delegates: DelegateData[];
 }
-
+interface RecaptchaRefType {
+  resetCaptcha: () => void;
+}
 const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+  const [token, setToken] = useState("");
+  const recaptchaRef = useRef<RecaptchaRefType>(null);
 
   const {
     register,
@@ -57,15 +65,28 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
     watch,
     setValue,
     control,
+    reset,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<FormData & { termsAccepted: boolean }>({
     defaultValues: {
       planType: priceDetails[0]?.title || "Individual",
       numberOfDelegates: parseInt(priceDetails[0]?.min_delegates) || 1,
       delegates: [],
+      termsAccepted: false,
     },
     mode: "onBlur",
   });
+
+  const termsAccepted = watch("termsAccepted");
+  const isFormValid = termsAccepted && token;
+
+  const handleToken = useCallback((recaptchaToken: string | null) => {
+    if (recaptchaToken) {
+      setToken(recaptchaToken);
+    } else {
+      setToken("");
+    }
+  }, []);
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -119,8 +140,76 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
   const vat = subtotal * 0.05;
   const grandTotal = subtotal + vat;
 
-  const onSubmit = (data: FormData) => {
-    console.log("Form Data:", data);
+  // Add this to your DelegateRegisterForm component
+  // after the onSubmit function
+  const onSubmit = async (data: any) => {
+    const formData = new FormData();
+
+    // Append basic form data
+    formData.append("booking_type", selectedPlan);
+    formData.append("single_seat_price", ticketPrice.toFixed(2));
+    formData.append("total_seat", data.numberOfDelegates.toString());
+    formData.append("total_withouttax", subtotal.toFixed(2));
+    formData.append("total_tax", vat.toFixed(2));
+    formData.append("total_amount", grandTotal.toFixed(2));
+
+    // Assuming you'll add a state for the checkbox
+    formData.append("terms_conditions", "1"); // Or `data.agreedToTerms ? '1' : '0'`
+
+    data.delegates.forEach((delegate: any, index: number) => {
+      formData.append(`delegate[${index}][title]`, delegate.title);
+      formData.append(`delegate[${index}][fname]`, delegate.firstName);
+      formData.append(`delegate[${index}][lname]`, delegate.lastName);
+      formData.append(`delegate[${index}][nationality]`, delegate.nationality);
+      formData.append(`delegate[${index}][country]`, delegate.country);
+      formData.append(
+        `delegate[${index}][country_code]`,
+        delegate.contactCountryCode
+      );
+      formData.append(
+        `delegate[${index}][telephone]`,
+        delegate.contact.toString()
+      );
+      formData.append(`delegate[${index}][email_address]`, delegate.email);
+      formData.append(`delegate[${index}][job_title]`, delegate.designation); // Note: Renamed from designation
+      formData.append(`delegate[${index}][c_name]`, delegate.company);
+      formData.append(
+        `delegate[${index}][tax_number]`,
+        delegate.taxRegisterationNumber
+      );
+      formData.append(
+        `delegate[${index}][nature_company]`,
+        delegate.natureOfCompany
+      );
+      formData.append(
+        `delegate[${index}][nature_company_other]`,
+        delegate.ifOthers
+      );
+      formData.append(
+        `delegate[${index}][additional_details]`,
+        delegate.addditionalDetails
+      );
+    });
+
+    try {
+      const response = await fetch(`${baseUrl}/registergueststore`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        toast.success("Form submitted successfully!");
+        // reset();
+        if (recaptchaRef.current) {
+          recaptchaRef.current.resetCaptcha();
+        }
+        setToken("");
+      } else {
+        console.error("Form submission failed.");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   return (
@@ -269,7 +358,7 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
                             </p>
 
                             <div className=" flex flex-col gap-y-2.5 md:gap-y-3 lg:gap-y-5">
-                              <TextElement
+                              {/* <TextElement
                                 label="Title"
                                 name={`delegates.${index}.title`}
                                 type="text"
@@ -279,7 +368,24 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
                                 rules={{
                                   required: "Title is required.",
                                 }}
-                              />
+                              /> */}
+                              <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
+                                <div className="flex-1">
+                                  <Controller
+                                    name={`delegates.${index}.title`}
+                                    control={control}
+                                    rules={{ required: "Title is required." }}
+                                    render={({ field }) => (
+                                      <TitleSelectElement
+                                        {...field}
+                                        name={`delegates.${index}.title`}
+                                        errors={errors}
+                                      />
+                                    )}
+                                  />
+                                </div>
+                                <div className="flex-1 hidden md:block" />
+                              </FormRow>
                               <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
                                 <TextElement
                                   label="First Name"
@@ -492,10 +598,20 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
               </Link>
             </label>
           </div>
+          <div className="mt-4 md:mt-6 flex justify-center ">
+            <ReCaptcha
+              siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
+              callback={handleToken}
+              ref={recaptchaRef}
+            />
+          </div>
           <div className="mt-6 flex justify-center">
             <button
               type="submit"
-              className="bg-white text-tms-purple text-lg font-bold leading-5 rounded-lg py-6 px-5 flex gap-x-2.5 group items-center"
+              className={`bg-white text-tms-purple text-lg font-bold leading-5 rounded-lg py-6 px-5 flex gap-x-2.5 group items-center ${
+                isFormValid ? "" : "opacity-50 cursor-not-allowed"
+              }`}
+              disabled={!isFormValid}
             >
               Proceed to Pay{" "}
               <MdOutlineKeyboardArrowRight className="text-2xl text-tms-purple group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
