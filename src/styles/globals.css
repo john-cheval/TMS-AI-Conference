@@ -101,7 +101,9 @@ ul {
 .nav-links {
   @apply text-sm font-bold leading-5;
 }
-
+.btnread {
+  @apply text-sm md:text-base leading-5 text-tms-black mt-1;
+}
 /* Gradients */
 .buttonGradient {
   background: linear-gradient(258deg, #ea73e7 -79.01%, #4d1592 50%);
@@ -181,8 +183,8 @@ ul {
 /* Sections */
 .home-banner-section,
 .top-banner-section {
-  /* height: calc(100vh - 106px); */
-  height: 100vh;
+  height: calc(100vh - 106px);
+  /* height: 100vh; */
   overflow: hidden;
 }
 

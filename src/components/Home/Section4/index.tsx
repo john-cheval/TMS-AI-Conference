@@ -26,7 +26,7 @@ const HomeSectionFour = ({
               className="w-full h-full object-cover"
             />
           </article>
-          <article className="col-span-12 md:col-span-5 lg:col-span-6 py-8 md:py-12 lg:py-16 xl:py-20 space-y-4  md:space-y-6 px-5 sm:px-8 md:pr-10 lg:pr-16">
+          <article className="col-span-12 md:col-span-5 lg:col-span-6 py-8 md:py-12 lg:py-16 xl:py-20 space-y-4  md:space-y-6 px-5 sm:px-8 md:pr-10 lg:pr-16 flex flex-col justify-center">
             <SmallTitle title={small_title} isBorder={false} isDark={true} />
             <SectionHeadingTwo title={heading} />
             {description && (

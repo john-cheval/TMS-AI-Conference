@@ -60,10 +60,13 @@ const Home = async () => {
       />
       <HomeSectionSeven
         {...homePageContent?.data?.section_list?.why_sponsor_tms_ai_tech}
+        all_benifits={
+          homePageContent?.data?.section_list?.key_sponsorship_benefits
+        }
       />
-      <HomeSectionEight
+      {/* <HomeSectionEight
         {...homePageContent?.data?.section_list?.key_sponsorship_benefits}
-      />
+      /> */}
       <HomeSectionNine
         {...homePageContent?.data?.section_list?.key_sponsorship_benefits}
         sponsors={homePageContent?.data?.section_list?.sponsors}

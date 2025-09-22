@@ -11,12 +11,16 @@ export type SponsorsPropsType = {
   };
   isReversed?: boolean;
   isSponsor?: boolean;
+  isAssosiation?: boolean;
+  isPartners?: boolean;
 };
 
 const Sponsors = ({
   data,
   isSponsor = false,
   isReversed = false,
+  isAssosiation = false,
+  isPartners = false,
 }: SponsorsPropsType) => {
   const containerRef1 = useRef(null);
   const containerRef2 = useRef(null);
@@ -27,14 +31,32 @@ const Sponsors = ({
       const firstList = data.data.slice(0, half);
       const secondList = data.data.slice(half);
 
-      const clonedFirstList = [...firstList, ...firstList];
-      const clonedSecondList = [...secondList, ...secondList];
+      const clonedFirstList = [
+        ...firstList,
+        ...firstList,
+        ...firstList,
+        ...firstList,
+        ...firstList,
+        ...firstList,
+      ];
+      const clonedSecondList = [
+        ...secondList,
+        ...secondList,
+        ...secondList,
+        ...secondList,
+        ...secondList,
+        ...secondList,
+      ];
 
       return { firstList: clonedFirstList, secondList: clonedSecondList };
     }
 
+    const clonedData = data?.data
+      ? [...data.data, ...data.data, ...data.data, ...data.data, ...data.data]
+      : [];
+
     return {
-      firstList: data?.data ? [...data.data, ...data.data] : [],
+      firstList: clonedData,
       secondList: [],
     };
   }, [data?.data, isSponsor]);
@@ -73,9 +95,9 @@ const Sponsors = ({
   useGSAP(() => {
     if (containerRef1.current && shouldAnimateFirstList) {
       gsap.to(containerRef1.current, {
-        xPercent: -50,
+        xPercent: isAssosiation ? 50 : -50,
         repeat: -1,
-        duration: 15,
+        duration: 30,
         ease: "none",
       });
     }
@@ -83,11 +105,11 @@ const Sponsors = ({
 
   useGSAP(() => {
     if (containerRef2.current && shouldAnimateSecondList) {
-      gsap.set(containerRef2.current, { xPercent: -50 });
+      // gsap.set(containerRef2.current, { xPercent: -50 });
       gsap.to(containerRef2.current, {
-        xPercent: 0,
+        xPercent: isAssosiation ? 50 : -50,
         repeat: -1,
-        duration: 15,
+        duration: 30,
         ease: "none",
       });
     }
@@ -128,9 +150,11 @@ const Sponsors = ({
                 }`}
               />
             </div>
-            <p className="mt-2.5 md:mt-5 text-black text-center text-sm md:text-base lg:text-lg - font-semibold leading-[18px] capitalize max-w-[100px]- ">
-              {item?.name}
-            </p>
+            {isSponsor && (
+              <p className="mt-2.5 md:mt-5 text-black text-center text-sm md:text-base lg:text-lg - font-semibold leading-[18px] capitalize max-w-[100px]- ">
+                {item?.name}
+              </p>
+            )}
           </div>
         ))}
       </div>

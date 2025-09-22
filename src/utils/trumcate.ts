@@ -15,5 +15,5 @@ export const truncateHtml = (htmlContent: string, limit: number): string => {
   }
 
   // The html-truncate library ensures tags are not broken
-  return truncate(htmlContent, limit, { ellipsis: "..." });
+  return truncate(htmlContent, limit, { ellipsis: `` });
 };

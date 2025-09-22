@@ -1,8 +1,7 @@
-// src/components/ExpandableHtmlText.tsx
-
 "use client";
 
 import { truncateHtml } from "@/utils/trumcate";
+// import { truncateHtml } from "@/utils/truncateHtml";
 import React, { useState, useEffect } from "react";
 
 interface ExpandableHtmlTextProps {
@@ -32,19 +31,35 @@ const ExpandableHtmlText: React.FC<ExpandableHtmlTextProps> = ({
   const isTruncated = htmlContent.length > limit;
 
   return (
-    <div>
-      <div
-        className="flex flex-col gap-y-3 md:gap-y-4 lg:gap-y-7"
-        dangerouslySetInnerHTML={{
-          __html: isExpanded ? htmlContent : truncatedHtml,
-        }}
-      ></div>
-      {isTruncated && (
+    <div className="text-tms-black text-sm md:text-base leading-5">
+      {isExpanded ? (
+        <div
+          dangerouslySetInnerHTML={{ __html: htmlContent }}
+          className="space-y-3 md:space-y-4 lg:space-y-7"
+        />
+      ) : (
+        <span>
+          <span
+            dangerouslySetInnerHTML={{ __html: truncatedHtml }}
+            className="space-y-3 md:space-y-4 lg:space-y-7"
+          />
+          {isTruncated && (
+            <>
+              ...{" "}
+              <button onClick={toggleExpand} className="inline text-tms-black ">
+                Read More
+              </button>
+            </>
+          )}
+        </span>
+      )}
+
+      {isExpanded && isTruncated && (
         <button
           onClick={toggleExpand}
-          className=" text-sm md:text-base leading-5 text-tms-black mt-1"
+          className="block mt-2 text-tms-black underline"
         >
-          {isExpanded ? "Read Less" : "Read More"}
+          Read Less
         </button>
       )}
     </div>
