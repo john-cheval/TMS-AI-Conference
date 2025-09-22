@@ -130,10 +130,14 @@ const Sponsors = ({
         {items?.map((item: any, index: number) => (
           <div
             key={index}
-            className="flex flex-col items-center flex-shrink-0 mx-5 md:mx-8 xl:mx-10- 2xl:mx-14-"
+            className={`flex flex-col items-center flex-shrink-0 mx-5 md:mx-8 xl:mx-10- 2xl:mx-14- ${
+              isSponsor
+                ? "max-w-[90px]  lg:max-w-[120px]  xl:max-w-[150px]  2xl:max-w-[180px] "
+                : "max-w-[75px] lg:max-w-[90px]  xl:max-w-[120px] 2xl:max-w-[150px] "
+            }`}
           >
             <div
-              className={`border rounded-full border-light-grey flex items-center justify-center w-fit- ${
+              className={`border rounded-full border-light-grey flex items-center justify-center w-fit- overflow-hidden ${
                 isSponsor
                   ? "w-[90px] h-[90px] lg:w-[120px] lg:h-[120px] xl:w-[150px] xl:h-[150px] 2xl:w-[180px] 2xl:h-[180px]"
                   : "w-[75px] h-[75px] lg:w-[90px] lg:h-[90px] xl:w-[120px] xl:h-[120px] 2xl:w-[150px] 2xl:h-[150px]"
