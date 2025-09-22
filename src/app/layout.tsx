@@ -6,6 +6,7 @@ import Footer from "@/components/shared/Footer";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
 import Providers from "@/Providers/ToastProviders";
+import ScrollToTop from "@/hooks/useScrollToTop";
 
 export const metadata: Metadata = {
   title:
@@ -53,7 +54,11 @@ export default async function RootLayout({
       >
         <ServerNavbar mainLinks={mainMenuLinks} sidebarLinks={sideBarlinks} />
         <main className="flex-grow pt-[106px]">
-          <Providers>{children}</Providers>
+          <Providers>
+            {" "}
+            <ScrollToTop />
+            {children}
+          </Providers>
         </main>
         <Footer
           footerMainLinks={menuLinks[2]}
