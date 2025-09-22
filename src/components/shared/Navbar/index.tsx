@@ -9,6 +9,8 @@ import { RiMenu3Fill } from "react-icons/ri";
 import ButtonOrLink from "../ui/Button";
 import { AnimatePresence, motion } from "framer-motion";
 import SideBar from "./SideBar";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { iconVariants, submenuVariants } from "@/constants/motionVariants";
 
 export type NavPropTypes = {
   mainMenuLinks: any;
@@ -21,6 +23,11 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const [bgColor, setBgColor] = useState(false);
+  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+
+  const toggleSubmenu = (name: string) => {
+    setOpenSubmenu(openSubmenu === name ? null : name);
+  };
 
   useEffect(() => {
     const currentScrollY = window.scrollY;
@@ -42,6 +49,7 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
+
   return (
     <>
       <header
@@ -70,10 +78,13 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
           <div className="flex items-center gap-x-5 2xl:gap-x-7">
             <ul className=" items-center gap-x-5 2xl:gap-x-7 hidden md:flex">
               {Object.values(mainMenuLinks)?.map((nav: any, index: number) => {
-                let isActive = pathname === nav?.link;
-                if (nav?.link !== "/") {
-                  isActive = pathname.startsWith(nav?.link);
-                }
+                const hasSubmenu =
+                  nav.submenu && Object.values(nav.submenu)?.length > 0;
+                const isSubmenuOpen = openSubmenu === nav?.name;
+
+                const isActive =
+                  pathname === nav?.link ||
+                  (nav?.link !== "/" && pathname.startsWith(nav?.link));
                 return (
                   <li
                     key={index + 1}
@@ -81,7 +92,53 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
                       isActive ? "text-tms-blue" : "text-tms-black"
                     }`}
                   >
-                    <Link href={nav?.link}>{nav?.name}</Link>
+                    {!hasSubmenu ? (
+                      <Link href={nav?.link}>{nav?.name}</Link>
+                    ) : (
+                      <div className="relative">
+                        <button
+                          className="flex items-center gap-x-1 "
+                          onClick={() => toggleSubmenu(nav?.name)}
+                        >
+                          {nav?.name}{" "}
+                          <motion.span
+                            variants={iconVariants}
+                            animate={isSubmenuOpen ? "open" : "closed"}
+                          >
+                            <IoMdArrowDropdown className="transition-transform duration-300 text-lg" />
+                          </motion.span>
+                        </button>
+                        <AnimatePresence>
+                          {isSubmenuOpen && (
+                            <motion.div
+                              variants={submenuVariants}
+                              initial="initial"
+                              animate="animate"
+                              exit="exit"
+                              className="origin-top overflow-hidden absolute top-10 left-1/2 -translate-x-1/2"
+                            >
+                              <ul className="pl-4 py-2 bg-tms-blue  w-full px-5 text-center">
+                                {Object.values(nav.submenu)?.map(
+                                  (subItem: any, subIndex: number) => (
+                                    <li
+                                      key={subIndex + 1}
+                                      className="py-1  whitespace-nowrap "
+                                    >
+                                      <Link
+                                        href={subItem?.link}
+                                        className="text-white hover:bg-white hover:text-tms-blue duration-300 transition-colors p-1"
+                                      >
+                                        {subItem?.name}
+                                      </Link>
+                                    </li>
+                                  )
+                                )}
+                              </ul>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    )}
                   </li>
                 );
               })}

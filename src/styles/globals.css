@@ -181,8 +181,8 @@ ul {
 /* Sections */
 .home-banner-section,
 .top-banner-section {
-  /* height: calc(100vh - 106px); */
-  height: 100vh;
+  height: calc(100vh - 106px);
+  /* height: 100vh; */
   overflow: hidden;
 }
 
