@@ -78,10 +78,10 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
       <header
         className={` fixed top-0 w-full z-[999955] transition-all duration-300 ${
           bgColor ? "bg-white" : "bg-transparent"
-        } ease-in-out ${isVisible ? "translate-y-0 " : "-translate-y-full"}`}
+        } ease-in-out ${isVisible ? "translate-y-0" : "-translate-y-full"}`}
       >
         <nav
-          className={`wrapper-nav  ${
+          className={`wrapper-nav transition-all duration-300 ${
             bgColor ? "py-5 shadow-sm" : "py-7"
           } flex items-center justify-between`}
           style={{

@@ -7,7 +7,6 @@ type Props = {
 };
 
 const ServerNavbar = ({ mainLinks, sidebarLinks }: Props) => {
-  // Step 1: Create a single, flat array of all navigation links
   const allSeoLinks: any[] = [];
 
   Object.values(mainLinks).forEach((link: any) => {
