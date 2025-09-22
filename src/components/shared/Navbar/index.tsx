@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Logo from "@/assets/Logo/tms_logo.svg";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,6 +24,7 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
   const pathname = usePathname();
   const [bgColor, setBgColor] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const submenuRef = useRef<HTMLDivElement>(null);
 
   const toggleSubmenu = (name: string) => {
     setOpenSubmenu(openSubmenu === name ? null : name);
@@ -38,7 +39,7 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
     const currentScrollY = window.scrollY;
     const handleScroll = () => {
       setBgColor(currentScrollY > 80);
-      if (window.scrollY && window.scrollY > 150) {
+      if (window.scrollY > lastScrollY && window.scrollY > 150) {
         setIsVisible(false);
       } else {
         setIsVisible(true);
@@ -50,20 +51,42 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      // Check if the clicked element is NOT inside the submenu
+      if (
+        submenuRef.current &&
+        !submenuRef.current.contains(event.target as Node)
+      ) {
+        setOpenSubmenu(null);
+      }
+    };
+
+    if (openSubmenu) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    } else {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    }
+
+    // Cleanup function
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [openSubmenu]);
   return (
     <>
       <header
         className={` fixed top-0 w-full z-[999955] transition-all duration-300 ${
           bgColor ? "bg-white" : "bg-transparent"
-        } ease-in-out ${isVisible ? "translate-y-0- " : "-translate-y-full-"}`}
+        } ease-in-out ${isVisible ? "translate-y-0" : "-translate-y-full"}`}
       >
         <nav
           className={`wrapper-nav transition-all duration-300 ${
             bgColor ? "py-5 shadow-sm" : "py-7"
           } flex items-center justify-between`}
-          // style={{
-          //   willChange: "transform",
-          // }}
+          style={{
+            willChange: "transform",
+          }}
         >
           <Link href="/">
             <Image
@@ -118,6 +141,7 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
                               animate="animate"
                               exit="exit"
                               className="origin-top overflow-hidden absolute top-10 left-1/2 -translate-x-1/2"
+                              ref={submenuRef}
                             >
                               <ul className="pl-4 py-2 bg-tms-blue  w-full px-5 text-center">
                                 {Object.values(nav.submenu)?.map(
@@ -125,6 +149,7 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
                                     <li
                                       key={subIndex + 1}
                                       className="py-1  whitespace-nowrap "
+                                      onClick={() => toggleSubmenu(nav?.name)}
                                     >
                                       <Link
                                         href={subItem?.link}

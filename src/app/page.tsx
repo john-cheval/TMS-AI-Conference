@@ -5,7 +5,7 @@ import HomeSectionFour from "@/components/Home/Section4";
 import HomeSectionFive from "@/components/Home/Section5";
 import HomeSectionSix from "@/components/Home/Section6";
 import HomeSectionSeven from "@/components/Home/Section7";
-import HomeSectionEight from "@/components/Home/Section8";
+// import HomeSectionEight from "@/components/Home/Section8";
 import HomeSectionNine from "@/components/Home/Section9";
 import Testimonials from "@/components/shared/Testimonials";
 import { baseUrl } from "@/lib/api";
