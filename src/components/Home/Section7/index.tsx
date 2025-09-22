@@ -19,7 +19,6 @@ const HomeSectionSeven = ({
   button_text,
   all_benifits,
 }: Props) => {
-  console.log(all_benifits, "this is all benifts");
   return (
     <div className="section-container">
       <div>

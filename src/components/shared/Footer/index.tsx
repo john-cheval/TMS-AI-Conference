@@ -36,6 +36,8 @@ const Footer = ({
 
   const heading = ` <span>${footer_heading1} </span> ${footer_heading2}.`;
 
+  console.log(footer_heading1, footer_heading2, "this is the headings");
+
   return (
     <footer className="bg-black relative pt-16 md:pt-20 lg:pt-24 pb-8 md:pb-10 section-wrapper">
       <div className="grid grid-cols-12 lg:gap-x-8 2xl:gap-x-12">
@@ -47,11 +49,30 @@ const Footer = ({
             transition={{ duration: 0.5 }}
             viewport={{ once: true, amount: 0.3 }}
           >
-            <SectionHeading
+            {/* <SectionHeading
               main_title={heading}
               isDark={true}
               isCenter={false}
-            />
+            /> */}
+
+            <h4 className="main-heading font-bold  text-center lg:text-left ">
+              <span
+                style={{
+                  background:
+                    "linear-gradient(217deg, #EA73E7 9.36%, #4D1592 72.25%)",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+                className="w-fit leading-3 md:!leading-2  xl:leading-1"
+              >
+                {footer_heading1}
+              </span>
+              <br />
+              <span className="text-white leading-3 md:!leading-2  xl:leading-1">
+                {footer_heading2}
+              </span>
+            </h4>
           </motion.div>
           <motion.div
             initial={{ y: 50, opacity: 0 }}
