@@ -95,9 +95,10 @@ const Sponsors = ({
   useGSAP(() => {
     if (containerRef1.current && shouldAnimateFirstList) {
       gsap.to(containerRef1.current, {
-        xPercent: isAssosiation ? 50 : -50,
+        xPercent: isAssosiation || isPartners ? 50 : -50,
         repeat: -1,
         duration: 30,
+        // duration: 570,
         ease: "none",
       });
     }
@@ -110,6 +111,7 @@ const Sponsors = ({
         xPercent: isAssosiation ? 50 : -50,
         repeat: -1,
         duration: 30,
+        // duration: 570,
         ease: "none",
       });
     }
@@ -128,7 +130,7 @@ const Sponsors = ({
         {items?.map((item: any, index: number) => (
           <div
             key={index}
-            className="flex flex-col items-center flex-shrink-0 mx-5 md:mx-8 xl:mx-10 2xl:mx-14"
+            className="flex flex-col items-center flex-shrink-0 mx-5 md:mx-8 xl:mx-10- 2xl:mx-14-"
           >
             <div
               className={`border rounded-full border-light-grey flex items-center justify-center w-fit- ${
@@ -151,7 +153,7 @@ const Sponsors = ({
               />
             </div>
             {isSponsor && (
-              <p className="mt-2.5 md:mt-5 text-black text-center text-sm md:text-base lg:text-lg - font-semibold leading-[18px] capitalize max-w-[100px]- ">
+              <p className="mt-2.5 md:mt-5 text-black text-center text-sm md:text-base lg:text-lg font-semibold leading-[18px] capitalize max-w-[200px] whitespace-normal ">
                 {item?.name}
               </p>
             )}

@@ -1,5 +1,5 @@
 import React from "react";
-import SectionHeading from "../ui/Headings/SectionHeading";
+// import SectionHeading from "../ui/Headings/SectionHeading";
 import FooterButton from "../ui/Button/FooterButton";
 import FooterLinks from "./FooterLinks";
 import Link from "next/link";
@@ -34,7 +34,7 @@ const Footer = ({
   const footerMainLinksData = Object.values(footerMainLinks);
   const footerBottomlinksData = Object.values(footerBottom);
 
-  const heading = ` <span>${footer_heading1} </span> ${footer_heading2}.`;
+  // const heading = ` <span>${footer_heading1} </span> ${footer_heading2}.`;
 
   console.log(footer_heading1, footer_heading2, "this is the headings");
 
