@@ -19,7 +19,7 @@ function HomeSectionNine({
   sponsors_description,
 }: SectionNinePropTypes) {
   return (
-    <section className="section-wrapper pt-8 sm:pt-14 lg:pt-16 pb-24">
+    <section className="section-wrapper pt-8 sm:pt-14 md:pt-0 lg:pt-16- pb-24">
       <div>
         <div className="grid grid-cols-12 md:gap-x-10 lg:gap-x-16 2xl:gap-x-20 3xl:gap-x-24">
           <h3 className="main-heading text-dark-alter font-bold leading-3 md:leading-2 lg:leading-1 col-span-12 md:col-span-6">
@@ -40,8 +40,8 @@ function HomeSectionNine({
         </div>
         <div className="space-y-10 pt-5 md:pt-8 lg:pt-10">
           <Sponsors data={sponsors} isSponsor={true} />
-          <Sponsors data={assosiations} />
-          <Sponsors data={mediaParteners} />
+          <Sponsors data={assosiations} isAssosiation={true} />
+          <Sponsors data={mediaParteners} isPartners={true} />
         </div>
       </div>
     </section>

@@ -72,7 +72,7 @@ const HomeSectionThree = ({
             </div>
           )}
         </article>
-        <article className="col-span-12 md:col-span-5 lg:col-span-6 relative z-50 mt-8 md:mt-0 ">
+        <article className="col-span-12 md:col-span-5 lg:col-span-6 relative z-50 mt-8 md:mt-0  flex flex-col justify-center">
           <SmallTitle title={small_title} />
 
           <div className="pt-4 md:pt-8 lg:pt-8 space-y-5 md:space-y-6 lg:space-y-8">

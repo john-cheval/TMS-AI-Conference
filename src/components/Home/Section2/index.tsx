@@ -23,7 +23,7 @@ const HomeSectionTwo = ({
         <SmallTitle title={heading} />
 
         <div className="grid grid-cols-12 md:gap-x-8 lg:gap-x-12 xl:gap-x-16 pt-4 md:pt-8 lg:pt-10 xl:pt-16">
-          <article className="col-span-12 lg:col-span-6 xl:col-span-7-">
+          <article className="col-span-12 lg:col-span-6 xl:col-span-7- flex flex-col justify-">
             <div className="flex flex-col gap-y-3 lg:gap-y-4">
               {small_title && (
                 <h5 className="text-tms-black text-sm sm:text-base  md:text-lg lg:text-xl font-bold  leading-4 ">
@@ -36,8 +36,8 @@ const HomeSectionTwo = ({
 
             <div className=" pt-5 md:pt-6 lg:pt-8 md:pl-6 xl:pl-8 flex flex-col  gap-y-5 md:gap-y-6">
               {description && (
-                <div className="description text-dark-grey  ">
-                  <ExpandableHtmlText htmlContent={description} limit={750} />
+                <div className="description  text-dark-grey  ">
+                  <ExpandableHtmlText htmlContent={description} limit={500} />
                 </div>
               )}
               <div className="mx-auto lg:mx-0 ">
