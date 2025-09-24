@@ -26,7 +26,8 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const submenuRef = useRef<HTMLDivElement>(null);
 
-  const toggleSubmenu = (name: string) => {
+  const toggleSubmenu = (name: string, event: React.MouseEvent) => {
+    event.stopPropagation();
     setOpenSubmenu(openSubmenu === name ? null : name);
   };
 
@@ -63,14 +64,14 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
     };
 
     if (openSubmenu) {
-      document.addEventListener("mousedown", handleOutsideClick);
+      document.addEventListener("click", handleOutsideClick);
     } else {
-      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("click", handleOutsideClick);
     }
 
     // Cleanup function
     return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("click", handleOutsideClick);
     };
   }, [openSubmenu]);
   return (
@@ -123,7 +124,7 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
                       <div className="relative">
                         <button
                           className="flex items-center gap-x-1 "
-                          onClick={() => toggleSubmenu(nav?.name)}
+                          onClick={(e) => toggleSubmenu(nav?.name, e)}
                         >
                           {nav?.name}{" "}
                           <motion.span
@@ -149,7 +150,9 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
                                     <li
                                       key={subIndex + 1}
                                       className="py-1  whitespace-nowrap "
-                                      onClick={() => toggleSubmenu(nav?.name)}
+                                      onClick={(e) =>
+                                        toggleSubmenu(nav?.name, e)
+                                      }
                                     >
                                       <Link
                                         href={subItem?.link}
