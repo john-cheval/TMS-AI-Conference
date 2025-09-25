@@ -157,7 +157,7 @@ const Sponsors = ({
               />
             </div>
             {isSponsor && (
-              <p className="mt-2.5 md:mt-5 text-black text-center text-sm md:text-base lg:text-lg font-semibold leading-[18px] capitalize max-w-[200px] whitespace-normal ">
+              <p className="mt-2.5 md:mt-5 text-black text-center text-sm md:text-base lg:text-lg font-semibold leading-[18px]- capitalize max-w-[200px] whitespace-normal-   ">
                 {item?.name}
               </p>
             )}
