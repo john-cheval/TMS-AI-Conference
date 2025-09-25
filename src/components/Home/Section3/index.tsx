@@ -83,6 +83,12 @@ const HomeSectionThree = ({
                 className="descriptionWithList description space-y-5 md:space-y-6 lg:space-y-8 text-tms-black"
                 dangerouslySetInnerHTML={{ __html: description }}
               />
+
+              //  <div
+              //   className="descriptionWithList description space-y-5 md:space-y-6 lg:space-y-8 text-tms-black"
+              // >
+              //   <ExpandableHtmlText htmlContent={description} limit={500} />
+              // </div>
             )}
 
             <div className="flex justify-center md:justify-start ">

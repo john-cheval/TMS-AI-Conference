@@ -4,9 +4,16 @@ import Navbar from "@/components/shared/Navbar";
 type Props = {
   mainLinks: any;
   sidebarLinks: any;
+  registerNow: any;
+  sponsorBtnData: any;
 };
 
-const ServerNavbar = ({ mainLinks, sidebarLinks }: Props) => {
+const ServerNavbar = ({
+  mainLinks,
+  sidebarLinks,
+  registerNow,
+  sponsorBtnData,
+}: Props) => {
   const allSeoLinks: any[] = [];
 
   Object.values(mainLinks).forEach((link: any) => {
@@ -47,7 +54,12 @@ const ServerNavbar = ({ mainLinks, sidebarLinks }: Props) => {
       </nav>
 
       {/* Client-side enhanced navbar */}
-      <Navbar mainMenuLinks={mainLinks} sideBarLinksDatas={sidebarLinks} />
+      <Navbar
+        mainMenuLinks={mainLinks}
+        sideBarLinksDatas={sidebarLinks}
+        regiterNowBtn={registerNow}
+        sponsorBtn={sponsorBtnData}
+      />
     </>
   );
 };

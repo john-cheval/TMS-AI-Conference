@@ -52,7 +52,12 @@ export default async function RootLayout({
       <body
         className={`${inter.className} antialiased flex flex-col min-h-full `}
       >
-        <ServerNavbar mainLinks={mainMenuLinks} sidebarLinks={sideBarlinks} />
+        <ServerNavbar
+          mainLinks={mainMenuLinks}
+          sidebarLinks={sideBarlinks}
+          registerNow={COMMON_SETTINGS_VALUES_register_now}
+          sponsorBtnData={COMMON_SETTINGS_VALUES_become_a_sponsor}
+        />
         <main className="flex-grow pt-[106px]">
           <Providers>
             {" "}

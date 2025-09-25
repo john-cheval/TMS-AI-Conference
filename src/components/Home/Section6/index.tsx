@@ -25,19 +25,19 @@ const HomeSectionSix = ({
         </div>
 
         <div className="mt-6 lg:mt-8 grid grid-cols-1 gap-y-3  lg:gap-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-3  md:gap-x-3 lg:gap-x-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-y-3  md:gap-x-3 lg:gap-x-4">
             {image_gallery &&
               image_gallery?.length > 0 &&
-              image_gallery?.slice(0, 2)?.map((item, index) => {
+              image_gallery?.slice(0, 3)?.map((item, index) => {
                 return <AgendaCard key={index} {...item} />;
               })}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-y-3 md:gap-x-3 lg:gap-x-4">
-            {image_gallery?.[2] && <AgendaCard {...image_gallery?.[2]} />}
+            {image_gallery?.[3] && <AgendaCard {...image_gallery?.[3]} />}
 
             <div className="grid grid-cols-1 gap-y-3  lg:gap-y-4">
               {image_gallery &&
-                image_gallery?.slice(3, 5)?.map((item, index) => {
+                image_gallery?.slice(4, 6)?.map((item, index) => {
                   return <AgendaCard key={index} {...item} />;
                 })}
             </div>

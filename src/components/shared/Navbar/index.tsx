@@ -15,9 +15,16 @@ import { iconVariants, submenuVariants } from "@/constants/motionVariants";
 export type NavPropTypes = {
   mainMenuLinks: any;
   sideBarLinksDatas: any;
+  regiterNowBtn: any;
+  sponsorBtn: any;
 };
 
-const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
+const Navbar = ({
+  mainMenuLinks,
+  sideBarLinksDatas,
+  regiterNowBtn,
+  sponsorBtn,
+}: NavPropTypes) => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
@@ -144,7 +151,7 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
                               className="origin-top overflow-hidden absolute top-10 left-1/2 -translate-x-1/2"
                               ref={submenuRef}
                             >
-                              <ul className="pl-4 py-2 bg-tms-blue  w-full px-5 text-center">
+                              <ul className="pl-4 py-2 bg-tms-blue  w-full px-5 ">
                                 {Object.values(nav.submenu)?.map(
                                   (subItem: any, subIndex: number) => (
                                     <li
@@ -156,7 +163,7 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
                                     >
                                       <Link
                                         href={subItem?.link}
-                                        className="text-white hover:bg-white hover:text-tms-blue duration-300 transition-colors p-1"
+                                        className="text-white hover:bg-white hover:text-tms-blue duration-300 transition-colors "
                                       >
                                         {subItem?.name}
                                       </Link>
@@ -182,20 +189,20 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
             />
             <div className=" gap-x-2 hidden lg:flex">
               <ButtonOrLink
-                hrefs="/"
+                hrefs={regiterNowBtn?.value}
                 isGradient={false}
                 isIcon={false}
                 isLink={true}
               >
-                Register Now
+                {regiterNowBtn?.title}
               </ButtonOrLink>
               <ButtonOrLink
-                hrefs="/"
+                hrefs={sponsorBtn?.value}
                 isGradient={true}
                 isIcon={true}
                 isLink={true}
               >
-                Become a Sponsor
+                {sponsorBtn?.title}
               </ButtonOrLink>
             </div>
           </div>

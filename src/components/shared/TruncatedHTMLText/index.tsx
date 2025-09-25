@@ -1,7 +1,5 @@
 "use client";
-
 import { truncateHtml } from "@/utils/trumcate";
-// import { truncateHtml } from "@/utils/truncateHtml";
 import React, { useState, useEffect } from "react";
 
 interface ExpandableHtmlTextProps {
@@ -18,7 +16,7 @@ const ExpandableHtmlText: React.FC<ExpandableHtmlTextProps> = ({
 
   useEffect(() => {
     if (htmlContent.length > limit) {
-      setTruncatedHtml(truncateHtml(htmlContent, limit));
+      setTruncatedHtml(truncateHtml(htmlContent, limit).replace(/<\/?p>/g, ""));
     } else {
       setTruncatedHtml(htmlContent);
     }
