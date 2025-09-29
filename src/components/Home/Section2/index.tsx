@@ -7,6 +7,10 @@ import SmallTitle from "@/components/shared/ui/Headings/SmallTitle";
 import SectionHeading from "@/components/shared/ui/Headings/SectionHeading";
 import Image from "next/image";
 
+type Props = SectionOnePropsTyps & {
+  isSponsor?: boolean;
+};
+
 const HomeSectionTwo = ({
   heading,
   small_title,
@@ -16,7 +20,8 @@ const HomeSectionTwo = ({
   session_heading,
   button_link,
   data,
-}: SectionOnePropsTyps) => {
+  isSponsor = false,
+}: Props) => {
   return (
     <section className="section-wrapper section-container">
       <div>
@@ -34,7 +39,11 @@ const HomeSectionTwo = ({
               {main_heading && <SectionHeading main_title={main_heading} />}
             </div>
 
-            <div className=" pt-5 md:pt-6 lg:pt-8 md:pl-6 xl:pl-8 flex flex-col  gap-y-5 md:gap-y-6">
+            <div
+              className={`pt-5 md:pt-6 lg:pt-8 ${
+                isSponsor ? "" : "md:pl-6 xl:pl-8"
+              }  flex flex-col  gap-y-5 md:gap-y-6`}
+            >
               {description && (
                 <div className="description  text-dark-grey  ">
                   <ExpandableHtmlText htmlContent={description} limit={500} />

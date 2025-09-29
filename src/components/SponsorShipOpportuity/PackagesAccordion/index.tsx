@@ -7,6 +7,7 @@ import Image from "next/image";
 import arrowDown from "@/assets/shared/chevron-right.png";
 import Link from "next/link";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { truncateHtml } from "@/utils/trumcate";
 
 type Props = {
   packageData?: any;
@@ -14,6 +15,17 @@ type Props = {
 
 const PackagesAccordion = ({ packageData }: Props) => {
   const [openIndex, setOpenIndex] = useState<number | null>(packageData?.id);
+  const [expandedStates, setExpandedStates] = useState<{
+    [key: number]: boolean;
+  }>({});
+
+  const handleReadMoreClick = (index: number) => {
+    setExpandedStates((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
+
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
@@ -62,6 +74,7 @@ const PackagesAccordion = ({ packageData }: Props) => {
                         <div className="space-y-5">
                           {item?.sponsors?.map(
                             (sponsor: any, index: number) => {
+                              const isExpanded = expandedStates[index] || false;
                               return (
                                 <div key={index + 1}>
                                   <Image
@@ -83,22 +96,38 @@ const PackagesAccordion = ({ packageData }: Props) => {
                                     </p>
                                     <div
                                       className="sponsor-description"
+                                      // dangerouslySetInnerHTML={{
+                                      //   __html: sponsor?.description,
+                                      // }}
                                       dangerouslySetInnerHTML={{
-                                        __html: sponsor?.description,
+                                        __html: isExpanded
+                                          ? sponsor?.description
+                                          : truncateHtml(
+                                              sponsor?.description,
+                                              150,
+                                              true
+                                            ),
                                       }}
                                     />
                                   </div>
 
                                   <div className=" grid grid-cols-2 rounded-b-sm overflow-hidden">
-                                    <button className=" bg-[#ECECEC] w-full flex justify-center items-center gap-x-2 py-3 text-sm sm:text-base font-bold leading-5 text-tms-purple">
-                                      Read More{" "}
+                                    <button
+                                      className=" bg-[#ECECEC] w-full flex justify-center items-center gap-x-2 py-3 text-sm sm:text-base font-bold leading-5 text-tms-purple"
+                                      onClick={() => handleReadMoreClick(index)}
+                                    >
+                                      {isExpanded ? "Read Less" : "Read More"}{" "}
                                       <Image
                                         src={arrowDown}
                                         alt="arrowdown"
                                         width={16}
                                         height={16}
                                         sizes="100vw"
-                                        className="w-full h-auto max-w-3 object-cover"
+                                        className={`w-full h-auto max-w-3 object-cover transition-transform duration-500 ease-in-out ${
+                                          isExpanded
+                                            ? "-rotate-180"
+                                            : "rotate-0"
+                                        }`}
                                       />
                                     </button>
                                     <Link

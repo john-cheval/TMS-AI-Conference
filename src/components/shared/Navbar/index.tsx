@@ -121,8 +121,10 @@ const Navbar = ({
                 return (
                   <li
                     key={index + 1}
-                    className={`nav-links ${
-                      isActive ? "text-tms-blue" : "text-tms-black"
+                    className={`nav-links duration-300 transition-colors ${
+                      isActive
+                        ? "text-tms-blue"
+                        : "text-tms-black hover:text-tms-blue"
                     }`}
                   >
                     {!hasSubmenu ? (

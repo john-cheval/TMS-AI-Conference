@@ -124,4 +124,5 @@ export type SectionOnePropsTyps = {
   register_heading?: string;
   register_price?: any;
   companyList?: any;
+  button_title?: string;
 };

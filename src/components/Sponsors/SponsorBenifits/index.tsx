@@ -4,12 +4,17 @@ import { SectionOnePropsTyps } from "@/types/common";
 import Image from "next/image";
 import React from "react";
 
-const SponsorBenifits = ({ heading, all_benefits }: SectionOnePropsTyps) => {
+const SponsorBenifits = ({
+  heading,
+  all_benefits,
+  button_link,
+  button_title,
+}: SectionOnePropsTyps) => {
   return (
     <section className="section-wrapper mb-5 md:mt-0">
       <SectionHeadingTwo title={heading} isDark={true} />
       {all_benefits && (
-        <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3  md:gap-4 xl:gap-6 mt-6 md:mt-8 xl:mt-10 ">
+        <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3  md:gap-4 xl:gap-6 mt-6 md:mt-8  ">
           {Object.values(all_benefits)?.map((item, index) => {
             return (
               <div
@@ -21,7 +26,7 @@ const SponsorBenifits = ({ heading, all_benefits }: SectionOnePropsTyps) => {
                   alt={item?.title}
                   width={390}
                   height={390}
-                  className="w-full h-auto object-cover "
+                  className="w-full h-full- object-cover  "
                 />
 
                 <div className="space-y-2.5 absolute bottom-5 xl:bottom-7 left-5 xl:left-7 right-6 z-50">
@@ -40,9 +45,7 @@ const SponsorBenifits = ({ heading, all_benefits }: SectionOnePropsTyps) => {
       )}
 
       <div className="flex justify-center mt-5 md:mt-8">
-        <BigButton hrefs="/">
-          View the range of Sponsorship Opportunities here
-        </BigButton>
+        <BigButton hrefs={button_link}>{button_title}</BigButton>
       </div>
     </section>
   );

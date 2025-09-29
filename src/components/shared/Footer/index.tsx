@@ -36,8 +36,6 @@ const Footer = ({
 
   // const heading = ` <span>${footer_heading1} </span> ${footer_heading2}.`;
 
-  console.log(footer_heading1, footer_heading2, "this is the headings");
-
   return (
     <footer className="bg-black relative pt-16 md:pt-20 lg:pt-24 pb-8 md:pb-10 section-wrapper">
       <div className="grid grid-cols-12 lg:gap-x-8 2xl:gap-x-12">

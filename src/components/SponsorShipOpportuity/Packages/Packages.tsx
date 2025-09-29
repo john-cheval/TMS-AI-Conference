@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import arrowDown from "@/assets/shared/chevron-right.png";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { truncateHtml } from "@/utils/trumcate";
 type Props = {
   packageData?: any;
   getSelectedPackage?: any;
@@ -16,15 +17,24 @@ const Packages = ({
   getSelectedPackageCategoryId,
 }: Props) => {
   const [activeTitle, setActiveTitle] = useState(packageData[0]?.title);
+  const [expandedStates, setExpandedStates] = useState<{
+    [key: number]: boolean;
+  }>({});
   const handleTitleClick = (item: string) => {
     setActiveTitle(item);
+    // setExpandedStates({});
+  };
+
+  const handleReadMoreClick = (index: number) => {
+    setExpandedStates((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
   };
 
   const selectedPackage = packageData?.find(
     (item: any) => item?.title === activeTitle
   );
-
-  // console.log(selectedPackage, "selectedPackage");
 
   return (
     <div>
@@ -59,64 +69,77 @@ const Packages = ({
 
       {selectedPackage?.sponsors && selectedPackage?.sponsors.length > 0 ? (
         <div className="space-y-10" id="packages">
-          {selectedPackage?.sponsors?.map((sponsor: any, index: number) => (
-            <div key={index + 1}>
-              <div className="grid grid-cols-12">
-                <div className="col-span-9 lg:col-span-7 xl:col-span-8 bg-[#f5f5f5] border-t border-l border-[#cecece] rounded-tl-sm  py-12 pl-16 pr-3 h-fit  mt-auto">
-                  <h5 className="main-heading-2 gradient-text w-fit">
-                    {" "}
-                    {sponsor?.title}
-                  </h5>
-                  <p className="text-base text-[#2A2A2A] font-medium leading-5 mt-[2px] mb-2 lg:mb-4">
-                    {" "}
-                    {sponsor?.small_title}
-                  </p>
+          {selectedPackage?.sponsors?.map((sponsor: any, index: number) => {
+            const isExpanded = expandedStates[index] || false;
+            return (
+              <div key={index + 1}>
+                <div className="grid grid-cols-12">
+                  <div className="col-span-9 lg:col-span-7 xl:col-span-8 bg-[#f5f5f5] border-t border-l border-[#cecece] rounded-tl-sm  py-12 pl-16 pr-3 h-fit  mt-auto">
+                    <h5 className="main-heading-2 gradient-text w-fit">
+                      {" "}
+                      {sponsor?.title}
+                    </h5>
+                    <p className="text-base text-[#2A2A2A] font-medium leading-5 mt-[2px] mb-2 lg:mb-4">
+                      {" "}
+                      {sponsor?.small_title}
+                    </p>
 
-                  <div
-                    className="sponsor-description"
-                    dangerouslySetInnerHTML={{ __html: sponsor?.description }}
-                  />
+                    <div
+                      className="sponsor-description"
+                      // dangerouslySetInnerHTML={{ __html: sponsor?.description }}
+                      dangerouslySetInnerHTML={{
+                        __html: isExpanded
+                          ? sponsor?.description
+                          : truncateHtml(sponsor?.description, 150, true),
+                      }}
+                    />
+                  </div>
+                  <div className="col-span-3 lg:col-span-5 xl:col-span-4 flex ">
+                    <Image
+                      src={sponsor?.image_url}
+                      alt={sponsor?.title}
+                      width={430}
+                      height={430}
+                      className="w-full h-auto object-cover flex-grow-1 rounded-t-sm rounded-br-sm"
+                    />
+                  </div>
                 </div>
-                <div className="col-span-3 lg:col-span-5 xl:col-span-4 flex ">
-                  <Image
-                    src={sponsor?.image_url}
-                    alt={sponsor?.title}
-                    width={430}
-                    height={430}
-                    className="w-full h-auto object-cover flex-grow-1 rounded-t-sm rounded-br-sm"
-                  />
-                </div>
-              </div>
-              <div className="grid grid-cols-12">
-                <button className="col-span-9 lg:col-span-7 xl:col-span-8 bg-[#ECECEC] w-full flex justify-center items-center gap-x-2.5 py-4 lg:py-6 text-base lg:text-lg font-bold leading-5 text-tms-purple">
-                  Read More{" "}
-                  <Image
-                    src={arrowDown}
-                    alt="arrowdown"
-                    width={16}
-                    height={16}
-                    sizes="100vw"
-                    className="w-full h-auto max-w-4 object-cover"
-                  />
-                </button>
-                <div className="col-span-3 lg:col-span-4 xl:col-span-3">
-                  <Link
-                    href={"#sponsor-form"}
-                    className=" buttonGradient-2 rounded-br-sm block- flex items-center justify-center text-white py-4 lg:py-6 text-base lg:text-lg font-bold leading-5 group"
-                    onClick={() => {
-                      getSelectedPackage(
-                        `${sponsor?.title} -   ${activeTitle} ${selectedPackage?.small_title}`
-                      );
-                      getSelectedPackageCategoryId(sponsor?.id);
-                    }}
+                <div className="grid grid-cols-12">
+                  <button
+                    className="col-span-9 lg:col-span-7 xl:col-span-8 bg-[#ECECEC] w-full flex justify-center items-center gap-x-2.5 py-4 lg:py-6 text-base lg:text-lg font-bold leading-5 text-tms-purple"
+                    onClick={() => handleReadMoreClick(index)}
                   >
-                    Send Enquiry{" "}
-                    <MdOutlineKeyboardArrowRight className="text-2xl  group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
-                  </Link>
+                    {isExpanded ? "Read Less" : "Read More"}{" "}
+                    <Image
+                      src={arrowDown}
+                      alt="arrowdown"
+                      width={16}
+                      height={16}
+                      sizes="100vw"
+                      className={`w-full h-auto max-w-4 object-cover transition-transform duration-500 ease-in-out ${
+                        isExpanded ? "-rotate-180" : "rotate-0"
+                      }`}
+                    />
+                  </button>
+                  <div className="col-span-3 lg:col-span-4 xl:col-span-3">
+                    <Link
+                      href={"#sponsor-form"}
+                      className=" buttonGradient-2 rounded-br-sm block- flex items-center justify-center text-white py-4 lg:py-6 text-base lg:text-lg font-bold leading-5 group"
+                      onClick={() => {
+                        getSelectedPackage(
+                          `${sponsor?.title} -   ${activeTitle} ${selectedPackage?.small_title}`
+                        );
+                        getSelectedPackageCategoryId(sponsor?.id);
+                      }}
+                    >
+                      Send Enquiry{" "}
+                      <MdOutlineKeyboardArrowRight className="text-2xl  group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       ) : (
         <p className="text-2xl text-center text-tms-blue font-bold">
