@@ -97,6 +97,9 @@ ul {
 .wrapper-nav {
   @apply px-5 2xl:px-10;
 }
+.sponsor-wrapper {
+  @apply space-y-5 md:space-y-8  lg:space-y-10;
+}
 
 .nav-links {
   @apply text-sm font-bold leading-5;

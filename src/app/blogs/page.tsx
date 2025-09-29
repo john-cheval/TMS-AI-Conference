@@ -118,9 +118,9 @@ const Blogs = async () => {
       <div className="sm:hidden section-wrapper mt-10">
         <PreReleaseCardResponsive detail={blog_list?.data} />
       </div>
-      <div className="section-wrapper pb-16 md:pb-20  space-y-5 pt-6 md:pt-8 lg:pt-14  ">
+      <div className="section-wrapper pb-16 md:pb-20  sponsor-wrapper pt-6 md:pt-8 lg:pt-14  ">
         <Sponsors data={sponsors} isSponsor={true} />
-        <Sponsors data={supporting_associations} />
+        <Sponsors data={supporting_associations} isAssosiation={true} />
         <Sponsors data={media_partners} />
       </div>
     </>

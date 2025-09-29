@@ -49,9 +49,9 @@ const BogsInnerPage = async ({ params }: Props) => {
       {blogContent?.data?.length > 0 && (
         <RecentlyViewed data={press_release?.data} />
       )}
-      <div className="section-wrapper pb-16 md:pb-20  space-y-5">
+      <div className="section-wrapper pb-16 md:pb-20  sponsor-wrapper">
         <Sponsors data={sponsors} isSponsor={true} />
-        <Sponsors data={supporting_associations} />
+        <Sponsors data={supporting_associations} isAssosiation={true} />
         <Sponsors data={media_partners} />
       </div>
     </>

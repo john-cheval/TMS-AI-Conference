@@ -6,10 +6,12 @@ import React from "react";
 type Props = {
   heading: string;
   why_attend_list: WhyAttendListType[];
+  button_text: string;
+  button_link: string;
 };
 
 const WhyAttendSection = (props: Props) => {
-  const { heading, why_attend_list } = props;
+  const { heading, why_attend_list, button_text, button_link } = props;
   return (
     <section className="section-wrapper pt-6 sm:pt-8 md:pt-12 lg:pt-16 xl:pt-[70px] ">
       <h3 className="main-heading text-tms-purple font-bold leading-3 lg:leading-2 xl:leading-1">
@@ -40,10 +42,7 @@ const WhyAttendSection = (props: Props) => {
       </div>
 
       <div className="flex justify-center mt-5 md:mt-8">
-        <BigButton hrefs="/">
-          Don’t miss out—register today and take advantage of our special group
-          booking rates!
-        </BigButton>
+        <BigButton hrefs={button_link}>{button_text}</BigButton>
       </div>
     </section>
   );

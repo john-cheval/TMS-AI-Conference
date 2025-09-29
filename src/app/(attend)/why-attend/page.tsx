@@ -18,10 +18,17 @@ const WhyAttend = async () => {
   const conferenceData =
     pageContent?.gernalsettings?.current_year_coneference[0];
   const { AWARD_YEAR } = generalSettings?.general_settings;
+  const {
+    page_top_banner,
+    why_attend_page,
+    sponsors,
+    supporting_associations,
+    media_partners,
+  } = pageContent?.data?.section_list;
   return (
     <>
       <SharedTopSection
-        {...pageContent?.data?.section_list?.page_top_banner}
+        {...page_top_banner}
         title={pageContent?.data?.name}
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
@@ -31,21 +38,14 @@ const WhyAttend = async () => {
       <div
         className="section-wrapper pt-8 md:pt-10 lg:pt-12  xl:pt-14 description font-normal text-dark-alter pb-6 md:pb-0 text-center"
         dangerouslySetInnerHTML={{
-          __html: pageContent?.data?.section_list?.why_attend_page?.description,
+          __html: why_attend_page?.description,
         }}
       />
-      <WhyAttendSectionOne
-        data={pageContent?.data?.section_list?.why_attend_page?.why_attend_list}
-      />
-      <div className="section-wrapper pb-12 md:pb-20 space-y-5 pt-6 md:pt-12 lg:pt-16 xl:pt-20">
-        <Sponsors
-          data={pageContent?.data?.section_list?.sponsors}
-          isSponsor={true}
-        />
-        <Sponsors
-          data={pageContent?.data?.section_list?.supporting_associations}
-        />
-        <Sponsors data={pageContent?.data?.section_list?.media_partners} />
+      <WhyAttendSectionOne data={why_attend_page?.why_attend_list} />
+      <div className="section-wrapper pb-12 md:pb-20 sponsor-wrapper pt-6 md:pt-12 lg:pt-16 xl:pt-20">
+        <Sponsors data={sponsors} isSponsor={true} />
+        <Sponsors data={supporting_associations} isAssosiation={true} />
+        <Sponsors data={media_partners} />
       </div>
     </>
   );

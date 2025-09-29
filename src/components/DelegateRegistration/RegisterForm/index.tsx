@@ -27,6 +27,7 @@ type Props = {
     price: string;
   }[];
   NatureOfCompanyList: any;
+  earlyBirdDates?: string;
 };
 
 interface DelegateData {
@@ -58,7 +59,13 @@ const DelegateRegisterForm = ({
   heading,
   priceDetails,
   NatureOfCompanyList,
+  earlyBirdDates,
 }: Props) => {
+  const earlyBirdCutoffDate = new Date(earlyBirdDates ?? "");
+  const currentDate = new Date();
+
+  const isEarlyBirdExpired = currentDate > earlyBirdCutoffDate;
+
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -86,7 +93,6 @@ const DelegateRegisterForm = ({
 
   const termsAccepted = watch("termsAccepted");
   const isFormValid = termsAccepted && token;
-  console.log(isFormValid, "this is form valid");
 
   const handleToken = useCallback((recaptchaToken: string | null) => {
     if (recaptchaToken) {
@@ -233,9 +239,16 @@ const DelegateRegisterForm = ({
             </p>
             <div className="flex flex-col md:flex-row justify-center flex-wrap gap-1 md:gap-x-5 xl:gap-x-7 mt-3 md:mt-4">
               {priceDetails?.map((item, index) => {
+                const isEarlyBirdPlan = item?.title === "Individual";
+                const isDisabled = isEarlyBirdPlan && isEarlyBirdExpired;
                 return (
                   <label
-                    className="flex items-center mb-4 cursor-pointer"
+                    // className="flex items-center mb-4 cursor-pointer"
+                    className={`flex items-center mb-4 ${
+                      isDisabled
+                        ? "cursor-not-allowed opacity-50"
+                        : "cursor-pointer"
+                    }`}
                     key={index}
                   >
                     <input
@@ -244,6 +257,12 @@ const DelegateRegisterForm = ({
                       value={item?.title}
                       {...register("planType", {
                         required: "Plan type is required.",
+                        validate: (value) => {
+                          if (isDisabled && value === item.title) {
+                            return "This plan is no longer available.";
+                          }
+                          return true;
+                        },
                       })}
                       className="peer sr-only flex-grow-1"
                     />
