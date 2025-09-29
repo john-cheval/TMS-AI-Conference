@@ -18,11 +18,18 @@ const BecomePartner = async () => {
   const conferenceData =
     pageContent?.gernalsettings?.current_year_coneference[0];
   const { AWARD_YEAR } = generalSettings?.general_settings;
-
+  const {
+    page_top_banner,
+    page_description,
+    become_a_sponsor_form,
+    sponsors,
+    supporting_associations,
+    media_partners,
+  } = pageContent?.data?.section_list;
   return (
     <>
       <SharedTopSection
-        {...pageContent?.data?.section_list?.page_top_banner}
+        {...page_top_banner}
         title={pageContent?.data?.name}
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
@@ -33,24 +40,15 @@ const BecomePartner = async () => {
       <div
         className="section-wrapper pt-8 md:pt-10 lg:pt-12  xl:pt-16 2xl:pt-20 description font-normal text-dark-alter pb-6 md:pb-0 text-center"
         dangerouslySetInnerHTML={{
-          __html:
-            pageContent?.data?.section_list?.page_description?.description,
+          __html: page_description?.description,
         }}
       />
-      <BecomeSponsorForm
-        {...pageContent?.data?.section_list?.become_a_sponsor_form}
-        isPartnerForm={true}
-      />
+      <BecomeSponsorForm {...become_a_sponsor_form} isPartnerForm={true} />
 
-      <div className="section-wrapper pb-12 md:pb-20 space-y-5">
-        <Sponsors
-          data={pageContent?.data?.section_list?.sponsors}
-          isSponsor={true}
-        />
-        <Sponsors
-          data={pageContent?.data?.section_list?.supporting_associations}
-        />
-        <Sponsors data={pageContent?.data?.section_list?.media_partners} />
+      <div className="section-wrapper pb-12 md:pb-20 sponsor-wrapper">
+        <Sponsors data={sponsors} isSponsor={true} />
+        <Sponsors data={supporting_associations} isAssosiation={true} />
+        <Sponsors data={media_partners} />
       </div>
     </>
   );

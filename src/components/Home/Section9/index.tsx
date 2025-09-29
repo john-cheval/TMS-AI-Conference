@@ -38,10 +38,10 @@ function HomeSectionNine({
             )}
           </div>
         </div>
-        <div className="space-y-10 pt-5 md:pt-8 lg:pt-10">
+        <div className=" pt-5 md:pt-8 lg:pt-10 sponsor-wrapper">
           <Sponsors data={sponsors} isSponsor={true} />
           <Sponsors data={assosiations} isAssosiation={true} />
-          <Sponsors data={mediaParteners} isPartners={true} />
+          <Sponsors data={mediaParteners} />
         </div>
       </div>
     </section>

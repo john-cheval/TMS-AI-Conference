@@ -19,29 +19,31 @@ const WhoShouldAttend = async () => {
   const conferenceData =
     pageContent?.gernalsettings?.current_year_coneference[0];
   const { AWARD_YEAR } = generalSettings?.general_settings;
+
+  const {
+    page_top_banner,
+    who_should_attend,
+    why_attend,
+    sponsors,
+    supporting_associations,
+    media_partners,
+  } = pageContent?.data?.section_list;
   return (
     <>
       <SharedTopSection
-        {...pageContent?.data?.section_list?.page_top_banner}
+        {...page_top_banner}
         title={pageContent?.data?.name}
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
         conferenceLocation={conferenceData.location}
         conferenceDate={conferenceData.end_date}
       />
-      <WhoShouldAttendSectionOne
-        {...pageContent?.data?.section_list?.who_should_attend}
-      />
-      <WhyAttendSection {...pageContent?.data?.section_list?.why_attend} />
-      <div className="section-wrapper pb-12 md:pb-20 space-y-5 pt-6 md:pt-10 lg:pt-16 2xl:pt-20">
-        <Sponsors
-          data={pageContent?.data?.section_list?.sponsors}
-          isSponsor={true}
-        />
-        <Sponsors
-          data={pageContent?.data?.section_list?.supporting_associations}
-        />
-        <Sponsors data={pageContent?.data?.section_list?.media_partners} />
+      <WhoShouldAttendSectionOne {...who_should_attend} />
+      <WhyAttendSection {...why_attend} />
+      <div className="section-wrapper pb-12 md:pb-20 sponsor-wrapper pt-6 md:pt-10 lg:pt-16 2xl:pt-20">
+        <Sponsors data={sponsors} isSponsor={true} />
+        <Sponsors data={supporting_associations} isAssosiation={true} />
+        <Sponsors data={media_partners} />
       </div>
     </>
   );

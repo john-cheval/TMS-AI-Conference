@@ -16,7 +16,7 @@ const Packages = ({
   getSelectedPackage,
   getSelectedPackageCategoryId,
 }: Props) => {
-  const [activeTitle, setActiveTitle] = useState(packageData[0]?.title);
+  const [activeTitle, setActiveTitle] = useState(packageData?.[0]?.title);
   const [expandedStates, setExpandedStates] = useState<{
     [key: number]: boolean;
   }>({});

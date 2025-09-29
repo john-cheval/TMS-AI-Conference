@@ -18,24 +18,23 @@ const MediaPartners = async () => {
   const conferenceData =
     pageContent?.gernalsettings?.current_year_coneference[0];
   const { AWARD_YEAR } = generalSettings?.general_settings;
-  const SponsorsData = pageContent?.data?.section_list?.media_partners?.data;
+
+  const { page_top_banner, become_a_sponsor_form, media_partners } =
+    pageContent?.data?.section_list;
   return (
     <>
       {" "}
       <SharedTopSection
-        {...pageContent?.data?.section_list?.page_top_banner}
+        {...page_top_banner}
         title={pageContent?.data?.name}
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
         conferenceLocation={conferenceData.location}
         conferenceDate={conferenceData.end_date}
       />
-      <SponsorsList sponsors={SponsorsData} isButton={false} />
+      <SponsorsList sponsors={media_partners?.data} isButton={false} />
       <div className="pb-5 md:pb-10">
-        <BecomeSponsorForm
-          {...pageContent?.data?.section_list?.become_a_sponsor_form}
-          isPartnerForm={true}
-        />
+        <BecomeSponsorForm {...become_a_sponsor_form} isPartnerForm={true} />
       </div>
     </>
   );

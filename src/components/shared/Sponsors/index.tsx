@@ -20,10 +20,11 @@ const Sponsors = ({
   isSponsor = false,
   isReversed = false,
   isAssosiation = false,
-  isPartners = false,
-}: SponsorsPropsType) => {
+}: // isPartners = false,
+SponsorsPropsType) => {
   const containerRef1 = useRef(null);
   const containerRef2 = useRef(null);
+  const BASE_ITEM_DURATION = 3;
 
   const listsData = useMemo(() => {
     if (isSponsor && data?.data) {
@@ -61,56 +62,47 @@ const Sponsors = ({
     };
   }, [data?.data, isSponsor]);
 
-  // useGSAP(() => {
-  //   if (containerRef1.current) {
-  //     gsap.to(containerRef1.current, {
-  //       xPercent: -50,
-  //       repeat: -1,
-  //       duration: 15,
-  //       ease: "none",
-  //     });
-  //   }
-  // }, [listsData.firstList]);
-
   // Check the number of items in the first list
   const shouldAnimateFirstList = listsData.firstList.length >= 5;
 
   // Check the number of items in the second list
   const shouldAnimateSecondList = isSponsor && listsData.secondList.length >= 5;
 
-  // useGSAP(() => {
-  //   if (isSponsor && containerRef2.current) {
-  //     gsap.set(containerRef2.current, { xPercent: -50 });
-  //     gsap.to(containerRef2.current, {
-  //       xPercent: 0,
-  //       repeat: -1,
-  //       duration: 15,
-  //       ease: "none",
-  //     });
-  //   }
-  // }, [isSponsor, listsData.secondList]);
-
   // New One
 
   useGSAP(() => {
     if (containerRef1.current && shouldAnimateFirstList) {
+      const duration = listsData.firstList.length * BASE_ITEM_DURATION;
+
+      let xTarget = -50;
+      let initialSet = {};
+      if (isAssosiation) {
+        xTarget = 0;
+        initialSet = { xPercent: -50 };
+      }
+
+      if (Object.keys(initialSet).length > 0) {
+        gsap.set(containerRef1.current, initialSet);
+      }
       gsap.to(containerRef1.current, {
-        xPercent: isAssosiation || isPartners ? 50 : -50,
+        xPercent: xTarget,
         repeat: -1,
-        duration: 30,
+        duration: duration,
         // duration: 570,
         ease: "none",
       });
     }
-  }, [listsData.firstList, shouldAnimateFirstList]);
+  }, [listsData.firstList, shouldAnimateFirstList, isAssosiation]);
 
   useGSAP(() => {
     if (containerRef2.current && shouldAnimateSecondList) {
+      const duration = listsData.secondList.length * BASE_ITEM_DURATION;
+
       // gsap.set(containerRef2.current, { xPercent: -50 });
       gsap.to(containerRef2.current, {
         xPercent: isAssosiation ? 50 : -50,
         repeat: -1,
-        duration: 30,
+        duration: duration,
         // duration: 570,
         ease: "none",
       });

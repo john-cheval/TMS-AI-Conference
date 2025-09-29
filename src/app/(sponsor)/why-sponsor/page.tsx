@@ -27,6 +27,8 @@ const WhySponsor = async () => {
     key_sponsorship_benefits,
     become_a_sponsor_form,
     sponsors,
+    supporting_associations,
+    media_partners,
   } = pageContent?.data?.section_list;
   return (
     <>
@@ -42,12 +44,10 @@ const WhySponsor = async () => {
       <SponsorBenifits {...key_sponsorship_benefits} />
       <BecomeSponsorForm {...become_a_sponsor_form} whySponsorPage={true} />
 
-      <div className="section-wrapper pb-16 md:pb-20">
+      <div className="section-wrapper pb-16 md:pb-20 sponsor-wrapper">
         <Sponsors data={sponsors} isSponsor={true} />
-        <Sponsors
-          data={pageContent?.data?.section_list?.supporting_associations}
-        />
-        <Sponsors data={pageContent?.data?.section_list?.media_partners} />
+        <Sponsors data={supporting_associations} isAssosiation={true} />
+        <Sponsors data={media_partners} />
       </div>
     </>
   );
