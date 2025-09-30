@@ -135,11 +135,11 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
       } else {
         // You might want to handle error responses from the server here
         const errorData = await response.json();
-        console.error("Server error:", errorData);
+        // toast.error("Server error:", errorData);
         toast.error("Failed to submit form. Please try again.");
       }
     } catch (error) {
-      console.error("Fetch error:", error);
+      // console.error("Fetch error:", error);
       toast.error("Failed to submit form. Please try again.");
     }
   };

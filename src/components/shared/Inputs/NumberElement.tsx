@@ -15,6 +15,7 @@ import {
   PathValue,
 } from "react-hook-form";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { toast } from "sonner";
 
 // Define the shape of a country object
 interface CountryType {
@@ -147,7 +148,7 @@ const NumberElement = <TFieldValues extends FieldValues>({
         const data = await response.json();
 
         if (!Array.isArray(data)) {
-          console.error("API response is not an array");
+          toast.error("API response is not an array");
           return;
         }
 
@@ -189,7 +190,7 @@ const NumberElement = <TFieldValues extends FieldValues>({
           }
         }
       } catch (error) {
-        console.error("Failed to fetch country data:", error);
+        toast.error("Failed to fetch country data:");
       }
     };
     fetchCountries();

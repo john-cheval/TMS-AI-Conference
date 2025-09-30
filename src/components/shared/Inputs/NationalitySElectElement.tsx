@@ -22,6 +22,7 @@ interface TitleSelectProps<TFieldValues extends FieldValues> {
 
 import { GroupBase } from "react-select";
 import { baseUrl } from "@/lib/api";
+import { toast } from "sonner";
 
 const DropdownIndicator = (
   props: DropdownIndicatorProps<
@@ -70,7 +71,7 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
           setCountryList(data?.data);
         }
       } catch (error) {
-        console.error("Could not fetch the countries data:", error);
+        toast.error("Could not fetch the countries data:");
       }
     };
     fetcCountries();

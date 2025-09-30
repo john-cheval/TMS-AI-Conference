@@ -227,66 +227,6 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                             {item?.name}
                           </h4>
 
-                          {/* <div className="space-y-4">
-                            <p className="description text-dark-alter">
-                              This session explores the integration of AI and
-                              emerging technologies in reshaping the entire
-                              transport and logistics value chain, including
-                              ports, shipping, and logistics. It will address
-                              the operational and strategic impact of
-                              digitalisation, automation, and data intelligence
-                              on efficiency, safety, and competitiveness. 
-                            </p>
-                            <p className="description text-dark-alter">
-                              Topics will include: 
-                            </p>
-
-                            <div className="space-y-1">
-                              <h4 className="description  font-bold text-dark-alter">
-                                AI in Maritime and Port Operations: From
-                                Automation to Autonomy
-                              </h4>
-                              <p className="description text-dark-alter">
-                                How AI is enabling autonomous vessels, smart
-                                scheduling, port optimization, andreal-time
-                                decision-making.
-                              </p>
-                            </div>
-                            <div className="space-y-1">
-                              <h4 className="description  font-bold text-dark-alter">
-                                AI in Maritime and Port Operations: From
-                                Automation to Autonomy
-                              </h4>
-                              <p className="description text-dark-alter">
-                                How AI is enabling autonomous vessels, smart
-                                scheduling, port optimization, andreal-time
-                                decision-making.
-                              </p>
-                            </div>
-                            <div className="space-y-1">
-                              <h4 className="description  font-bold text-dark-alter">
-                                AI in Maritime and Port Operations: From
-                                Automation to Autonomy
-                              </h4>
-                              <p className="description text-dark-alter">
-                                How AI is enabling autonomous vessels, smart
-                                scheduling, port optimization, andreal-time
-                                decision-making.
-                              </p>
-                            </div>
-                            <div className="space-y-1">
-                              <h4 className="description  font-bold text-dark-alter">
-                                AI in Maritime and Port Operations: From
-                                Automation to Autonomy
-                              </h4>
-                              <p className="description text-dark-alter">
-                                How AI is enabling autonomous vessels, smart
-                                scheduling, port optimization, andreal-time
-                                decision-making.
-                              </p>
-                            </div>
-                          </div> */}
-
                           <div
                             className="space-y-4 description text-dark-alter"
                             dangerouslySetInnerHTML={{

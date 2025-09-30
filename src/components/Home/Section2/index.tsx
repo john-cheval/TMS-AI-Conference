@@ -21,13 +21,14 @@ const HomeSectionTwo = ({
   button_link,
   data,
   isSponsor = false,
+  image_gallery,
 }: Props) => {
   return (
     <section className="section-wrapper section-container">
       <div>
         <SmallTitle title={heading} />
 
-        <div className="grid grid-cols-12 md:gap-x-8 lg:gap-x-12 xl:gap-x-16 pt-4 md:pt-8 lg:pt-10 xl:pt-16">
+        <div className="grid grid-cols-12 md:gap-x-8 lg:gap-x-12 xl:gap-x-16 pt-4 md:pt-8 lg:pt-10 xl:pt-14">
           <article className="col-span-12 lg:col-span-6 xl:col-span-7- flex flex-col justify-center">
             <div className="flex flex-col gap-y-3 lg:gap-y-4">
               {small_title && (
@@ -61,9 +62,37 @@ const HomeSectionTwo = ({
               </p>
             )}
 
-            {data && (
+            {data && !isSponsor && (
               <div className="mt-6 lg:mt-8 ">
                 {data?.length <= 2 ? (
+                  <div className="grid grid-cols-2 gap-x-2.5 md:gap-x-4 lg:gap-x-6">
+                    {data?.map((item, index) => (
+                      <div className="relative flex" key={index}>
+                        <Image
+                          src={item?.image_url ?? ""}
+                          alt={item?.home_title ?? ""}
+                          width={285}
+                          height={400}
+                          className="w-full h-full max-w-[280px]- object-cover responsive-radius  shrink-0"
+                        />
+
+                        {item?.home_title && (
+                          <p className="absolute bottom-3 lg:bottom-6 left-3 lg:left-6 right-3 lg:right-6 text-white font-bold text-sm md:text-base lg:text-lg xl:text-xl leading-5 md:leading-4">
+                            {item?.home_title}
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <SwiperHome datas={data} slidesNumbers={2} initalGap={24} />
+                )}
+              </div>
+            )}
+
+            {image_gallery && isSponsor && (
+              <div className="">
+                {image_gallery?.length <= 2 ? (
                   <div className="grid grid-cols-2 gap-x-2.5 md:gap-x-4 lg:gap-x-6">
                     {data?.map((item, index) => (
                       <div className="relative flex" key={index}>
