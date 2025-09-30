@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import { baseUrl } from "./api";
 
 async function generateMetadDataDetails(
@@ -42,7 +43,7 @@ async function generateMetadDataDetails(
       },
     };
   } catch (error) {
-    console.error("Metadata fetch error:", error);
+    toast.error("Metadata fetch error:");
     return {
       title: "White Label Media",
       description: "White Label Media",

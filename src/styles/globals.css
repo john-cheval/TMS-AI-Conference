@@ -218,6 +218,9 @@ ul {
 .descriptionWithList2 ul {
   @apply space-y-3;
 }
+.why-attend-description a {
+  @apply underline hover:no-underline;
+}
 .descriptionWithList ul li {
   background-image: url("../assets/shared/check-circle_blue.svg");
   background-repeat: no-repeat;

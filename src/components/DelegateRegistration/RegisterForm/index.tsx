@@ -219,10 +219,10 @@ const DelegateRegisterForm = ({
         }
         setToken("");
       } else {
-        console.error("Form submission failed.");
+        toast.error("Form submission failed.");
       }
     } catch (error) {
-      console.error("An error occurred:", error);
+      toast.error("An error occurred:");
     }
   };
 

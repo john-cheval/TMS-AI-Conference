@@ -86,14 +86,13 @@ const WhyAttendSectionOne = ({ data }: Props) => {
                       </h4>
                     )}
 
-                    <p
-                      className="description"
+                    <div
+                      className="description why-attend-description"
                       style={{
                         color: currentColor.textcolor,
                       }}
-                    >
-                      {item?.description}
-                    </p>
+                      dangerouslySetInnerHTML={{ __html: item?.description }}
+                    />
                   </div>
                 </>
               ) : (
