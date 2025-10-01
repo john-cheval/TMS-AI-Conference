@@ -67,7 +67,7 @@ const PreReleaseCardResponsive = ({ detail }: Props) => {
               </h6>
 
               <Link
-                href={`press-release/${item.slug}`}
+                href={`/press-release/${item.slug}`}
                 className="description text-dark-alter !leading-3 hover:underline hover:text-tms-purple transition-all duration-300"
               >
                 Read More

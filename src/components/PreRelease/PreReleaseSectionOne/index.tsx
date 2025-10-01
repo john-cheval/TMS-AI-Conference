@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import PreReleaseCardResponsive from "../PreReleseCardResponsive";
+import { truncateHtml } from "@/utils/trumcate";
 
 type Props = {
   data: any;
@@ -34,7 +35,7 @@ const PreReleaseSectionOne = ({ data }: Props) => {
               dangerouslySetInnerHTML={{ __html: data[0]?.description }}
             />
             <Link
-              href={`press-release/${data[0]?.slug}`}
+              href={`/press-release/${data[0]?.slug}`}
               className="description text-dark-alter !leading-3 hover:underline hover:text-tms-purple transition-all duration-300"
             >
               Read More
@@ -44,7 +45,11 @@ const PreReleaseSectionOne = ({ data }: Props) => {
         <div className="col-span-5 space-y-5 lg:space-y-7 hidden md:block">
           {data?.slice(1, 5)?.map((item: any, index: number) => {
             return (
-              <div key={index + 1} className="flex  gap-x-4">
+              <Link
+                href={`/press-release/${item.slug}`}
+                key={index + 1}
+                className="flex  gap-x-4"
+              >
                 <Image
                   src={item?.image_url}
                   alt={item?.title}
@@ -56,19 +61,19 @@ const PreReleaseSectionOne = ({ data }: Props) => {
                 <div className="space-y-1">
                   <h6 className="text-dark-alter text-base lg:text-xl xl:text-2xl lg:leading-3 ">
                     {" "}
-                    {item.title}
+                    {truncateHtml(item.title, 50, true)}
                   </h6>
                   <p className="description text-tms-purple font-medium lg:!leading-3">
                     {dayjs(item?.date).format("MMMM YYYY")}
                   </p>{" "}
                   <Link
-                    href={`press-release/${item.slug}`}
+                    href={`/press-release/${item.slug}`}
                     className="description text-dark-alter !leading-3 hover:underline hover:text-tms-purple transition-all duration-300"
                   >
                     Read More
                   </Link>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
@@ -77,7 +82,11 @@ const PreReleaseSectionOne = ({ data }: Props) => {
       <div className="grid-cols-2 lg:grid-cols-3 gap-5 xl:gap-7 mt-6 lg:mt-8 xl:mt-10  hidden sm:grid">
         {data?.slice(2)?.map((item: any, index: number) => {
           return (
-            <div key={index + 1} className="space-y-4 lg:space-y-6">
+            <Link
+              href={`/press-release/${item.slug}`}
+              key={index + 1}
+              className="space-y-4 lg:space-y-6"
+            >
               <Image
                 src={item?.image_url}
                 alt={item?.title}
@@ -93,13 +102,13 @@ const PreReleaseSectionOne = ({ data }: Props) => {
                 </h6>
 
                 <Link
-                  href={`press-release/${item.slug}`}
+                  href={`/press-release/${item.slug}`}
                   className="description text-dark-alter !leading-3 hover:underline hover:text-tms-purple transition-all duration-300"
                 >
                   Read More
                 </Link>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>
