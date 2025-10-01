@@ -13,8 +13,21 @@ type Props = {
 
 const RecentlyViewedSwiper = ({ swiperData }: Props) => {
   const swiperRef = useRef<SwiperCore | null>(null);
+
+  const handleMouseEnter = () => {
+    swiperRef.current?.autoplay.stop();
+  };
+
+  // Function to start autoplay on mouse leave
+  const handleMouseLeave = () => {
+    swiperRef.current?.autoplay.start();
+  };
   return (
-    <div className="relative w-full">
+    <div
+      className="relative w-full"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <Swiper
         onSwiper={(swiper) => {
           swiperRef.current = swiper;

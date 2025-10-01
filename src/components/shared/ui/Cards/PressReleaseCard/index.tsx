@@ -18,7 +18,7 @@ const PressReleaseCard = ({
   image_url,
 }: Props) => {
   return (
-    <div className="space-y-4 lg:space-y-5">
+    <Link href={`/press-release/${slug}`} className="space-y-4 lg:space-y-5">
       <Image
         src={image_url ?? "image"}
         alt={title ?? "image"}
@@ -33,13 +33,13 @@ const PressReleaseCard = ({
         </h6>
 
         <Link
-          href={`press-release/${slug}`}
+          href={`/press-release/${slug}`}
           className="description text-dark-alter !leading-3 hover:underline hover:text-tms-purple transition-all duration-300"
         >
           Read More
         </Link>
       </div>
-    </div>
+    </Link>
   );
 };
 
