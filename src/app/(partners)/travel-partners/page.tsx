@@ -19,7 +19,7 @@ const MediaPartners = async () => {
     pageContent?.gernalsettings?.current_year_coneference[0];
   const { AWARD_YEAR } = generalSettings?.general_settings;
 
-  const { page_top_banner, become_a_sponsor_form, media_partners } =
+  const { page_top_banner, become_a_sponsor_form, travel_partners } =
     pageContent?.data?.section_list;
   return (
     <>
@@ -32,7 +32,7 @@ const MediaPartners = async () => {
         conferenceLocation={conferenceData.location}
         conferenceDate={conferenceData.end_date}
       />
-      <SponsorsList sponsors={media_partners?.data} isButton={false} />
+      <SponsorsList sponsors={travel_partners?.data} isButton={false} />
       <div className="pb-5 md:pb-10">
         <BecomeSponsorForm {...become_a_sponsor_form} isPartnerForm={true} />
       </div>
