@@ -36,11 +36,13 @@ const Testimonials = ({
               return (
                 <div
                   key={index + 1}
-                  className="min-h-[450px]- relative overflow-hidden"
+                  className="min-h-[450px]- relative overflow-hidden- h-fit"
                 >
                   <YoutubePlayer {...item} />
-                  <p className="overlay-description">{item?.title}</p>
-                  <div className="CardGraient absolute bottom-0 left-0 w-full h-full max-h-[100px]" />
+                  <p className=" text-base md:text-lg lg:text-xl font-bold leading-5  text-dark-alter !left-auto mt-3">
+                    {item?.title}
+                  </p>
+                  {/* <div className="CardGraient absolute bottom-0 left-0 w-full h-full max-h-[100px]" /> */}
                 </div>
               );
             })}
@@ -76,11 +78,12 @@ const Testimonials = ({
                   return (
                     <SwiperSlide
                       key={index + 1}
-                      className="relative overflow-hidden"
+                      className="relative overflow-hidden- h-fit"
                     >
                       <YoutubePlayer {...item} />
-                      <p className="overlay-description">{item?.title}</p>
-                      <div className="CardGraient absolute bottom-0 left-0 w-full h-full max-h-[150px]" />
+                      <p className=" text-base md:text-lg lg:text-xl font-bold leading-5  text-dark-alter !left-auto mt-2 md:mt-3">
+                        {item?.title}
+                      </p>
                     </SwiperSlide>
                   );
                 })}
