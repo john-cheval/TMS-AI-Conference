@@ -1,5 +1,6 @@
 "use client";
 import VideoCard from "@/components/shared/ui/Cards/VideoCard";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import { getYoutubeId } from "@/utils/getYouyubeId";
 import React, { useState } from "react";
 
@@ -22,6 +23,7 @@ type Props = {
 const VideoGallery = ({ data }: Props) => {
   const [selectedConferece, setSelectedConference] = useState(data[0]?.name);
   const filteredAlbum = data?.find((item) => item?.name === selectedConferece);
+  const isSmallScreen = useMediaQuery("(max-width: 450px)");
   // const [activeVideo, setActiveVideo] = useState<number | null>(null);
   return (
     <section className="section-wrapper pt-6 md:pt-8 lg:pt-10 xl:pt-14 pb-8 md:pb-12 lg:pb-16 xl:pb-20">
@@ -62,7 +64,13 @@ const VideoGallery = ({ data }: Props) => {
             );
           })}
       </div>
-      <div className="mt-6 md:mt-8 lg:mt-10 xl:mt-12 grid grid-cols-2 md:grid-cols-3 3xl:grid-cols-4 gap-2.5 md:gap-3 lg:gap-4">
+      <div
+        className={`mt-6 md:mt-8 lg:mt-10 xl:mt-12 grid ${
+          isSmallScreen
+            ? "grid-cols-1 gap-y-3"
+            : "grid-cols-2 md:grid-cols-3 3xl:grid-cols-4 gap-2.5 md:gap-3 lg:gap-4"
+        }  `}
+      >
         {Array.isArray(filteredAlbum?.video_gallery) &&
         filteredAlbum.video_gallery.length > 0 ? (
           filteredAlbum?.video_gallery?.map((item, index) => {

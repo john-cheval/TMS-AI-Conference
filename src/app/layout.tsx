@@ -61,7 +61,7 @@ export default async function RootLayout({
         <main className="flex-grow pt-[106px]">
           <Providers>
             {" "}
-            {/* <ScrollToTop /> */}
+            <ScrollToTop />
             {children}
           </Providers>
         </main>
