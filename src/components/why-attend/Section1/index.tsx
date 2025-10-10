@@ -1,3 +1,4 @@
+import BigButton from "@/components/shared/ui/Button/BigButton";
 import isVideo from "@/lib/CheckIsVideo";
 import { WhyAttendListType } from "@/types/common";
 import Image from "next/image";
@@ -5,6 +6,8 @@ import React from "react";
 
 type Props = {
   data?: WhyAttendListType[];
+  buttonTitle?: string;
+  buttonLink?: string;
 };
 
 const colors = [
@@ -24,56 +27,94 @@ const isLastColor = {
   textcolor: "#fff",
 };
 
-const WhyAttendSectionOne = ({ data }: Props) => {
+const WhyAttendSectionOne = ({ data, buttonTitle, buttonLink }: Props) => {
   return (
-    <div className=" mt-2 md:mt-8 lg:mt-11 section-wrapper space-y-3 md:space-y-4 xl:space-y-5">
-      {data &&
-        data?.length > 0 &&
-        data?.map((item, index) => {
-          const isOdd = index % 2 === 0 || index === 0;
+    <>
+      <div className=" mt-2 md:mt-8 lg:mt-11 section-wrapper space-y-3 md:space-y-4 xl:space-y-5">
+        {data &&
+          data?.length > 0 &&
+          data?.map((item, index) => {
+            const isOdd = index % 2 === 0 || index === 0;
 
-          let currentColor;
-          if (index === data.length - 1) {
-            currentColor = isLastColor;
-          } else {
-            const colorIndex = index % colors.length;
-            currentColor = colors[colorIndex];
-          }
+            let currentColor;
+            if (index === data.length - 1) {
+              currentColor = isLastColor;
+            } else {
+              const colorIndex = index % colors.length;
+              currentColor = colors[colorIndex];
+            }
 
-          return (
-            <div
-              key={index + 1}
-              className={`grid grid-cols-12 gap-y-3 md:gap-x-4 xl:gap-x-5`}
-            >
-              {isOdd ? (
-                <>
-                  <div className="col-span-12 md:col-span-4 responsive-radius overflow-hidden flex">
-                    {!isVideo(item?.image_url ?? "") ? (
-                      <Image
-                        src={item?.image_url ?? ""}
-                        width={500}
-                        height={400}
-                        alt="title"
-                        className="w-full h-auto object-cover  md:flex-grow-1   min-h-[400px]- md:min-h-full-"
+            return (
+              <div
+                key={index + 1}
+                className={`grid grid-cols-12 gap-y-3 md:gap-x-4 xl:gap-x-5`}
+              >
+                {isOdd ? (
+                  <>
+                    <div className="col-span-12 md:col-span-4 responsive-radius overflow-hidden flex">
+                      {!isVideo(item?.image_url ?? "") ? (
+                        <Image
+                          src={item?.image_url ?? ""}
+                          width={500}
+                          height={400}
+                          alt="title"
+                          className="w-full h-auto object-cover  md:flex-grow-1   min-h-[400px]- md:min-h-full-"
+                        />
+                      ) : (
+                        <video
+                          src={item?.image_url || "/banner_video.mp4"}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          className="w-full h-full md:flex-grow-1 object-cover z-[5]  min-h-[400px]- md:min-h-full-"
+                        />
+                      )}
+                    </div>
+                    <div
+                      className="col-span-12 md:col-span-8 px-6 py-8 md:p-9 lg:p-12 2xl:p-14 responsive-radius flex flex-col gap-y-2 justify-center"
+                      style={{ background: currentColor.bgColor }}
+                    >
+                      {item?.title && (
+                        <h4
+                          className="main-heading-2"
+                          style={{
+                            background: currentColor.headingColor,
+                            backgroundClip: "text",
+                            WebkitBackgroundClip: "text",
+                            color: "transparent",
+                            WebkitTextFillColor: "transparent",
+                          }}
+                        >
+                          {item?.title}
+                        </h4>
+                      )}
+
+                      <div
+                        className="description why-attend-description"
+                        style={{
+                          color: currentColor.textcolor,
+                        }}
+                        dangerouslySetInnerHTML={{ __html: item?.description }}
                       />
-                    ) : (
-                      <video
-                        src={item?.image_url || "/banner_video.mp4"}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="w-full h-full md:flex-grow-1 object-cover z-[5]  min-h-[400px]- md:min-h-full-"
-                      />
-                    )}
-                  </div>
-                  <div
-                    className="col-span-12 md:col-span-8 px-6 py-8 md:p-9 lg:p-12 2xl:p-14 responsive-radius flex flex-col gap-y-2 justify-center"
-                    style={{ background: currentColor.bgColor }}
-                  >
-                    {item?.title && (
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div
+                      className="col-span-12 md:col-span-8 px-6 py-8 md:p-9 lg:p-12 2xl:p-14 responsive-radius flex flex-col gap-y-2 justify-center order-2 md:order-1"
+                      style={{ background: currentColor.bgColor }}
+                    >
                       <h4
                         className="main-heading-2"
+                        style={{
+                          color: currentColor.headingColor,
+                        }}
+                      >
+                        {item?.title}
+                      </h4>
+                      <p
+                        className="description"
                         style={{
                           background: currentColor.headingColor,
                           backgroundClip: "text",
@@ -82,72 +123,41 @@ const WhyAttendSectionOne = ({ data }: Props) => {
                           WebkitTextFillColor: "transparent",
                         }}
                       >
-                        {item?.title}
-                      </h4>
-                    )}
+                        {item?.description}
+                      </p>
+                    </div>
+                    <div className="col-span-12 md:col-span-4 responsive-radius flex  overflow-hidden order-1 md:order-2">
+                      {!isVideo(item?.image_url ?? "") ? (
+                        <Image
+                          src={item?.image_url ?? ""}
+                          width={500}
+                          height={400}
+                          alt="title"
+                          className="w-full h-auto object-cover md:flex-grow-1   min-h-[400px]- md:min-h-full-"
+                        />
+                      ) : (
+                        <video
+                          src={item?.image_url || "/banner_video.mp4"}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          className="w-full h-full object-cover z-[5] md:flex-grow-1    min-h-[400px]- md:min-h-full-"
+                        />
+                      )}
+                    </div>
+                  </>
+                )}
+              </div>
+            );
+          })}
+      </div>
 
-                    <div
-                      className="description why-attend-description"
-                      style={{
-                        color: currentColor.textcolor,
-                      }}
-                      dangerouslySetInnerHTML={{ __html: item?.description }}
-                    />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div
-                    className="col-span-12 md:col-span-8 px-6 py-8 md:p-9 lg:p-12 2xl:p-14 responsive-radius flex flex-col gap-y-2 justify-center order-2 md:order-1"
-                    style={{ background: currentColor.bgColor }}
-                  >
-                    <h4
-                      className="main-heading-2"
-                      style={{
-                        color: currentColor.headingColor,
-                      }}
-                    >
-                      {item?.title}
-                    </h4>
-                    <p
-                      className="description"
-                      style={{
-                        background: currentColor.headingColor,
-                        backgroundClip: "text",
-                        WebkitBackgroundClip: "text",
-                        color: "transparent",
-                        WebkitTextFillColor: "transparent",
-                      }}
-                    >
-                      {item?.description}
-                    </p>
-                  </div>
-                  <div className="col-span-12 md:col-span-4 responsive-radius flex  overflow-hidden order-1 md:order-2">
-                    {!isVideo(item?.image_url ?? "") ? (
-                      <Image
-                        src={item?.image_url ?? ""}
-                        width={500}
-                        height={400}
-                        alt="title"
-                        className="w-full h-auto object-cover md:flex-grow-1   min-h-[400px]- md:min-h-full-"
-                      />
-                    ) : (
-                      <video
-                        src={item?.image_url || "/banner_video.mp4"}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="w-full h-full object-cover z-[5] md:flex-grow-1    min-h-[400px]- md:min-h-full-"
-                      />
-                    )}
-                  </div>
-                </>
-              )}
-            </div>
-          );
-        })}
-    </div>
+      <div className="mt-5 md:mt-10  flex justify-center">
+        {" "}
+        <BigButton hrefs={buttonLink}>{buttonTitle}</BigButton>
+      </div>
+    </>
   );
 };
 

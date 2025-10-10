@@ -25,7 +25,7 @@ const ServerNavbar = ({
     }
   });
 
-  Object.values(sidebarLinks).forEach((link: any) => {
+  sidebarLinks?.map((link: any) => {
     allSeoLinks.push(link);
     if (link.submenu) {
       Object.values(link.submenu).forEach((subItem: any) => {

@@ -134,7 +134,7 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
         setToken("");
       } else {
         // You might want to handle error responses from the server here
-        const errorData = await response.json();
+        // const errorData = await response.json();
         // toast.error("Server error:", errorData);
         toast.error("Failed to submit form. Please try again.");
       }

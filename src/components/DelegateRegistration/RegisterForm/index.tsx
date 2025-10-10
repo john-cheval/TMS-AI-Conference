@@ -79,7 +79,7 @@ const DelegateRegisterForm = ({
     watch,
     setValue,
     control,
-    reset,
+    // reset,
     formState: { errors },
   } = useForm<FormData & { termsAccepted: boolean }>({
     defaultValues: {

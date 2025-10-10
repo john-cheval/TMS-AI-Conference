@@ -23,6 +23,9 @@ const Testimonials = ({
   heading,
 }: TestimonialsPropsType) => {
   const swiperRef = useRef<SwiperCore | null>(null);
+  if (!youtube_testimonials || youtube_testimonials.length === 0) {
+    return null;
+  }
 
   return (
     <section className="section-wrapper section-container- pb-20-">

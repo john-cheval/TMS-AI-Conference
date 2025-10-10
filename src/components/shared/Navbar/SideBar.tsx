@@ -37,8 +37,8 @@ const SideBar = ({ sideBarLinksData, isClose }: SideBarProps) => {
 
       <ul>
         {sideBarLinksData &&
-          Object.values(sideBarLinksData)?.length > 0 &&
-          Object.values(sideBarLinksData)?.map((link: any, index: number) => {
+          sideBarLinksData?.length > 0 &&
+          sideBarLinksData?.map((link: any, index: number) => {
             // const url = link?.url === "/" ? "/" : link?.url;
             // const isActive = pathname === url;
             const hasChildren =

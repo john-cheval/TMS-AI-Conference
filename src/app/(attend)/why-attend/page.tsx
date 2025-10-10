@@ -41,7 +41,11 @@ const WhyAttend = async () => {
           __html: why_attend_page?.description,
         }}
       />
-      <WhyAttendSectionOne data={why_attend_page?.why_attend_list} />
+      <WhyAttendSectionOne
+        data={why_attend_page?.why_attend_list}
+        buttonTitle={why_attend_page?.button_title}
+        buttonLink={why_attend_page?.button_link}
+      />
       <div className="section-wrapper pb-12 md:pb-20 sponsor-wrapper pt-6 md:pt-12 lg:pt-16 xl:pt-20">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} isAssosiation={true} />

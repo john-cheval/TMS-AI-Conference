@@ -47,6 +47,15 @@ export default async function RootLayout({
 
   const mainMenuLinks = menuLinks?.[1];
   const sideBarlinks = menuLinks?.[4];
+
+  type SidebarLink = { order_number: number; [key: string]: any };
+
+  const mainMenuLinksOrdered = Object.values(sideBarlinks).sort((a, b) => {
+    return (
+      Number((a as SidebarLink).order_number) -
+      Number((b as SidebarLink).order_number)
+    );
+  });
   return (
     <html lang="en" className="h-full " suppressHydrationWarning>
       <body
@@ -54,7 +63,7 @@ export default async function RootLayout({
       >
         <ServerNavbar
           mainLinks={mainMenuLinks}
-          sidebarLinks={sideBarlinks}
+          sidebarLinks={mainMenuLinksOrdered}
           registerNow={COMMON_SETTINGS_VALUES_register_now}
           sponsorBtnData={COMMON_SETTINGS_VALUES_become_a_sponsor}
         />
