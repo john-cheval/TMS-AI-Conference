@@ -126,7 +126,7 @@ const BecomeSponsorForm = ({
     <form
       id="sponsor-form"
       onSubmit={handleSubmit(onSubmit)}
-      className=" pt-5 md:pt-8 lg:pt-12 xl:pt-16 pb-10 md:pb-16 lg:pb-20 section-wrapper"
+      className=" pt-5 md:pt-8 lg:pt-12 xl:pt-16 pb-10 md:pb-16 lg:pb-20 section-wrapper scroll-mt-[20px]"
     >
       <div
         className={`${
