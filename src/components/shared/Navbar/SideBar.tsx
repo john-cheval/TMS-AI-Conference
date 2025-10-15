@@ -12,6 +12,11 @@ export type SideBarProps = SideBarComponentProps & {
   sideBarLinksData: any;
 };
 
+interface SidebarLink {
+  order_number: number;
+  [key: string]: any;
+}
+
 const SideBar = ({ sideBarLinksData, isClose }: SideBarProps) => {
   //   const pathname = usePathname();
   const [openId, setOpenId] = useState<number | null>(null);
@@ -19,6 +24,8 @@ const SideBar = ({ sideBarLinksData, isClose }: SideBarProps) => {
   const handleLinkClick = (id: number) => {
     setOpenId(openId === id ? null : id);
   };
+
+  console.log(sideBarLinksData, "==> sideBarLinksData");
   return (
     <motion.nav
       className="bg-tms-blue fixed top-0 right-0 px-6 md:px-20 py-10 md:py-14 h-full z-[999957] w-full sm:w-[70%] md:w-[50%] xl:w-[30%] 2xl:w-[40%] 3xl:w-[45%]  flex flex-col overflow-y-auto scrollbar-hide"
@@ -82,8 +89,13 @@ const SideBar = ({ sideBarLinksData, isClose }: SideBarProps) => {
                           className="overflow-hidden"
                         >
                           <ul className="pl-4 sm:pl-5 lg:pl-8 pt-3 md:space-y-1">
-                            {Object.values(link.submenu).map(
-                              (childLink: any) => {
+                            {Object.values(link.submenu)
+                              ?.sort(
+                                (a, b) =>
+                                  Number((a as SidebarLink).order_number) -
+                                  Number((b as SidebarLink).order_number)
+                              )
+                              .map((childLink: any) => {
                                 return (
                                   <li key={childLink.id}>
                                     <Link
@@ -95,8 +107,7 @@ const SideBar = ({ sideBarLinksData, isClose }: SideBarProps) => {
                                     </Link>
                                   </li>
                                 );
-                              }
-                            )}
+                              })}
                           </ul>
                         </motion.div>
                       )}
