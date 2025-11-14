@@ -27,6 +27,7 @@ const HomeSectionOne = (props: Props) => {
     event_date_heading,
     registerNow,
     sponsorBtnData,
+    data,
   } = props;
 
   return (
@@ -65,13 +66,15 @@ const HomeSectionOne = (props: Props) => {
           )}
 
           <h1 className="main-heading font-bold leading-3 md:leading-3 lg:leading-1 mb-2 md:mb-0 lg:mb-4 max-w-[600px] lg:max-w-[800px]">
-            {main_heading}
+            {/* {main_heading} */}
+            {data?.Coneference_title}
           </h1>
 
           <div>
             <div className="animated-top-bottom-border border-r border-l border-tms-pink border-l-tms-pink rounded-sm">
               <p className="text-xs sm:text-sm md:text-xl lg:text-2xl font-bold leading-3 p-3 md:p-4 text-white">
-                {location_heading}
+                {/* {location_heading} */}
+                {data?.location}
               </p>
             </div>
           </div>
