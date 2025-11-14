@@ -52,6 +52,12 @@ export type sectionTwoCardProps = {
   home_title?: string;
 };
 
+export type conferenceProps = {
+  id: number;
+  Coneference_title: string;
+  location?: string;
+};
+
 export type ImageGalleryTypes = {
   title?: string;
   image_url?: string;
@@ -109,7 +115,7 @@ export type SectionOnePropsTyps = {
   button_text?: string;
   video?: string;
   short_description?: string;
-  data?: SpeakersDataProps[] | sectionTwoCardProps[];
+  data?: SpeakersDataProps[] | sectionTwoCardProps[] | conferenceProps[];
   image_gallery?: ImageGalleryTypes[];
   youtube_testimonials?: YoutubeTestimonialsTypes[];
   all_benefits?: benifitsType[];
@@ -126,3 +132,4 @@ export type SectionOnePropsTyps = {
   companyList?: any;
   button_title?: string;
 };
+

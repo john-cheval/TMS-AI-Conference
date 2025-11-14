@@ -10,6 +10,7 @@ import svgIcon from "@/assets/Home/tms.jpg";
 type Props = SectionOnePropsTyps & {
   registerNow: buttonApIPropsType;
   sponsorBtnData: buttonApIPropsType;
+  data:any
 };
 
 const HomeSectionOne = (props: Props) => {
