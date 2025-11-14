@@ -26,8 +26,8 @@ const Sponsors = async () => {
         title={sponsorPageContent?.data?.name}
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
-        conferenceLocation={conferenceData.location}
-        conferenceDate={conferenceData.end_date}
+        conferenceLocation={conferenceData?.location ? conferenceData?.location : ""}
+        conferenceDate={conferenceData?.end_date ? conferenceData?.end_date : ""}
       />
       <SponsorsList sponsors={sponsors?.data} />
     </>

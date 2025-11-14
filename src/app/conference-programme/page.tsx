@@ -16,6 +16,8 @@ const ConferenceProgramme = async () => {
     `${baseUrl}/getmasterdetails?master_name=cms&id=84`
   );
 
+  console.log("pageContent",pageContent)
+
   const generalSettings = pageContent?.gernalsettings;
   const conferenceData =
     pageContent?.gernalsettings?.current_year_coneference[0];
@@ -27,6 +29,7 @@ const ConferenceProgramme = async () => {
     media_partners,
     event_overview,
   } = pageContent?.data?.section_list;
+  console.log("event_overview?.data",event_overview?.data)
   return (
     <>
       {" "}
@@ -34,9 +37,12 @@ const ConferenceProgramme = async () => {
         {...page_top_banner}
         title={pageContent?.data?.name}
         awardTitle={AWARD_YEAR?.title}
-        conferenceTitle={conferenceData?.Coneference_title}
-        conferenceLocation={conferenceData.location}
-        conferenceDate={conferenceData.end_date}
+        // conferenceTitle={conferenceData?.Coneference_title}
+        conferenceTitle={page_top_banner?.data.Coneference_title}
+        // conferenceLocation={conferenceData?.location}
+        conferenceLocation={page_top_banner?.data.location}
+        // conferenceDate={conferenceData?.end_date}
+        conferenceDate={page_top_banner?.data.end_date}
       />
       <ConferenceProgrammeSectionOne {...event_overview} />
       <ConferenceProgrammeSectionTwo content={event_overview?.data} />
