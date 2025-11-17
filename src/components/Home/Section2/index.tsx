@@ -66,6 +66,32 @@ const HomeSectionTwo = ({
             {data && !isSponsor && (
               <div className="mt-6 lg:mt-8 ">
                 {data?.length <= 2 ? (
+                  data?.length === 1 ?
+                  // 1 === 1 ?
+                  (
+                  <div className="grid grid-cols-1">
+                    {data?.slice(0,1).map((item:SpeakersDataProps, index) => (
+                      <div className="relative flex" key={index}>
+                        <Image
+                          src={item?.image_url ?? ""}
+                          // src={item?.image_url ?? ""}
+                          alt={item?.home_title ?? ""}
+                          width={285}
+                          height={400}
+                          className="w-full h-[400px] object-cover responsive-radius  shrink-0"
+                        />
+
+                        {item?.home_title && (
+                          <p className="absolute bottom-3 lg:bottom-6 left-3 lg:left-6 right-3 lg:right-6 text-white font-bold text-sm md:text-base lg:text-lg xl:text-xl leading-5 md:leading-4">
+                            {item?.home_title}
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  ) 
+                  :
+                  (
                   <div className="grid grid-cols-2 gap-x-2.5 md:gap-x-4 lg:gap-x-6">
                     {data?.map((item:SpeakersDataProps, index) => (
                       <div className="relative flex" key={index}>
@@ -86,6 +112,7 @@ const HomeSectionTwo = ({
                       </div>
                     ))}
                   </div>
+                  )
                 ) : (
                   <SwiperHome datas={data} slidesNumbers={2} initalGap={24} />
                 )}

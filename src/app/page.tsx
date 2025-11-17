@@ -22,10 +22,6 @@ const Home = async () => {
     `${baseUrl}/getmasterdetails?master_name=cms&id=70`
   );
 
-  console.log("homePageContent",homePageContent)
-
-  const homeBannerDetails = homePageContent.data.section_list.home_banner;
-
   const conferenceYear =
     homePageContent?.gernalsettings?.current_year_coneference[0];
 
@@ -33,6 +29,7 @@ const Home = async () => {
     COMMON_SETTINGS_VALUES_register_now,
     COMMON_SETTINGS_VALUES_become_a_sponsor,
   } = homePageContent?.gernalsettings?.general_settings;
+
 
   return (
     <>
@@ -44,21 +41,20 @@ const Home = async () => {
         sponsorBtnData={COMMON_SETTINGS_VALUES_become_a_sponsor}
         {...homePageContent?.data?.section_list?.home_banner}
       />
-      {/* <HomeSectionOne
-        callForPaperDate={homeBannerDetails?.data?.Call_for_papers_date}
-        earlyBirdsDate={homeBannerDetails?.data?.Early_Bird_date}
-        eventDate={homeBannerDetails?.data?.end_date}
-        registerNow={COMMON_SETTINGS_VALUES_register_now}
-        sponsorBtnData={COMMON_SETTINGS_VALUES_become_a_sponsor}
-        main_heading={homeBannerDetails?.data?.Coneference_title}
-        {...homePageContent?.data?.section_list?.home_banner}
-      /> */}
       <HomeSectionTwo
         {...homePageContent?.data?.section_list?.about_the_conference}
       />
-      <HomeSectionThree
-        {...homePageContent?.data?.section_list?.highlights_from_past_edition}
-      />
+      {
+        (
+          homePageContent?.data?.section_list?.highlights_from_past_edition.heading && 
+          homePageContent?.data?.section_list?.highlights_from_past_edition.small_title && 
+          homePageContent?.data?.section_list?.highlights_from_past_edition.description
+        ) && (
+          <HomeSectionThree
+            {...homePageContent?.data?.section_list?.highlights_from_past_edition}
+          />
+        )
+      }
       <HomeSectionFour
         {...homePageContent?.data?.section_list?.agenda_featured_speakers}
       />
