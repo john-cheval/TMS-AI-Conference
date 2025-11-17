@@ -7,6 +7,7 @@ import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
 import Providers from "@/Providers/ToastProviders";
 import ScrollToTop from "@/hooks/useScrollToTop";
+import BackToTop from "@/components/shared/BackToTop/BackToTop";
 
 export const metadata: Metadata = {
   title:
@@ -72,6 +73,7 @@ export default async function RootLayout({
             {" "}
             <ScrollToTop />
             {children}
+            <BackToTop />
           </Providers>
         </main>
         <Footer
