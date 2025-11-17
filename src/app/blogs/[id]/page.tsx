@@ -42,8 +42,8 @@ const BogsInnerPage = async ({ params }: Props) => {
         title={pageContent?.data?.name}
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
-        conferenceLocation={conferenceData.location}
-        conferenceDate={conferenceData.end_date}
+        conferenceLocation={conferenceData?.location}
+        conferenceDate={conferenceData?.end_date}
       />
       <DetailsSectionone isBlog={true} content={blogContent?.data} />
       {blogContent?.data?.length > 0 && (

@@ -40,9 +40,9 @@ const ConferenceProgramme = async () => {
         // conferenceTitle={conferenceData?.Coneference_title}
         conferenceTitle={page_top_banner?.data.Coneference_title}
         // conferenceLocation={conferenceData?.location}
-        conferenceLocation={page_top_banner?.data.location}
+        conferenceLocation={page_top_banner?.data?.location}
         // conferenceDate={conferenceData?.end_date}
-        conferenceDate={page_top_banner?.data.end_date}
+        conferenceDate={page_top_banner?.data?.end_date}
       />
       <ConferenceProgrammeSectionOne {...event_overview} />
       <ConferenceProgrammeSectionTwo content={event_overview?.data} />
