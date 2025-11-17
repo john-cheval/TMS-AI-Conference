@@ -52,12 +52,6 @@ export type sectionTwoCardProps = {
   home_title?: string;
 };
 
-export type conferenceProps = {
-  id: number;
-  Coneference_title: string;
-  location?: string;
-};
-
 export type ImageGalleryTypes = {
   title?: string;
   image_url?: string;
@@ -133,3 +127,20 @@ export type SectionOnePropsTyps = {
   button_title?: string;
 };
 
+export type conferenceProps = {
+  id: number;
+  Coneference_title: string;
+  location?: string;
+  Call_for_papers_date: string;
+  Early_Bird_date: string;
+  award_date: string;
+  main_image: string;
+  name: string;
+  photo_gallery_sponsor_image: string[]; 
+  slug: string;
+  start_date: string;
+  video_gallery_sponsor_image: string;
+  video_image: string;
+  winners_catalogue: any
+  year: number;
+}
