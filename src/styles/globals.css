@@ -238,6 +238,7 @@ ul {
   line-height: 24px;
 }
 .sponsor-description ul {
+  background-color: transparent !important;
   @apply flex flex-col md:flex-row md:flex-wrap md:justify-between;
 }
 .sponsor-description ul li {
