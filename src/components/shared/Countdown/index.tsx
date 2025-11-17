@@ -47,7 +47,7 @@ const CountdownTimer = ({ targetDate }: CountdownProps) => {
   }, [targetDate]);
 
   return (
-    <div className="flex justify-center items-center gap-x-3 md:gap-x-4 lg:gap-x-6 text-center mt-3 lg:mt-6">
+    <div className="flex justify-center items-center gap-x-3 md:gap-x-4 lg:gap-x-6 text-center mt-3 lg:mt-6" style={{marginTop:0}}>
       {isExpired ? (
         <span className="text-xl font-bold text-red-500">EXPIRED!</span>
       ) : (

@@ -102,7 +102,7 @@ const HomeSectionOne = (props: Props) => {
           <CountdownTimer targetDate={data.Early_Bird_date} />
 
           <div
-            className="mt-5 rounded-sm py-7 px-10 md:px-16 lg:px-20 xl:px-28 w-[80%] md:flex justify-between items-stretch hidden "
+            className=" rounded-sm py-7 px-10 md:px-16 lg:px-20 xl:px-28 w-[80%] md:flex justify-between items-stretch hidden "
             style={{
               background:
                 "linear-gradient(68deg, #4D1592 26.51%, #0078BB 86.42%)",
