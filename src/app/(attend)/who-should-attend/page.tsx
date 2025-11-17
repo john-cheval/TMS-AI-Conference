@@ -28,6 +28,7 @@ const WhoShouldAttend = async () => {
     supporting_associations,
     media_partners,
   } = pageContent?.data?.section_list;
+  console.log("conferenceData",conferenceData)
   return (
     <>
       <SharedTopSection
@@ -35,8 +36,8 @@ const WhoShouldAttend = async () => {
         title={pageContent?.data?.name}
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
-        conferenceLocation={conferenceData.location}
-        conferenceDate={conferenceData.end_date}
+        conferenceLocation={conferenceData?.location}
+        conferenceDate={conferenceData?.end_date}
       />
       <WhoShouldAttendSectionOne {...who_should_attend} />
       <WhyAttendSection {...why_attend} />

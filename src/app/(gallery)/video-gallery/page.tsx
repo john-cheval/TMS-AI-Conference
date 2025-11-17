@@ -34,8 +34,8 @@ const VideoGalleryPage = async () => {
         title={pageContent?.data?.name}
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
-        conferenceLocation={conferenceData.location}
-        conferenceDate={conferenceData.end_date}
+        conferenceLocation={conferenceData?.location}
+        conferenceDate={conferenceData?.end_date}
       />
       <VideoGallery data={video_gallery?.data} />
       <div className="section-wrapper pb-16 md:pb-20  sponsor-wrapper">

@@ -38,8 +38,8 @@ const DelegateRegistration = async () => {
         title={pageContent?.data?.name}
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
-        conferenceLocation={conferenceData.location}
-        conferenceDate={conferenceData.end_date}
+        conferenceLocation={conferenceData?.location}
+        conferenceDate={conferenceData?.end_date}
       />
 
       <div className="section-wrapper pt-6 md:pt-9 pb-6 lg:pb-11">

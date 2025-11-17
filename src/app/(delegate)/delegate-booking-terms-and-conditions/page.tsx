@@ -36,8 +36,8 @@ const DelegateBookingTermsAndCondtions = async () => {
         title={pageContent?.data?.name}
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
-        conferenceLocation={conferenceData.location}
-        conferenceDate={conferenceData.end_date}
+        conferenceLocation={conferenceData?.location}
+        conferenceDate={conferenceData?.end_date}
       />
       <div className="section-wrapper pt-5 md:pt-7 lg:pt-12 xl:pt-16 2xl:pt-20 pb-8 md:pb-10 lg:pb-14">
         <div

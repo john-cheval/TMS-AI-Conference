@@ -33,8 +33,8 @@ const RsvpPage = async () => {
         title={pageContent?.data?.name}
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
-        conferenceLocation={conferenceData.location}
-        conferenceDate={conferenceData.end_date}
+        conferenceLocation={conferenceData?.location}
+        conferenceDate={conferenceData?.end_date}
       />
       <RsvpSectionOne
         title={rsvp_form?.heading}

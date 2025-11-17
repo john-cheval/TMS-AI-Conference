@@ -34,8 +34,8 @@ const BecomeASpeaker = async () => {
         title={pageContent?.data?.name}
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
-        conferenceLocation={conferenceData.location}
-        conferenceDate={conferenceData.end_date}
+        conferenceLocation={conferenceData?.location}
+        conferenceDate={conferenceData?.end_date}
       />
       <section className="section-wrapper">
         <div className="border-b border-b-light-grey-1 py-5 md:py-8 lg:py-10 xl:py-12 2xl:py-14 space-y-3 md:space-y-4 lg:space-y-5 ">

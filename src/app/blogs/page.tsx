@@ -36,8 +36,8 @@ const Blogs = async () => {
         title={pageContent?.data?.name}
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
-        conferenceLocation={conferenceData.location}
-        conferenceDate={conferenceData.end_date}
+        conferenceLocation={conferenceData?.location}
+        conferenceDate={conferenceData?.end_date}
       />
 
       <section className="section-wrapper pt-5 md:pt-8 lg:pt-14  xl:pt-16">

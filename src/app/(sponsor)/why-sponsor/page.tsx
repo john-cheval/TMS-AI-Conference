@@ -37,8 +37,8 @@ const WhySponsor = async () => {
         title={pageContent?.data?.name}
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
-        conferenceLocation={conferenceData.location}
-        conferenceDate={conferenceData.end_date}
+        conferenceLocation={conferenceData?.location}
+        conferenceDate={conferenceData?.end_date}
       />
       <HomeSectionTwo {...about_the_conference} isSponsor={true} />
       <SponsorBenifits {...key_sponsorship_benefits} />
