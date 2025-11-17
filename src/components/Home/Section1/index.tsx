@@ -4,13 +4,13 @@ import TmsAI from "@/assets/shared/ai_big_60.svg";
 import CountdownTimer from "@/components/shared/Countdown";
 import { formatDate } from "@/utils/formatDate";
 import ButtonOrLink from "@/components/shared/ui/Button";
-import { buttonApIPropsType, SectionOnePropsTyps } from "@/types/common";
+import { buttonApIPropsType, conferenceProps, SectionOnePropsTyps } from "@/types/common";
 import svgIcon from "@/assets/Home/tms.jpg";
 
 type Props = SectionOnePropsTyps & {
   registerNow: buttonApIPropsType;
   sponsorBtnData: buttonApIPropsType;
-  data:any
+  data:conferenceProps;
 };
 
 const HomeSectionOne = (props: Props) => {
@@ -30,7 +30,7 @@ const HomeSectionOne = (props: Props) => {
     sponsorBtnData,
     data,
   } = props;
-
+  console.log("data",data)
   return (
     <>
       <section className="home-banner-section relative text-white text-center">
@@ -68,14 +68,14 @@ const HomeSectionOne = (props: Props) => {
 
           <h1 className="main-heading font-bold leading-3 md:leading-3 lg:leading-1 mb-2 md:mb-0 lg:mb-4 max-w-[600px] lg:max-w-[800px]">
             {/* {main_heading} */}
-            {data?.Coneference_title}
+            {data.Coneference_title}
           </h1>
 
           <div>
             <div className="animated-top-bottom-border border-r border-l border-tms-pink border-l-tms-pink rounded-sm">
               <p className="text-xs sm:text-sm md:text-xl lg:text-2xl font-bold leading-3 p-3 md:p-4 text-white">
                 {/* {location_heading} */}
-                {data?.location}
+                {data.location}
               </p>
             </div>
           </div>
@@ -98,7 +98,8 @@ const HomeSectionOne = (props: Props) => {
               {sponsorBtnData?.title}
             </ButtonOrLink>
           </div>
-          <CountdownTimer targetDate={earlyBirdsDate} />
+          {/* <CountdownTimer targetDate={earlyBirdsDate} /> */}
+          <CountdownTimer targetDate={data.Early_Bird_date} />
 
           <div
             className="mt-5 rounded-sm py-7 px-10 md:px-16 lg:px-20 xl:px-28 w-[80%] md:flex justify-between items-stretch hidden "
@@ -112,7 +113,8 @@ const HomeSectionOne = (props: Props) => {
                 {call_for_papers_heading}
               </h5>
               <p className="text-xl lg:text-2xl font-bold leading-3 text-center">
-                {formatDate(callForPaperDate)}
+                {/* {formatDate(callForPaperDate)} */}
+                {formatDate(data.Call_for_papers_date)}
               </p>
             </div>
             <div className="block bg-white  w-[1px]" />
@@ -121,7 +123,8 @@ const HomeSectionOne = (props: Props) => {
                 {eirly_bird_offer_heading}
               </h5>
               <p className="text-xl lg:text-2xl font-bold leading-3 text-center">
-                {formatDate(earlyBirdsDate)}
+                {/* {formatDate(earlyBirdsDate)} */}
+                {formatDate(data.Early_Bird_date)}
               </p>
             </div>
             <div className="block bg-white w-[1px]" />
@@ -130,7 +133,8 @@ const HomeSectionOne = (props: Props) => {
                 {event_date_heading}
               </h5>
               <p className="text-xl lg:text-2xl font-bold leading-3 text-center">
-                {formatDate(eventDate)}
+                {/* {formatDate(eventDate)} */}
+                {formatDate(data.start_date)}
               </p>
             </div>
           </div>

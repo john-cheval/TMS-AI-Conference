@@ -1,5 +1,5 @@
 import React from "react";
-import { SectionOnePropsTyps } from "@/types/common";
+import { SectionOnePropsTyps, sectionTwoCardProps, SpeakersDataProps } from "@/types/common";
 import ExpandableHtmlText from "@/components/shared/TruncatedHTMLText";
 import BigButton from "@/components/shared/ui/Button/BigButton";
 import SwiperHome from "@/components/shared/Swiper";
@@ -23,6 +23,7 @@ const HomeSectionTwo = ({
   isSponsor = false,
   image_gallery,
 }: Props) => {
+  console.log("data",data)
   return (
     <section className="section-wrapper section-container">
       <div>
@@ -66,10 +67,11 @@ const HomeSectionTwo = ({
               <div className="mt-6 lg:mt-8 ">
                 {data?.length <= 2 ? (
                   <div className="grid grid-cols-2 gap-x-2.5 md:gap-x-4 lg:gap-x-6">
-                    {data?.map((item, index) => (
+                    {data?.map((item:SpeakersDataProps, index) => (
                       <div className="relative flex" key={index}>
                         <Image
                           src={item?.image_url ?? ""}
+                          // src={item?.image_url ?? ""}
                           alt={item?.home_title ?? ""}
                           width={285}
                           height={400}
@@ -94,7 +96,7 @@ const HomeSectionTwo = ({
               <div className="">
                 {image_gallery?.length <= 2 ? (
                   <div className="grid grid-cols-2 gap-x-2.5 md:gap-x-4 lg:gap-x-6">
-                    {data?.map((item, index) => (
+                    {data?.map((item:SpeakersDataProps, index) => (
                       <div className="relative flex" key={index}>
                         <Image
                           src={item?.image_url ?? ""}

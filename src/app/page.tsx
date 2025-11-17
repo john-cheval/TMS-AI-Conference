@@ -36,15 +36,15 @@ const Home = async () => {
 
   return (
     <>
-      {/* <HomeSectionOne
+      <HomeSectionOne
         callForPaperDate={conferenceYear?.Call_for_papers_date}
         earlyBirdsDate={conferenceYear?.Early_Bird_date}
         eventDate={conferenceYear?.end_date}
         registerNow={COMMON_SETTINGS_VALUES_register_now}
         sponsorBtnData={COMMON_SETTINGS_VALUES_become_a_sponsor}
         {...homePageContent?.data?.section_list?.home_banner}
-      /> */}
-      <HomeSectionOne
+      />
+      {/* <HomeSectionOne
         callForPaperDate={homeBannerDetails?.data?.Call_for_papers_date}
         earlyBirdsDate={homeBannerDetails?.data?.Early_Bird_date}
         eventDate={homeBannerDetails?.data?.end_date}
@@ -52,7 +52,7 @@ const Home = async () => {
         sponsorBtnData={COMMON_SETTINGS_VALUES_become_a_sponsor}
         main_heading={homeBannerDetails?.data?.Coneference_title}
         {...homePageContent?.data?.section_list?.home_banner}
-      />
+      /> */}
       <HomeSectionTwo
         {...homePageContent?.data?.section_list?.about_the_conference}
       />
