@@ -370,11 +370,15 @@ ul {
   left: 0;
   top: 0;
 }
+
+.conference-time {min-width: 190px;}
+
 @media (max-width: 768px) {
   .sponsor-description ul li {
     background-size: 15px;
     padding-left: 25px;
   }
+  .conference-time {min-width: auto;width: fit-content;}
 }
 
 @media (min-width: 2000px) {
