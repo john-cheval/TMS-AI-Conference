@@ -39,7 +39,7 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
             >
               {row?.map((item: any) => {
                 const timeObject = dayjs(`2000-01-01T${item?.Time}`);
-                const formattedTime = timeObject.format("h:mm");
+                const formattedTime = timeObject.format("h:mm A");
                 return (
                   <div
                     key={item.id}
