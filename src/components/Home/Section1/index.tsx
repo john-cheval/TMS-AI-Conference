@@ -6,6 +6,7 @@ import { formatDate } from "@/utils/formatDate";
 import ButtonOrLink from "@/components/shared/ui/Button";
 import { buttonApIPropsType, conferenceProps, SectionOnePropsTyps } from "@/types/common";
 import svgIcon from "@/assets/Home/tms.jpg";
+import isVideo from "@/lib/CheckIsVideo";
 
 type Props = SectionOnePropsTyps & {
   registerNow: buttonApIPropsType;
@@ -30,19 +31,24 @@ const HomeSectionOne = (props: Props) => {
     sponsorBtnData,
     data,
   } = props;
-  console.log("data",data)
+  console.log("banner_image",typeof banner_image)
   return (
     <>
       <section className="home-banner-section relative text-white text-center">
         <div className="relative h-full">
-          <video
-            src={banner_image || "/banner_video.mp4"}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover z-[5]"
-          />
+          {
+            banner_image && isVideo(banner_image) ? 
+            <video
+              src={banner_image || "/banner_video.mp4"}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover z-[5]"
+            />
+            :
+          <img src={banner_image || "/fallback.jpg"} className="w-full h-full object-cover z-[5]" />
+          }
 
           <div className="home-banner-gradient w-full h-full absolute inset-0 z-10" />
         </div>
@@ -67,15 +73,15 @@ const HomeSectionOne = (props: Props) => {
           )}
 
           <h1 className="main-heading font-bold leading-3 md:leading-3 lg:leading-1 mb-2 md:mb-0 lg:mb-4 max-w-[600px] lg:max-w-[800px]">
-            {/* {main_heading} */}
-            {data.Coneference_title}
+            {main_heading}
+            {/* {data.Coneference_title} */}
           </h1>
 
           <div>
             <div className="animated-top-bottom-border border-r border-l border-tms-pink border-l-tms-pink rounded-sm">
               <p className="text-xs sm:text-sm md:text-xl lg:text-2xl font-bold leading-3 p-3 md:p-4 text-white">
-                {/* {location_heading} */}
-                {data.location}
+                {location_heading}
+                {/* {data.location} */}
               </p>
             </div>
           </div>
