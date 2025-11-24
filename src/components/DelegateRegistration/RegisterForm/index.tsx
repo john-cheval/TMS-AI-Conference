@@ -555,10 +555,10 @@ const DelegateRegisterForm = ({
                                     placeholder="Tax Registration Number"
                                     register={register}
                                     errors={errors}
-                                    rules={{
-                                      required:
-                                        "Tax Registration Number is required.",
-                                    }}
+                                    // rules={{
+                                    //   required:
+                                    //     "Tax Registration Number is required.",
+                                    // }}
                                   />
                                 </div>
 
@@ -599,9 +599,9 @@ const DelegateRegisterForm = ({
                                 register={register}
                                 errors={errors}
                                 rows={3}
-                                rules={{
-                                  required: "Additional Details is required.",
-                                }}
+                                // rules={{
+                                //   required: "Additional Details is required.",
+                                // }}
                               />
                             </div>
                           </div>
