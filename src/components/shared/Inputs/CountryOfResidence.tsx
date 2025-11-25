@@ -61,18 +61,19 @@ const getNestedError = (errors: any, name: any) => {
   return currentError?.message;
 };
 
-const NationalitySelectElement = <TFieldValues extends FieldValues>({
+const CountryOfResidence = <TFieldValues extends FieldValues>({
   name,
   onChange,
   onBlur,
   value,
   errors,
 }: TitleSelectProps<TFieldValues>) => {
+    console.log("errors",errors)
+    console.log("errors name",errors[name]?.message)
+    const errorMessage = getNestedError(errors, name);
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 0
   );
-
-  const errorMessage = getNestedError(errors, name);
 
   const [countryList, setCountryList] = useState([]);
 
@@ -184,7 +185,7 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
         onBlur={onBlur}
         value={options.find((option) => option.value === value) || null}
         styles={customStyles}
-        placeholder="Nationality"
+        placeholder="Country of Residence"
         // CORRECTED: Pass an object with the component
         components={{ DropdownIndicator: DropdownIndicator }}
       />
@@ -202,4 +203,4 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
   );
 };
 
-export default NationalitySelectElement;
+export default CountryOfResidence;

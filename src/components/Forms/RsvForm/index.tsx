@@ -9,6 +9,7 @@ import NumberElement from "@/components/shared/Inputs/NumberElement";
 import NationalitySelectElement from "@/components/shared/Inputs/NationalitySElectElement";
 import ReCaptcha from "@/utils/ReCaptcha";
 import { baseUrl } from "@/lib/api";
+import CountryOfResidence from "@/components/shared/Inputs/CountryOfResidence";
 
 type FormData = {
   title: string;
@@ -217,7 +218,7 @@ const RsvForm = ({ description }: Props) => {
             />
           </div>
 
-          <div className="flex-1">
+          {/* <div className="flex-1">
             <TextElement
               label="Country of Residence"
               name="countryOfResidence"
@@ -228,6 +229,22 @@ const RsvForm = ({ description }: Props) => {
               rules={{
                 required: "Country of Residence is required.",
               }}
+            />
+          </div> */}
+          <div className="flex-1">
+            <Controller
+              name={`countryOfResidence`}
+              control={control}
+              rules={{
+                required: "Country of Residence is required.",
+              }}
+              render={({ field }) => (
+                <CountryOfResidence 
+                  {...field}
+                  name={`countryOfResidence`}
+                  errors={errors}
+                />
+              )}
             />
           </div>
         </FormRow>

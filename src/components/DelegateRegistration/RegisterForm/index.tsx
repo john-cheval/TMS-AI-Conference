@@ -1,5 +1,6 @@
 "use client";
 import FormRow from "@/components/Forms/FormRow";
+import CountryOfResidence from "@/components/shared/Inputs/CountryOfResidence";
 import NationalitySelectElement from "@/components/shared/Inputs/NationalitySElectElement";
 import NatureOfCompanySelectElement from "@/components/shared/Inputs/NatureOfCompanySelect";
 import NumberElement from "@/components/shared/Inputs/NumberElement";
@@ -445,8 +446,24 @@ const DelegateRegisterForm = ({
                                     )}
                                   />
                                 </div>
+                                <div className="flex-1">
+                                  <Controller
+                                    name={`delegates.${index}.country`}
+                                    control={control}
+                                    rules={{
+                                      required: "Country of Residence is required.",
+                                    }}
+                                    render={({ field }) => (
+                                      <CountryOfResidence 
+                                        {...field}
+                                        name={`delegates.${index}.country`}
+                                        errors={errors}
+                                      />
+                                    )}
+                                  />
+                                </div>
 
-                                <div className=" flex-1">
+                                {/* <div className=" flex-1">
                                   <TextElement
                                     label="Country of Residence"
                                     name={`delegates.${index}.country`}
@@ -459,7 +476,7 @@ const DelegateRegisterForm = ({
                                         "Country of Residence is required.",
                                     }}
                                   />
-                                </div>
+                                </div> */}
                               </FormRow>
 
                               <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
