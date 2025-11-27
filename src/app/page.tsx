@@ -58,9 +58,13 @@ const Home = async () => {
       <HomeSectionFour
         {...homePageContent?.data?.section_list?.agenda_featured_speakers}
       />
-      <HomeSectionFive
-        {...homePageContent?.data?.section_list?.conference_speakers}
-      />
+      {
+        homePageContent?.data?.section_list?.conference_speakers.data.length > 0 && (
+          <HomeSectionFive
+            {...homePageContent?.data?.section_list?.conference_speakers}
+          />
+        )
+      }
       <HomeSectionSix
         {...homePageContent?.data?.section_list?.agenda_featured_speakers_2}
       />
