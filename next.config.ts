@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
         pathname: "/public/public/Admin/uploads/**",
       },
     ],
+    unoptimized: process.env.NEXT_IMAGE_UNOPTIMIZED === "true"
   },
 };
 
