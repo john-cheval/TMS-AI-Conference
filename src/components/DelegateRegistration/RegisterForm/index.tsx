@@ -227,6 +227,39 @@ const DelegateRegisterForm = ({
     }
   };
 
+  // Auto-fill company details of Delegate 1 to all other delegates
+  // Auto-fill company details of Delegate 1 to all other delegates
+useEffect(() => {
+  const delegates = watch("delegates");
+  if (!delegates || delegates.length === 0) return;
+
+  const first = delegates[0];
+  if (!first) return;
+
+  const companyFields: (keyof DelegateData)[] = [
+    "designation",
+    "company",
+    "taxRegisterationNumber",
+    "natureOfCompany",
+    "ifOthers",
+    "addditionalDetails",
+  ];
+
+  delegates.forEach((_, index) => {
+    if (index === 0) return; // skip main delegate
+
+    companyFields.forEach((fieldName) => {
+      setValue(
+        `delegates.${index}.${fieldName}`,
+        first[fieldName],
+        { shouldValidate: false }
+      );
+    });
+  });
+}, [watch("delegates")]);
+
+
+
   return (
     <div className=" mt-8 lg:mt-10">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -647,6 +680,7 @@ const DelegateRegisterForm = ({
               <Link
                 href="/delegate-booking-terms-and-conditions"
                 className="underline"
+                target="_blank"
               >
                 Terms and Conditions
               </Link>

@@ -43,6 +43,7 @@ interface TitleSelectProps<TFieldValues extends FieldValues> {
 }
 
 import { GroupBase } from "react-select";
+import { convertOffsetToTimes } from "motion";
 
 const NatureOfCompanySelectElement = <TFieldValues extends FieldValues>({
   name,
@@ -149,6 +150,8 @@ const NatureOfCompanySelectElement = <TFieldValues extends FieldValues>({
     }),
   };
   const errorMessage = getNestedError<TFieldValues>(errors, name);
+
+  console.log("options",options)
 
   return (
     <div>

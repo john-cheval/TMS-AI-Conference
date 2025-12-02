@@ -98,6 +98,14 @@ const TitleSelectElement = forwardRef(
       { value: "Mrs", label: "Mrs" },
       { value: "Ms", label: "Ms" },
       { value: "Dr", label: "Dr" },
+      { value: "Capt.", label: "Capt." },
+      { value: "Prof.", label: "Prof." },
+      { value: "Maj.", label: "Maj." },
+      { value: "Cmdr.", label: "Cmdr." },
+      { value: "Gen.", label: "Gen." },
+      { value: "Eng.", label: "Eng." },
+      { value: "Hon.", label: "Hon." },
+      { value: "H.E", label: "H.E" },
     ];
 
     const customStyles = {
