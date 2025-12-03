@@ -229,34 +229,42 @@ const DelegateRegisterForm = ({
 
   // Auto-fill company details of Delegate 1 to all other delegates
   // Auto-fill company details of Delegate 1 to all other delegates
-useEffect(() => {
-  const delegates = watch("delegates");
-  if (!delegates || delegates.length === 0) return;
-
-  const first = delegates[0];
-  if (!first) return;
-
   const companyFields: (keyof DelegateData)[] = [
-    "designation",
-    "company",
-    "taxRegisterationNumber",
-    "natureOfCompany",
-    "ifOthers",
-    "addditionalDetails",
-  ];
+      // "designation",
+      "company",
+      "natureOfCompany",
+      "taxRegisterationNumber",
+      "ifOthers",
+      "addditionalDetails",
+    ];
 
-  delegates.forEach((_, index) => {
-    if (index === 0) return; // skip main delegate
+    useEffect(() => {
+    const first = watch("delegates.0");
+    if (!first) return;
 
-    companyFields.forEach((fieldName) => {
-      setValue(
-        `delegates.${index}.${fieldName}`,
-        first[fieldName],
-        { shouldValidate: false }
-      );
-    });
-  });
-}, [watch("delegates")]);
+    for (let index = 1; index < numberOfDelegates; index++) {
+      companyFields.forEach((field) => {
+        const sourceValue = first[field];
+
+        setValue(
+          `delegates.${index}.${field}` as `delegates.${number}.${keyof DelegateData}`,
+          sourceValue,
+          {
+            shouldValidate: false,
+            shouldDirty: false,
+          }
+        );
+      });
+    }
+  }, [
+    numberOfDelegates,
+    // watch("delegates.0.designation"),
+    watch("delegates.0.company"),
+    watch("delegates.0.natureOfCompany"),
+    watch("delegates.0.taxRegisterationNumber"),
+    watch("delegates.0.ifOthers"),
+    watch("delegates.0.addditionalDetails"),
+  ]);
 
 
 
