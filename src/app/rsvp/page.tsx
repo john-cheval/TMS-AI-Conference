@@ -10,7 +10,12 @@ export async function generateMetadata() {
   return await generateMetadDataDetails(86, "rsvp", false);
 }
 
-const RsvpPage = async () => {
+const RsvpPage = async ({ searchParams}:any) => {
+
+  const id = searchParams?.id;
+  // const rsvpFormData = await fetchData(`${baseUrl}/getmasterdetails?master_name=rsvpuser&id=${id}`);
+  const rsvpFormData = await fetchData(`${baseUrl}/getmasterdetails?master_name=rsvpuser&id=${id}`);
+  
   const pageContent = await fetchData(
     `${baseUrl}/getmasterdetails?master_name=cms&id=86`
   );
@@ -40,6 +45,7 @@ const RsvpPage = async () => {
         title={rsvp_form?.heading}
         small__title={rsvp_form?.small_title}
         form_description={rsvp_form?.form_description}
+        rsvpFormData={rsvpFormData.data}
       />
       <div className="section-wrapper pb-16 md:pb-20  space-y-5">
         <Sponsors data={sponsors} isSponsor={true} />

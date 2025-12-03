@@ -1,6 +1,6 @@
 "use client";
 import TitleSelectElement from "@/components/shared/Inputs/TitleSelectElement";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import FormRow from "../FormRow";
@@ -12,6 +12,7 @@ import { baseUrl } from "@/lib/api";
 import CountryOfResidence from "@/components/shared/Inputs/CountryOfResidence";
 
 type FormData = {
+  id:number;
   title: string;
   firstName: string;
   lastName: string;
@@ -30,9 +31,11 @@ interface RecaptchaRefType {
 
 type Props = {
   description: string;
+  rsvpFormData:any;
 };
 
-const RsvForm = ({ description }: Props) => {
+const RsvForm = ({ description, rsvpFormData }: Props) => {
+  console.log("rsvpFormData",rsvpFormData)
   const recaptchaRef = useRef<RecaptchaRefType>(null);
   const [token, setToken] = useState("");
   const {
@@ -60,6 +63,7 @@ const RsvForm = ({ description }: Props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          id:rsvpFormData.id,
           title: data?.title,
           fname: data?.firstName,
           lname: data?.lastName,
@@ -86,6 +90,28 @@ const RsvForm = ({ description }: Props) => {
     }
   };
 
+  const row = rsvpFormData;
+
+  useEffect(() => {
+    if (!row) return;
+
+    reset({
+      id:row.id || "",
+      title: row.title || "",
+      firstName: row.fname || "",
+      lastName: row.lname || "",
+      companyName: row.c_name || "",
+      designation: row.designation || "",
+      email: row.email_address || "",
+      contactCountryCode: row.country_code || "",
+      contactNumber: row.telephone || "",
+      nationality: row.nationality || "",
+      countryOfResidence: row.country || "",
+    });
+  }, [row, reset]);
+
+
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-y-2.5 md:gap-y-3 lg:gap-y-5">
@@ -99,6 +125,7 @@ const RsvForm = ({ description }: Props) => {
                 <TitleSelectElement {...field} name="title" errors={errors} />
               )}
             />
+            {/* <input type="hidden" value={rsvpFormData[0].id || ""} name="id" /> */}
           </div>
           <div className="flex-1hidden md:block" />
         </FormRow>
