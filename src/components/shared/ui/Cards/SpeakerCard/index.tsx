@@ -1,10 +1,12 @@
+"use client";
+
 import { SpeakersDataProps } from "@/types/common";
 import Image from "next/image";
 import React from "react";
 import Ai from "@/assets/shared/ai-speakers.png";
 
 const SpeakersCard = (props: SpeakersDataProps) => {
-  const { image_url, name, post, company } = props;
+  const { image_url, name, post, company,presentation_pdf_url,downloadEnable=false } = props;
   return (
     <div className="rounded-sm bg-tms-light-blue px-4 md:px-5 lg:px-7  pt-10 md:pt-8 pb-6 md:pb-8 h-full md:min-h-[300px] relative">
       <div className="flex flex-col items-center justify-center gap-y-3 md:gap-y-5 relative z-10">
@@ -43,6 +45,15 @@ const SpeakersCard = (props: SpeakersDataProps) => {
         height={129}
         className="w-full h-auto max-w-[75px] lg:max-w-[100px] xl:max-w-[129px] object-cover absolute top-3 md:top-8 right-[10%] sm:right-[20%]  md:right-0 xl:right-8"
       />
+
+    {
+      downloadEnable && (
+          presentation_pdf_url ? (
+            <button onClick={() => window.open(presentation_pdf_url, "_blank")} /*onClick={() => handleOpenPopup(cardData?.presentation_download)}*/ className="download-btn rounded-full text-white buttonGradient-2 hover:bg-transparent py-[8px] text-center block w-full mt-[15px]">Download Presentation</button>
+          )
+          : ""
+      )
+    }
     </div>
   );
 };
