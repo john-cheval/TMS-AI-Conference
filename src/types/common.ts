@@ -45,7 +45,7 @@ export type SpeakersDataProps = {
   is_chairman?: string;
   image_url?: string;
   home_title?: string;
-  presentation_pdf_url:string;
+  presentation_pdf_url?:string;
   downloadEnable?:boolean;
 };
 export type sectionTwoCardProps = {
