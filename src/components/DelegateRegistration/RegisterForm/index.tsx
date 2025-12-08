@@ -609,7 +609,7 @@ const DelegateRegisterForm = ({
                                   <TextElement
                                     label="Tax Registration Number"
                                     name={`delegates.${index}.taxRegisterationNumber`}
-                                    type="number"
+                                    type="text"
                                     placeholder="Tax Registration Number"
                                     register={register}
                                     errors={errors}
@@ -714,9 +714,19 @@ const DelegateRegisterForm = ({
               }`}
               disabled={!isFormValid}
             >
-              Proceed to Pay{" "}
+              Submit{" "}
               <MdOutlineKeyboardArrowRight className="text-2xl text-tms-purple group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
             </button>
+            {/* <button
+              type="submit"
+              className={`bg-white text-tms-purple text-lg font-bold leading-5 rounded-lg py-6 px-5 flex gap-x-2.5 group items-center ${
+                isFormValid ? "" : "opacity-50 cursor-not-allowed"
+              }`}
+              disabled={!isFormValid}
+            >
+              Proceed to Pay{" "}
+              <MdOutlineKeyboardArrowRight className="text-2xl text-tms-purple group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
+            </button> */}
           </div>
         </div>
       </form>
