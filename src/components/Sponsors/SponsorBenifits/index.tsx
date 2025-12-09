@@ -33,9 +33,14 @@ const SponsorBenifits = ({
                   <h5 className="text-white text-xl lg:text-2xl font-bold leading-4 lg:leading-3">
                     {item?.title}
                   </h5>
-                  <p className="text-white text-sm font-normal leading-6">
+                  {/* <p className="text-white text-sm font-normal leading-6">
                     {item?.description}
-                  </p>
+                  </p> */}
+                  <div
+                    className="text-white text-sm font-normal leading-6"
+                    
+                    dangerouslySetInnerHTML={{ __html: item?.description }}
+                  />
                 </div>
                 <div className="CardGraient absolute bottom-0 left-0 w-full h-full" />
               </div>
