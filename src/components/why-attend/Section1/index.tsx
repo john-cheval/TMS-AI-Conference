@@ -113,7 +113,7 @@ const WhyAttendSectionOne = ({ data, buttonTitle, buttonLink }: Props) => {
                       >
                         {item?.title}
                       </h4>
-                      <p
+                      {/* <p
                         className="description"
                         style={{
                           background: currentColor.headingColor,
@@ -124,7 +124,14 @@ const WhyAttendSectionOne = ({ data, buttonTitle, buttonLink }: Props) => {
                         }}
                       >
                         {item?.description}
-                      </p>
+                      </p> */}
+                      <div
+                        className="description why-attend-description"
+                        style={{
+                          color: currentColor.textcolor,
+                        }}
+                        dangerouslySetInnerHTML={{ __html: item?.description }}
+                      />
                     </div>
                     <div className="col-span-12 md:col-span-4 responsive-radius flex  overflow-hidden order-1 md:order-2">
                       {!isVideo(item?.image_url ?? "") ? (
