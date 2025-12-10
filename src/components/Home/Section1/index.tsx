@@ -105,7 +105,7 @@ const HomeSectionOne = (props: Props) => {
             </ButtonOrLink>
           </div>
           {/* <CountdownTimer targetDate={earlyBirdsDate} /> */}
-          <CountdownTimer targetDate={data.Early_Bird_date} />
+          <CountdownTimer targetDate={data.start_date} />
 
           <div
             className=" rounded-sm py-7 px-10 md:px-16 lg:px-20 xl:px-28 w-[80%] md:flex justify-between items-stretch hidden "
