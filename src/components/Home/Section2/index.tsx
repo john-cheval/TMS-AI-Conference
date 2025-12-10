@@ -11,6 +11,11 @@ type Props = SectionOnePropsTyps & {
   isSponsor?: boolean;
 };
 
+interface imageGallery {
+  title?:string;
+  image_url?:string;
+}
+
 const HomeSectionTwo = ({
   heading,
   small_title,
@@ -23,7 +28,7 @@ const HomeSectionTwo = ({
   isSponsor = false,
   image_gallery,
 }: Props) => {
-  console.log("data",data)
+  console.log("isSponsor",isSponsor)
   return (
     <section className="section-wrapper section-container">
       <div>
@@ -120,22 +125,22 @@ const HomeSectionTwo = ({
             )}
 
             {image_gallery && isSponsor && (
-              <div className="">
+              <div className="test">
                 {image_gallery?.length <= 2 ? (
                   <div className="grid grid-cols-2 gap-x-2.5 md:gap-x-4 lg:gap-x-6">
-                    {data?.map((item:SpeakersDataProps, index) => (
+                    {image_gallery?.map((item:imageGallery, index:number) => (
                       <div className="relative flex" key={index}>
                         <Image
                           src={item?.image_url ?? ""}
-                          alt={item?.home_title ?? ""}
+                          alt={item?.title ?? ""}
                           width={285}
                           height={400}
                           className="w-full h-full max-w-[280px]- object-cover responsive-radius  shrink-0"
                         />
 
-                        {item?.home_title && (
+                        {item?.title && (
                           <p className="absolute bottom-3 lg:bottom-6 left-3 lg:left-6 right-3 lg:right-6 text-white font-bold text-sm md:text-base lg:text-lg xl:text-xl leading-5 md:leading-4">
-                            {item?.home_title}
+                            {item?.title}
                           </p>
                         )}
                       </div>
