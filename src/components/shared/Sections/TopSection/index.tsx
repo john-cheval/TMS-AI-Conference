@@ -24,7 +24,7 @@ const SharedTopSection = ({
   conferenceLocation,
   conferenceDate,
 }: SharedTopSectionPropsTypes) => {
-  const formatted = dayjs(conferenceDate).format("MMMM YYYY");
+  const formatted = dayjs(conferenceDate).format("DD MMMM YYYY");
   return (
     <section className=" relative text-white ">
       <div className="relative ">

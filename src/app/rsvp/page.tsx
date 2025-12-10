@@ -11,10 +11,9 @@ export async function generateMetadata() {
 }
 
 const RsvpPage = async ({ searchParams}:any) => {
-
-  const id = searchParams?.id;
+  const datas = await searchParams;
   // const rsvpFormData = await fetchData(`${baseUrl}/getmasterdetails?master_name=rsvpuser&id=${id}`);
-  const rsvpFormData = await fetchData(`${baseUrl}/getmasterdetails?master_name=rsvpuser&id=${id}`);
+  const rsvpFormData = await fetchData(`${baseUrl}/getmasterdetails?master_name=rsvpuser&id=${datas.id}`);
   
   const pageContent = await fetchData(
     `${baseUrl}/getmasterdetails?master_name=cms&id=86`
