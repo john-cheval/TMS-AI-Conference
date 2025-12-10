@@ -16,7 +16,7 @@ export async function generateMetadata() {
 
 const DelegateRegistration = async () => {
   const pageContent = await fetchData(
-    `${baseUrl}/getmasterdetails?master_name=cms&id=79`
+    `${baseUrl}/getmasterdetails?master_name=cms&id=92`
   );
   const generalSettings = pageContent?.gernalsettings;
   const conferenceData =
@@ -93,7 +93,7 @@ const DelegateRegistration = async () => {
         {...pricing_plans}
         companyList={Enquery_emails_nature_of_company_list}
         earlyBirdsDate={conferenceData?.Early_Bird_date}
-        isFree={true}
+        isFree={false}
       />
       <div className="section-wrapper pb-16 md:pb-20 pt-7 md:pt-8 lg:pt-14 xl:pt-16 2xl:pt-20 sponsor-wrapper">
         <Sponsors data={sponsors} isSponsor={true} />

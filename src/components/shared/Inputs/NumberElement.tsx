@@ -288,7 +288,7 @@ const NumberElement = <TFieldValues extends FieldValues>({
           <button
             id="dropdown-phone-button"
             data-dropdown-toggle="dropdown-phone"
-            className={`z-10 inline-flex items-center h-full py-2.5 px-4 font-normal text-center bg-transparent text-sm md:text-base gap-x-1.5 ${
+            className={`z-0 inline-flex items-center h-full py-2.5 px-4 font-normal text-center bg-transparent text-sm md:text-base gap-x-1.5 ${
               isBlue ? "text-dark-alter" : "text-white"
             } outline-none absolute left-0 ${
               errorMessage ? "-top-3" : "top-0"

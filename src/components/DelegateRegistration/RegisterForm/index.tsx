@@ -29,6 +29,7 @@ type Props = {
   }[];
   NatureOfCompanyList: any;
   earlyBirdDates?: string;
+  isFree:any;
 };
 
 interface DelegateData {
@@ -61,6 +62,7 @@ const DelegateRegisterForm = ({
   priceDetails,
   NatureOfCompanyList,
   earlyBirdDates,
+  isFree = false
 }: Props) => {
   const earlyBirdCutoffDate = new Date(earlyBirdDates ?? "");
   const currentDate = new Date();
@@ -276,9 +278,12 @@ const DelegateRegisterForm = ({
             {heading}
           </h3>
           <div className="mt-3 md:mt-5 lg:mt-7">
-            <p className="description text-dark-alter text-left md:text-center font-bold ">
-              Select Plan Type
-            </p>
+            {
+              isFree ? "" :
+              <p className="description text-dark-alter text-left md:text-center font-bold ">
+                Select Plan Type
+              </p>
+            }
             <div className="flex flex-col md:flex-row justify-center flex-wrap gap-1 md:gap-x-5 xl:gap-x-7 mt-3 md:mt-4">
               {priceDetails?.map((item, index) => {
                 const isEarlyBirdPlan = item?.title === "Individual";
@@ -389,7 +394,7 @@ const DelegateRegisterForm = ({
                 <div
                   className={`${
                     index === 0 ? "border-t border-t-white" : ""
-                  } border-b border-b-white py-4 md:pt-5 md:pb-5 lg:pb-8`}
+                  } border-b border-b-white py-4 md:pt-5 md:pb-4 lg:pb-5`}
                   key={field.id}
                 >
                   <button
@@ -397,9 +402,13 @@ const DelegateRegisterForm = ({
                     type="button"
                     onClick={() => toggleAccordion(index as number)}
                   >
-                    <span className="main-heading-2 !text-white">
+                    <p className="main-heading-2 !text-white flex flex-col items-start">
                       Delegate {index + 1}
-                    </span>
+                      {
+                        isAccordionOpen ? "" : 
+                        <span className="text-xs">click to expand</span>
+                      }
+                    </p>
                     {isAccordionOpen ? (
                       <FaMinus className="text-white font-bold text-lg" />
                     ) : (
@@ -707,7 +716,32 @@ const DelegateRegisterForm = ({
             />
           </div>
           <div className="mt-6 flex justify-center">
-            <button
+            {
+              isFree ? 
+              <button
+                type="submit"
+                className={`bg-white text-tms-purple text-lg font-bold leading-5 rounded-lg py-6 px-5 flex gap-x-2.5 group items-center ${
+                  isFormValid ? "" : "opacity-50 cursor-not-allowed"
+                }`}
+                disabled={!isFormValid}
+              >
+                Submit{" "}
+                <MdOutlineKeyboardArrowRight className="text-2xl text-tms-purple group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
+              </button>
+              :
+              
+              <button
+                type="submit"
+                className={`bg-white text-tms-purple text-lg font-bold leading-5 rounded-lg py-6 px-5 flex gap-x-2.5 group items-center ${
+                  isFormValid ? "" : "opacity-50 cursor-not-allowed"
+                }`}
+                disabled={!isFormValid}
+              >
+                Proceed to Pay{" "}
+                <MdOutlineKeyboardArrowRight className="text-2xl text-tms-purple group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
+              </button>
+            }
+            {/* <button
               type="submit"
               className={`bg-white text-tms-purple text-lg font-bold leading-5 rounded-lg py-6 px-5 flex gap-x-2.5 group items-center ${
                 isFormValid ? "" : "opacity-50 cursor-not-allowed"
@@ -716,7 +750,7 @@ const DelegateRegisterForm = ({
             >
               Submit{" "}
               <MdOutlineKeyboardArrowRight className="text-2xl text-tms-purple group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
-            </button>
+            </button> */}
             {/* <button
               type="submit"
               className={`bg-white text-tms-purple text-lg font-bold leading-5 rounded-lg py-6 px-5 flex gap-x-2.5 group items-center ${

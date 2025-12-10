@@ -12,6 +12,7 @@ const PricingPlans = ({
   register_price,
   companyList,
   earlyBirdsDate,
+  isFree
 }: SectionOnePropsTyps) => {
   console.log("companyList",companyList)
   return (
@@ -33,6 +34,7 @@ const PricingPlans = ({
         priceDetails={register_price}
         NatureOfCompanyList={companyList}
         earlyBirdDates={earlyBirdsDate}
+        isFree={isFree}
       />
     </section>
   );

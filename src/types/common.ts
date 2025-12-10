@@ -127,6 +127,7 @@ export type SectionOnePropsTyps = {
   register_price?: any;
   companyList?: any;
   button_title?: string;
+  isFree?:boolean;
 };
 
 export type conferenceProps = {
