@@ -181,6 +181,12 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
     }
   };
 
+  const [natureOfCompany,setNatureOfCompany] = useState('');
+  const handleNatureofCompany = (e:any) => {
+    // console.log("e",e)
+    setNatureOfCompany(e);
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit, onError)}>
       <div className=" bg-tms-blue rounded-2xl px-5 md:px-10 lg:px-16  xl:px-[72px]pb-8 md:pb-12 lg:pb-16 xl:pb-20">
@@ -429,21 +435,27 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
                       name="aboutCompany.natureOfCompany"
                       errors={errors}
                       companyListData={NatureOfCompany}
+                      value={natureOfCompany}
+                      onChange={(e) => {handleNatureofCompany(e);field.onChange(e);}}
                     />
                   )}
                 />
               </div>
 
               <div className="flex-1">
-                <TextElement
-                  label="Please specify others"
-                  name="aboutCompany.ifOthers"
-                  type="text"
-                  placeholder="Please specify others"
-                  register={register}
-                  errors={errors}
-                  isBlue={true}
-                />
+                {
+                natureOfCompany === 'Other' && (
+                  <TextElement
+                    label="Please specify others"
+                    name="aboutCompany.ifOthers"
+                    type="text"
+                    placeholder="Please specify others"
+                    register={register}
+                    errors={errors}
+                    isBlue={true}
+                  />
+                 )
+                }
               </div>
             </FormRow>
           </div>
