@@ -162,9 +162,9 @@ SponsorsPropsType) => {
   return (
     <div>
 
-      {isSponsor && listsData.firstList ? (
+      {isSponsor && listsData.firstList && listsData.firstList.length > 0 ? (
         <>
-          <h6 className="sub_heading-1 mb-4 md:mb-6">{data?.heading}</h6>
+          <h6 className="test sub_heading-1 mb-4 md:mb-6">{data?.heading}</h6>
           {renderSponsorList(listsData.firstList, false)}
           {renderSponsorList(listsData.secondList, true)}
         </>

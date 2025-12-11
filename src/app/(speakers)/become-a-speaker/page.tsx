@@ -55,12 +55,16 @@ const BecomeASpeaker = async () => {
         {...become_a_speaker_page}
         companyList={Enquery_emails_nature_of_company_list}
       />
-
-      <div className="section-wrapper pb-12 md:pb-20 sponsor-wrapper">
-        <Sponsors data={sponsors} isSponsor={true} />
-        <Sponsors data={supporting_associations} isAssosiation={true} />
-        <Sponsors data={media_partners} />
-      </div>
+      {
+      (sponsors.data.length > 0 || supporting_associations.data.length > 0 || media_partners.data.length > 0) &&
+        (
+        <div className="section-wrapper pb-12 md:pb-20 sponsor-wrapper">
+          <Sponsors data={sponsors} isSponsor={true} />
+          <Sponsors data={supporting_associations} isAssosiation={true} />
+          <Sponsors data={media_partners} />
+        </div>
+      )
+      }
     </>
   );
 };

@@ -53,11 +53,15 @@ const PressReleaseDetailPage = async ({ params }: Props) => {
       />
       <DetailsSectionone content={pressReleaseContent?.data} />
       <RecentlyViewed data={press_release?.data} />
+      {
+      (sponsors.data.length > 0 || supporting_associations.data.length > 0 || media_partners.data.length > 0) &&
+        (
       <div className="section-wrapper pb-16 md:pb-20  space-y-5">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} />
         <Sponsors data={media_partners} />
       </div>
+        )}
     </>
   );
 };

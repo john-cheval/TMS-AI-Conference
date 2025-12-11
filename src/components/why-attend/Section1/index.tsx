@@ -30,7 +30,7 @@ const isLastColor = {
 const WhyAttendSectionOne = ({ data, buttonTitle, buttonLink }: Props) => {
   return (
     <>
-      <div className=" mt-2 md:mt-8 lg:mt-11 section-wrapper space-y-3 md:space-y-4 xl:space-y-5">
+      <div className="    mt-2 md:mt-8 lg:mt-11 section-wrapper space-y-3 md:space-y-4 xl:space-y-5">
         {data &&
           data?.length > 0 &&
           data?.map((item, index) => {
@@ -160,7 +160,7 @@ const WhyAttendSectionOne = ({ data, buttonTitle, buttonLink }: Props) => {
           })}
       </div>
 
-      <div className="mt-5 md:mt-10  flex justify-center">
+      <div className="pb-6 md:pb-12 lg:pb-16 xl:pb-20    mt-5 md:mt-10  flex justify-center">
         {" "}
         <BigButton hrefs={buttonLink}>{buttonTitle}</BigButton>
       </div>

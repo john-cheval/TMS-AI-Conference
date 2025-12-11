@@ -16,7 +16,7 @@ const PricingPlans = ({
 }: SectionOnePropsTyps) => {
   console.log("companyList",companyList)
   return (
-    <section className="pt-5 md:pt-8 lg:pt-12  xl:pt-16 2xl:pt-20 section-wrapper">
+    <section className="md:pb-8 lg:pb-14 xl:pb-16 2xl:pb-20   pt-5 md:pt-8 lg:pt-12  xl:pt-16 2xl:pt-20 section-wrapper">
       {
         !isFree ? 
         <div>

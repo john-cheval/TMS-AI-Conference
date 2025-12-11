@@ -41,7 +41,7 @@ const WhyAttendSection = (props: Props) => {
         </div>
       </div>
 
-      <div className="flex justify-center mt-5 md:mt-8">
+      <div className="pb-6 md:pb-10 lg:pb-16 2xl:pb-20     flex justify-center mt-5 md:mt-8">
         <BigButton hrefs={button_link}>{button_text}</BigButton>
       </div>
     </section>
