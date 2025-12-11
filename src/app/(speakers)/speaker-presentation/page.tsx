@@ -78,11 +78,15 @@ const OurSpeakers = async () => {
           </Link>
         </div>
       </div> */}
+      {
+      (sponsors.data.length > 0 || supporting_associations.data.length > 0 || media_partners.data.length > 0) &&
+        (
       <div className="section-wrapper pb-16 md:pb-20  sponsor-wrapper pt-7 md:pt-8 lg:pt-14 xl:pt-16 2xl:pt-20">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} isAssosiation={true} />
         <Sponsors data={media_partners} />
       </div>
+        )}
     </>
   );
 };

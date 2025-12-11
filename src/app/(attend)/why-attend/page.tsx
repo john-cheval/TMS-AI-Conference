@@ -46,11 +46,17 @@ const WhyAttend = async () => {
         buttonTitle={why_attend_page?.button_title}
         buttonLink={why_attend_page?.button_link}
       />
-      <div className="section-wrapper pb-12 md:pb-20 sponsor-wrapper pt-6 md:pt-12 lg:pt-16 xl:pt-20">
-        <Sponsors data={sponsors} isSponsor={true} />
-        <Sponsors data={supporting_associations} isAssosiation={true} />
-        <Sponsors data={media_partners} />
-      </div>
+
+      {
+      (sponsors.data.length > 0 || supporting_associations.data.length > 0 || media_partners.data.length > 0) &&
+        (
+        <div className="section-wrapper pb-12 md:pb-20 sponsor-wrapper ">
+          <Sponsors data={sponsors} isSponsor={true} />
+          <Sponsors data={supporting_associations} isAssosiation={true} />
+          <Sponsors data={media_partners} />
+        </div>
+      ) 
+      }
     </>
   );
 };

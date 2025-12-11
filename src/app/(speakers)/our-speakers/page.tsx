@@ -42,7 +42,7 @@ const OurSpeakers = async () => {
       />
       <OurSpeakersSectionOne {...our_speakers} />
 
-      <div className="grid grid-cols-12 section-wrapper ">
+      <div className="grid grid-cols-12 section-wrapper pb-7 md:pb-8 lg:pb-14 xl:pb-16 2xl:pb-20">
         <div className="col-span-12 md:col-span-6 lg:col-span-5 md:rounded-l-2xl  relative overflow-hidden rounded-tr-2xl md:rounded-tr-none rounded-bl-none md:rounded-bl-2xl flex">
           <Image
             src={banner_with_heading?.banner_image}
@@ -76,11 +76,16 @@ const OurSpeakers = async () => {
           </Link>
         </div>
       </div>
-      <div className="section-wrapper pb-16 md:pb-20  sponsor-wrapper pt-7 md:pt-8 lg:pt-14 xl:pt-16 2xl:pt-20">
+      {
+      (sponsors.data.length > 0 || supporting_associations.data.length > 0 || media_partners.data.length > 0) &&
+        (
+      <div className="section-wrapper pb-16 md:pb-20  sponsor-wrapper ">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} isAssosiation={true} />
         <Sponsors data={media_partners} />
       </div>
+      )
+      }
     </>
   );
 };

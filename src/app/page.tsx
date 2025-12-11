@@ -12,6 +12,7 @@ import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
 import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
+import Sponsors from "@/components/shared/Sponsors";
 
 export async function generateMetadata() {
   return await generateMetadDataDetails(70, "", false);
@@ -29,6 +30,12 @@ const Home = async () => {
     COMMON_SETTINGS_VALUES_register_now,
     COMMON_SETTINGS_VALUES_become_a_sponsor,
   } = homePageContent?.gernalsettings?.general_settings;
+
+  const {
+    sponsors,
+    media_partners,
+    supporting_associations
+  } = homePageContent?.data?.section_list
 
 
   return (
@@ -82,12 +89,22 @@ const Home = async () => {
       /> */}
       <HomeSectionNine
         {...homePageContent?.data?.section_list?.key_sponsorship_benefits}
-        sponsors={homePageContent?.data?.section_list?.sponsors}
-        mediaParteners={homePageContent?.data?.section_list?.media_partners}
-        assosiations={
-          homePageContent?.data?.section_list?.supporting_associations
-        }
+        // sponsors={homePageContent?.data?.section_list?.sponsors}
+        // mediaParteners={homePageContent?.data?.section_list?.media_partners}
+        // assosiations={
+        //   homePageContent?.data?.section_list?.supporting_associations
+        // }
       />
+
+      {
+      (sponsors.data.length > 0 || supporting_associations.data.length > 0 || media_partners.data.length > 0) &&
+        (
+      <div className="section-wrapper pb-16 md:pb-20  space-y-5">
+        <Sponsors data={sponsors} isSponsor={true} />
+        <Sponsors data={supporting_associations} />
+        <Sponsors data={media_partners} />
+      </div>
+        )}
     </>
   );
 };

@@ -40,7 +40,7 @@ const Blogs = async () => {
         conferenceDate={conferenceData?.end_date}
       />
 
-      <section className="section-wrapper pt-5 md:pt-8 lg:pt-14  xl:pt-16">
+      <section className="pb-6 md:pb-8 lg:pb-14 section-wrapper pt-5 md:pt-8 lg:pt-14  xl:pt-16">
         <div
           className="grid grid-cols-1 md:grid-cols-2 gap-y-6 md:gap-y-0
          md:gap-x-4 lg:gap-x-6"
@@ -118,11 +118,15 @@ const Blogs = async () => {
       <div className="sm:hidden section-wrapper mt-10">
         <PreReleaseCardResponsive detail={blog_list?.data} />
       </div>
-      <div className="section-wrapper pb-16 md:pb-20  sponsor-wrapper pt-6 md:pt-8 lg:pt-14  ">
+      {
+      (sponsors.data.length > 0 || supporting_associations.data.length > 0 || media_partners.data.length > 0) &&
+        (
+      <div className="section-wrapper pb-16 md:pb-20  sponsor-wrapper   ">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} isAssosiation={true} />
         <Sponsors data={media_partners} />
       </div>
+        )}
     </>
   );
 };

@@ -37,11 +37,16 @@ const PhotoGallery = async () => {
         conferenceDate={conferenceData?.end_date}
       />
       <GalleryAlbums data={photo_gallery?.data} />
+      {
+      (sponsors.data.length > 0 || supporting_associations.data.length > 0 || media_partners.data.length > 0) &&
+        (
       <div className="section-wrapper pb-16 md:pb-20  sponsor-wrapper">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} isAssosiation={true} />
         <Sponsors data={media_partners} />
       </div>
+      ) 
+      }
     </>
   );
 };

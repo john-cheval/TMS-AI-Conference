@@ -41,11 +41,16 @@ const WhoShouldAttend = async () => {
       />
       <WhoShouldAttendSectionOne {...who_should_attend} />
       <WhyAttendSection {...why_attend} />
-      <div className="section-wrapper pb-12 md:pb-20 sponsor-wrapper pt-6 md:pt-10 lg:pt-16 2xl:pt-20">
-        <Sponsors data={sponsors} isSponsor={true} />
-        <Sponsors data={supporting_associations} isAssosiation={true} />
-        <Sponsors data={media_partners} />
-      </div>
+      {
+        (sponsors.data.length > 0 || supporting_associations.data.length > 0 || media_partners.data.length > 0) &&
+          (
+          <div className="section-wrapper pb-12 md:pb-20 sponsor-wrapper ">
+            <Sponsors data={sponsors} isSponsor={true} />
+            <Sponsors data={supporting_associations} isAssosiation={true} />
+            <Sponsors data={media_partners} />
+          </div>
+          ) 
+      }
     </>
   );
 };
