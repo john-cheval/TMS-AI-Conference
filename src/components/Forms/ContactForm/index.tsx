@@ -150,7 +150,7 @@ const ContactForm = () => {
         `}
           disabled={!token}
         >
-          {isSubmitting ? "Submitting..." : "Send Enquire"}
+          {isSubmitting ? "Submitting..." : "Send Enquiry"}
         </button>
       </div>
     </form>

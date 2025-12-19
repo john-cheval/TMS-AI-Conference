@@ -269,6 +269,14 @@ const DelegateRegisterForm = ({
   ]);
 
 
+  // const [natureOfCompany,setNatureOfCompany] = useState('');
+  
+  // const handleNatureofCompany = (e:any) => {
+  //   // console.log("e",e)
+  //   setNatureOfCompany(e);
+  // }
+
+
 
   return (
     <div className=" mt-8 lg:mt-10">
@@ -633,10 +641,10 @@ const DelegateRegisterForm = ({
                                   <Controller
                                     name={`delegates.${index}.natureOfCompany`}
                                     control={control}
-                                    rules={{
-                                      required:
-                                        "Nature of Company is required.",
-                                    }}
+                                    // rules={{
+                                    //   required:
+                                    //     "Nature of Company is required.",
+                                    // }}
                                     render={({ field }) => (
                                       <NatureOfCompanySelectElement
                                         {...field}
@@ -644,20 +652,26 @@ const DelegateRegisterForm = ({
                                         errors={errors}
                                         companyListData={NatureOfCompanyList}
                                         isDark={true}
+                                        // value={natureOfCompany}
+                                        // onChange={(e) => {handleNatureofCompany(e);field.onChange(e);}}
                                       />
                                     )}
                                   />
                                 </div>
                               </FormRow>
 
-                              <TextAreaElement
-                                label="If other, Please specify here"
-                                name={`delegates.${index}.ifOthers`}
-                                placeholder="If other, Please specify here"
-                                register={register}
-                                errors={errors}
-                                rows={3}
-                              />
+                              {/* {
+                                natureOfCompany === 'Other' && ( */}
+                                  <TextAreaElement
+                                    label="If other, Please specify here"
+                                    name={`delegates.${index}.ifOthers`}
+                                    placeholder="If other, Please specify here"
+                                    register={register}
+                                    errors={errors}
+                                    rows={3}
+                                  />
+                                {/* )
+                              } */}
 
                               <TextAreaElement
                                 label="Additional Details"

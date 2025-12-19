@@ -32,7 +32,7 @@ const SponsorShipOppSectionOne = ({
           className="description text-dark-alter mt-6 border-b border-b-light-grey-1 md:border-b-0 pb-5 md:pb-0"
           dangerouslySetInnerHTML={{ __html: description ?? "" }}
         />
-        <div className="hidden md:block mt-8 lg:mt-10 xl:mt-12 ">
+        <div className="hidden md:block mt-7 lg:mt-9 xl:mt-11 ">
           <Packages
             getSelectedPackage={setSelectedPackage}
             getSelectedPackageCategoryId={setSelectedPackageCategoryId}

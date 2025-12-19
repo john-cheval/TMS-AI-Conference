@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import arrowDown from "@/assets/shared/chevron-right.png";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { truncateHtml } from "@/utils/trumcate";
@@ -20,9 +20,13 @@ const Packages = ({
   const [expandedStates, setExpandedStates] = useState<{
     [key: number]: boolean;
   }>({});
+  const filterRef = useRef<HTMLDivElement | null>(null);
   const handleTitleClick = (item: string) => {
     setActiveTitle(item);
+    if (!filterRef.current) return;
+    const y =filterRef?.current?.getBoundingClientRect().top + window.pageYOffset-80;
     // setExpandedStates({});
+    window.scrollTo({ top: y, behavior: "smooth" });
   };
 
   const handleReadMoreClick = (index: number) => {
@@ -37,9 +41,8 @@ const Packages = ({
   );
 
   return (
-    <div>
-      <div className="border-b border-b-light-grey-1 mb-9">
-        <div className="flex  gap-x-2.5 mb-7 lg:mb-10 xl:mb-14 overflow-x-auto whitespace-nowrap no-scrollbar">
+    <div ref={filterRef}>
+        <div className="sponsor-filter sticky top-[0px] z-40 bg-white py-[20px]  flex  gap-x-2.5 mb-4 lg:mb-6 xl:mb-10 overflow-x-auto whitespace-nowrap no-scrollbar">
           {packageData?.map((item: any, index: number) => {
             const isActive = item?.title === activeTitle;
             return (
@@ -57,6 +60,7 @@ const Packages = ({
             );
           })}
         </div>
+      <div  className="border-b border-b-light-grey-1 mb-9">
         <h3 className="main-heading text-black leading-1 font-bold pb-5 xl:pb-8">
           <span className="main-heading text-tms-purple leading-1 font-bold">
             {activeTitle}
