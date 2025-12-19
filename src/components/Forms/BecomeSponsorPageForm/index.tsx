@@ -532,7 +532,7 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
                 name="aboutPresentation.paperSubmit"
                 control={control}
                 rules={{
-                  required: "Bio file is required.",
+                  required: "Attachment is required.",
                   validate: {
                     isPdf: (files: FileList | null) => {
                       if (!files || !files[0]) return "File is required.";
