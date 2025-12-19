@@ -424,14 +424,14 @@ const DelegateRegisterForm = ({
                     )}
                   </button>
                   <AnimatePresence>
-                    {isAccordionOpen && (
+                    {/* {isAccordionOpen && ( */}
                       <motion.div
                         key="accordion-content"
                         initial="closed"
                         animate="open"
                         exit="closed"
-                        variants={accordionVariants}
-                        className="overflow-hidden"
+                        // variants={accordionVariants}
+                        className={` ${isAccordionOpen ? "opacity-100 visible h-full overflow-visible" : "overflow-hidden opacity-0 invisible h-0"}`}
                       >
                         <div className="pt-5 md:pt-7 lg:pt-9">
                           <div>
@@ -637,7 +637,7 @@ const DelegateRegisterForm = ({
                                   />
                                 </div>
 
-                                <div className="flex-1">
+                              <div className="flex-1">
                                   <Controller
                                     name={`delegates.${index}.natureOfCompany`}
                                     control={control}
@@ -688,7 +688,7 @@ const DelegateRegisterForm = ({
                           </div>
                         </div>
                       </motion.div>
-                    )}
+                    {/* )} */}
                   </AnimatePresence>
                 </div>
               );
