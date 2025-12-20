@@ -14,6 +14,7 @@ interface BioUploadProps<TFieldValues extends FieldValues> {
   onChange: (value: FileList | null) => void;
   value: FileList | null;
   isPresentation?: boolean;
+  multiple?:boolean;
 }
 
 const getNestedError = (errors: FieldErrors<any>, name: any) => {
@@ -40,6 +41,7 @@ const BioUploadElemet = <TFieldValues extends FieldValues>({
   value,
   errors,
   isPresentation = false,
+  multiple = false
 }: BioUploadProps<TFieldValues>) => {
   const [fileName, setFileName] = useState("");
 
@@ -103,6 +105,7 @@ const BioUploadElemet = <TFieldValues extends FieldValues>({
             className="hidden"
             accept="application/pdf"
             onChange={handleFileChange}
+            multiple={multiple}
           />
         </label>
       </div>
