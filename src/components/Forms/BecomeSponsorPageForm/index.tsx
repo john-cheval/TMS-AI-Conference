@@ -95,13 +95,19 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
       formData.append("nature_company", data?.aboutCompany?.natureOfCompany);
       formData.append("nature_company_other", data?.aboutCompany?.ifOthers);
 
-      formData.append("job_title", data?.aboutPresentation?.presentationTitle);
+      // formData.append("job_title", data?.aboutPresentation?.presentationTitle);
+      formData.append("your_presentation", data?.aboutPresentation?.presentationTitle);
       formData.append("abstract_details", data?.aboutPresentation?.abstract);
       formData.append(
-        "your_presentation",
+        "presentation_details",
         data?.aboutPresentation?.aboutPresentation
       );
-      formData.append("additional_details", data?.aboutPresentation?.takewayas);
+      // formData.append(
+      //   "your_presentation",
+      //   data?.aboutPresentation?.aboutPresentation
+      // );
+      // formData.append("additional_details", data?.aboutPresentation?.takewayas);
+      formData.append("your_session", data?.aboutPresentation?.takewayas);
 
       // Append file fields to FormData
       // Always check if the file exists before appending
@@ -111,11 +117,19 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
       if (data?.aboutYou?.bio?.[0]) {
         formData.append("bio", data.aboutYou.bio[0]);
       }
-      if (data?.aboutPresentation?.paperSubmit?.[0]) {
-        formData.append(
-          "papers_details",
-          data.aboutPresentation.paperSubmit[0]
-        );
+      // if (data?.aboutPresentation?.paperSubmit?.[0]) {
+      //   formData.append(
+      //     "papers_details[]",
+      //     data.aboutPresentation.paperSubmit[0]
+      //   );
+      // }
+
+      const files = data?.aboutPresentation?.paperSubmit;
+
+      if (files && files.length > 0) {
+        Array.from(files).forEach((file) => {
+          formData.append("papers_details[]", file);
+        });
       }
 
       const response = await fetch(`${baseUrl}/becomeaspeaker`, {
@@ -558,6 +572,7 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
                     value={value}
                     errors={errors}
                     isPresentation={true}
+                    multiple={true}
                   />
                 )}
               />
