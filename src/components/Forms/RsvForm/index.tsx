@@ -10,6 +10,7 @@ import NationalitySelectElement from "@/components/shared/Inputs/NationalitySEle
 import ReCaptcha from "@/utils/ReCaptcha";
 import { baseUrl } from "@/lib/api";
 import CountryOfResidence from "@/components/shared/Inputs/CountryOfResidence";
+import ConfirmModal from "@/components/shared/ConfirmForm";
 
 type FormData = {
   id:number;
@@ -38,6 +39,7 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
   console.log("rsvpFormData",rsvpFormData)
   const recaptchaRef = useRef<RecaptchaRefType>(null);
   const [token, setToken] = useState("");
+  const [showConfirm, setShowConfirm] = useState(false);
   const {
     register,
     handleSubmit,
@@ -54,6 +56,8 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
       setToken("");
     }
   }, []);
+
+  const [formSubmitted,setFormSubmitted] = useState(false);
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -73,17 +77,19 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
           email_address: data?.email,
           designation: data?.designation,
           nationality: data?.nationality,
-          messcountryage: data?.countryOfResidence,
+          // messcountryage: data?.countryOfResidence,
+          country: data?.countryOfResidence,
         }),
       });
       if (response.ok) {
         toast.success("Form submitted successfully!");
         reset();
-
+        
         if (recaptchaRef.current) {
           recaptchaRef.current.resetCaptcha();
         }
         setToken("");
+        setFormSubmitted(true);
       }
     } catch (error) {
       toast.error("Failed to submit form. Please try again.");
@@ -110,10 +116,19 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
     });
   }, [row, reset]);
 
+  const handleFinalSubmit = () => {
+    setShowConfirm(false);
+    handleSubmit(onSubmit)();
+  };
 
+  const handlePreviewSubmit = () => {
+    setShowConfirm(true);
+  };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <>
+    <form onSubmit={handleSubmit(handlePreviewSubmit)}>
+    {/* <form > */}
       <div className="flex flex-col gap-y-2.5 md:gap-y-3 lg:gap-y-5">
         <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
           <div className="flex-1">
@@ -278,32 +293,45 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
       </div>
 
       <p className="description text-white leading-3 mt-5">{description}</p>
-
-      <div className="mt-4 md:mt-6 flex justify-center ">
-        <ReCaptcha
-          siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
-          callback={handleToken}
-          ref={recaptchaRef}
-        />
-      </div>
-      <div className=" w-full flex justify-center">
-        <button
-          type="submit"
-          className={`
-          rounded-sm text-sm sm:text-base md:text-lg font-bold leading-5 text-dark-alter bg-white md:py-5 w-fit  py-3 px-8 md:px-16 lg:px-[100px] text-center mt-4 
-          transition-all duration-300 
-          ${
-            !token
-              ? "opacity-50 cursor-not-allowed"
-              : "hover:bg-tms-purple/90 hover:text-white"
-          }
-        `}
-          disabled={!token}
-        >
-          {isSubmitting ? "Submitting..." : "Submit"}
-        </button>
-      </div>
+      {
+        rsvpFormData.status === '1' || formSubmitted ? (
+          <>
+            <p className="text-center text-[20px] text-[#4d1592] leading-3 mt-8">You have submitted your RSVP Form</p>
+          </>
+        ) :
+        (
+          <>
+            <div className="mt-4 md:mt-6 flex justify-center ">
+              <ReCaptcha
+                siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
+                callback={handleToken}
+                ref={recaptchaRef}
+              />
+            </div>
+            <div className=" w-full flex justify-center">
+              <button
+                type="submit"
+                className={`
+                rounded-sm text-sm sm:text-base md:text-lg font-bold leading-5 text-dark-alter bg-white md:py-5 w-fit  py-3 px-8 md:px-16 lg:px-[100px] text-center mt-4 
+                transition-all duration-300 
+                ${
+                  !token
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:bg-tms-purple/90 hover:text-white"
+                }
+              `}
+                disabled={!token}
+              >
+                {isSubmitting ? "Submitting..." : "Submit"}
+              </button>
+            </div>
+          </>
+        )
+      }
+      
     </form>
+    <ConfirmModal open={showConfirm} onCancel={() => setShowConfirm(false)} onConfirm={handleFinalSubmit} />
+    </>
   );
 };
 
