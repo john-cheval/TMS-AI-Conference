@@ -38,7 +38,7 @@ const BecomePartner = async () => {
       />
 
       <div
-        className="section-wrapper pt-8 md:pt-10 lg:pt-12  xl:pt-16 2xl:pt-20 description font-normal text-dark-alter pb-6 md:pb-0 text-center"
+        className="section-wrapper w-[93%] mx-auto pt-8 md:pt-10 lg:pt-12  xl:pt-16 2xl:pt-20 description font-normal text-dark-alter pb-6 md:pb-0 text-center"
         dangerouslySetInnerHTML={{
           __html: page_description?.description,
         }}

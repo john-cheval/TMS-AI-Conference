@@ -87,9 +87,10 @@ const HomeSectionTwo = ({
                         />
 
                         {item?.home_title && (
-                          <p className="absolute bottom-3 lg:bottom-6 left-3 lg:left-6 right-3 lg:right-6 text-white font-bold text-sm md:text-base lg:text-lg xl:text-xl leading-5 md:leading-4">
-                            {item?.home_title}
-                          </p>
+                          // <p className="absolute bottom-3 lg:bottom-6 left-3 lg:left-6 right-3 lg:right-6 text-white font-bold text-sm md:text-base lg:text-lg xl:text-xl leading-5 md:leading-4">
+                          //   {item?.home_title}
+                          // </p>
+                          <p className="absolute bottom-3 lg:bottom-6 left-3 lg:left-6 right-3 lg:right-6 text-white font-bold text-sm md:text-base lg:text-lg xl:text-xl leading-5 md:leading-4" dangerouslySetInnerHTML={{__html:item?.home_title}}/>
                         )}
                       </div>
                     ))}

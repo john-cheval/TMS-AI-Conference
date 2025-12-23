@@ -223,9 +223,10 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                             }}
                           />
 
-                          <h4 className="text-lg md:text-xl lg:text-2xl gradient-text w-fit font-bold leading-4 md:leading-3 lg:leading-2 mt-3 mb-2">
+                          {/* <h4 className="text-lg md:text-xl lg:text-2xl gradient-text w-fit font-bold leading-4 md:leading-3 lg:leading-2 mt-3 mb-2">
                             {item?.name}
-                          </h4>
+                          </h4> */}
+                          <h4 className="text-lg md:text-xl lg:text-2xl gradient-text w-fit font-bold leading-4 md:leading-3 lg:leading-2 mt-3 mb-2" dangerouslySetInnerHTML={{__html:item?.name}} />
 
                           <div
                             className="space-y-4 description text-dark-alter"
