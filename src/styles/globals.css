@@ -299,6 +299,7 @@ ul {
   @apply text-xs sm:text-sm uppercase leading-6;
 }
 
+
 /* Inputs */
 .input {
   @apply border border-white rounded-sm py-3 w-full pl-3 md:pl-5 lg:pl-6 placeholder-white outline-0 text-white text-sm md:text-base font-normal leading-4 md:leading-3;
@@ -374,6 +375,8 @@ ul {
 .conference-time {min-width: 190px;}
 .conference-card .description ul {list-style: disc;margin-left: 30px;}
 .conference-card .description ul li {margin-bottom: 15px;}
+.description.sponsorship p{margin-bottom: 20px;}
+.description.sponsorship p:last-child {margin-bottom: 0;}
 
 @media (max-width: 768px) {
   .sponsor-description ul li {

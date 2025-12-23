@@ -38,7 +38,7 @@ interface DelegateData {
   lastName: string;
   nationality: string;
   country: string;
-  contact: number;
+  contact: string;
   email: string;
   designation: string;
   company: string;
@@ -57,6 +57,24 @@ interface FormData {
 interface RecaptchaRefType {
   resetCaptcha: () => void;
 }
+
+const defaultDelegate = {
+  title: "",
+  firstName: "",
+  lastName: "",
+  nationality: "",
+  country: "",
+  contact: "",
+  email: "",
+  designation: "",
+  company: "",
+  natureOfCompany: "",
+  addditionalDetails: "",
+  taxRegisterationNumber: "",
+  ifOthers: "",
+  contactCountryCode: "+971",
+};
+
 const DelegateRegisterForm = ({
   heading,
   priceDetails,
@@ -92,6 +110,7 @@ const DelegateRegisterForm = ({
       termsAccepted: false,
     },
     mode: "onBlur",
+    shouldFocusError: false,
   });
 
   const termsAccepted = watch("termsAccepted");
@@ -124,33 +143,7 @@ const DelegateRegisterForm = ({
     }
   }, [selectedPlan, findSelectedPlan, setValue]);
 
-  useEffect(() => {
-    const currentCount = fields.length;
-    if (numberOfDelegates > currentCount) {
-      for (let i = currentCount; i < numberOfDelegates; i++) {
-        append({
-          title: "",
-          firstName: "",
-          lastName: "",
-          nationality: "",
-          country: "",
-          contact: 0,
-          email: "",
-          designation: "",
-          company: "",
-          natureOfCompany: "",
-          addditionalDetails: "",
-          taxRegisterationNumber: "",
-          ifOthers: "",
-          contactCountryCode: "+971",
-        });
-      }
-    } else if (numberOfDelegates < currentCount) {
-      for (let i = currentCount; i > numberOfDelegates; i--) {
-        remove(i - 1);
-      }
-    }
-  }, [numberOfDelegates, fields.length, append, remove]);
+  
 
   const ticketPrice = findSelectedPlan ? parseFloat(findSelectedPlan.price) : 0;
   const subtotal = ticketPrice * (numberOfDelegates ?? 0);
@@ -239,6 +232,20 @@ const DelegateRegisterForm = ({
       "ifOthers",
       "addditionalDetails",
     ];
+
+    const initializedRef = useRef(false);
+
+    useEffect(() => {
+      if (initializedRef.current) return;
+
+      const count = numberOfDelegates || 1;
+
+      for (let i = 0; i < count; i++) {
+        append(defaultDelegate);
+      }
+
+      initializedRef.current = true;
+    }, []);
 
     useEffect(() => {
     const first = watch("delegates.0");
@@ -355,6 +362,22 @@ const DelegateRegisterForm = ({
                 max={20}
                 {...register("numberOfDelegates", {
                   valueAsNumber: true,
+                  onChange: (e) => {
+                    const value = Number(e.target.value);
+                    const currentCount = fields.length;
+
+                    if (value > currentCount) {
+                      for (let i = currentCount; i < value; i++) {
+                        append(defaultDelegate);
+                      }
+                    }
+
+                    if (value < currentCount) {
+                      for (let i = currentCount; i > value; i--) {
+                        remove(i - 1);
+                      }
+                    }
+                  },
                   required: "Number of delegates is required",
                   min: {
                     value: parseInt(findSelectedPlan?.min_delegates ?? "1"),
