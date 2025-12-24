@@ -13,11 +13,16 @@ export async function generateMetadata() {
 const RsvpPage = async ({ searchParams}:any) => {
   const datas = await searchParams;
   // const rsvpFormData = await fetchData(`${baseUrl}/getmasterdetails?master_name=rsvpuser&id=${id}`);
-  const rsvpFormData = await fetchData(`${baseUrl}/getmasterdetails?master_name=rsvpuser&id=${datas.id}`);
+  // const rsvpFormData = await fetchData(`${baseUrl}/getmasterdetails?master_name=rsvpuser&id=${datas.id}`);
   
-  const pageContent = await fetchData(
-    `${baseUrl}/getmasterdetails?master_name=cms&id=86`
-  );
+  // const pageContent = await fetchData(
+  //   `${baseUrl}/getmasterdetails?master_name=cms&id=86`
+  // );
+
+  const [rsvpFormData,pageContent] = await Promise.all([
+    fetchData(`${baseUrl}/getmasterdetails?master_name=rsvpuser&id=${datas.id}`),
+    fetchData(`${baseUrl}/getmasterdetails?master_name=cms&id=86`)
+  ]);
 
   const generalSettings = pageContent?.gernalsettings;
   const conferenceData =
