@@ -283,11 +283,14 @@ const DelegateRegisterForm = ({
   //   setNatureOfCompany(e);
   // }
 
-
+  useEffect(() => {
+    // alert("errors "+errors)
+    window.scrollTo(0, 0);
+  },[errors])
 
   return (
     <div className=" mt-8 lg:mt-10">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className="bg-[#f5f5f5] rounded-2xl pt-5 md:pt-8 lg:pt-10  xl:pt-11 pb-20 px-5 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-28 3xl:px-36">
           <h3 className="gradient-text main-heading-2 w-fit md:mx-auto">
             {heading}

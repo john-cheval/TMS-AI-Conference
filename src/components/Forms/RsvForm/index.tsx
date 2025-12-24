@@ -39,7 +39,7 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
   console.log("rsvpFormData",rsvpFormData)
   const recaptchaRef = useRef<RecaptchaRefType>(null);
   const [token, setToken] = useState("");
-  const [showConfirm, setShowConfirm] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(true);
   const {
     register,
     handleSubmit,
@@ -128,7 +128,7 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
   return (
     <>
     {
-      rsvpFormData.id !== null && (
+      (rsvpFormData && rsvpFormData.id !== null) && (
         <>
         
         <form onSubmit={handleSubmit(handlePreviewSubmit)}>
@@ -300,7 +300,7 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
           {
             rsvpFormData.status === '1' || formSubmitted ? (
               <>
-                <p className="text-center text-[20px] text-[#4d1592] leading-3 mt-8">You have submitted your RSVP Form</p>
+                <p className="bg-[#f00] p-[10px] rounded-sm text-center text-[20px] text-[#fff] font-bold leading-3 mt-8">You have submitted your RSVP Form</p>
               </>
             ) :
             (
