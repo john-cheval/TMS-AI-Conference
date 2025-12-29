@@ -19,19 +19,19 @@ async function generateMetadDataDetails(
     const description = data?.meta_description || "TMS AI Conference";
     const image =
       data?.meta_image ||
-      "https://chevaldemo.xyz/demo/white-label/wp-content/uploads/2025/06/white-Label.jpg";
+      "";
 
     return {
       title,
       description,
       alternates: {
-        canonical: `https://tms-ai-conference.vercel.app/${path}`,
+        canonical: `https://tmsaitechconference.com/${path}`,
       },
       openGraph: {
         title,
         description,
 
-        url: `https://tms-ai-conference.vercel.app/${path}`,
+        url: `https://tmsaitechconference.com/${path}`,
         type: "website",
         images: [{ url: image, width: 1200, height: 630, alt: title }],
       },
@@ -45,24 +45,24 @@ async function generateMetadDataDetails(
   } catch (error) {
     toast.error("Metadata fetch error:");
     return {
-      title: "White Label Media",
-      description: "White Label Media",
+      title: "TMS AI Conference",
+      description: "TMS AI Conference",
       openGraph: {
-        title: "White Label Media",
-        description: "White Label Media",
+        title: "TMS AI Conference",
+        description: "TMS AI Conference",
         images: [
           {
-            url: "https://chevaldemo.xyz/demo/white-label/wp-content/uploads/2025/06/white-Label.jpg",
+            url: "",
             width: 1200,
             height: 630,
-            alt: "White Label Media",
+            alt: "TMS AI Conference",
           },
         ],
       },
       twitter: {
         card: "summary_large_image",
         images: [
-          "https://chevaldemo.xyz/demo/white-label/wp-content/uploads/2025/06/white-Label.jpg",
+          "",
         ],
       },
     };

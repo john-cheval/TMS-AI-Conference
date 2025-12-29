@@ -8,6 +8,7 @@ import { fetchData } from "@/lib/fetchData";
 import Providers from "@/Providers/ToastProviders";
 import ScrollToTop from "@/hooks/useScrollToTop";
 import BackToTop from "@/components/shared/BackToTop/BackToTop";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title:
@@ -59,6 +60,22 @@ export default async function RootLayout({
   });
   return (
     <html lang="en" className="h-full " suppressHydrationWarning>
+      <head>
+        {/* Google tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-HQFX7JWJBF"
+          strategy="afterInteractive"
+        />
+
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-HQFX7JWJBF');
+          `}
+        </Script>
+      </head>
       <body
         className={`${inter.className} antialiased flex flex-col min-h-full `}
       >
