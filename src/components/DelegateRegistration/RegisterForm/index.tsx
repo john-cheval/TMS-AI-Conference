@@ -286,11 +286,23 @@ const DelegateRegisterForm = ({
   useEffect(() => {
     // alert("errors "+errors)
     window.scrollTo(0, 0);
-  },[errors])
+  },[errors]);
+
+  const onError = (errors: any) => {
+    if (!errors?.delegates) return;
+
+    const errorIndex = errors.delegates.findIndex(
+      (err: any) => err && Object.keys(err).length > 0
+    );
+
+    if (errorIndex !== -1) {
+      setOpenIndex(errorIndex); // 👈 open accordion with error
+    }
+  };
 
   return (
     <div className=" mt-8 lg:mt-10">
-      <form noValidate onSubmit={handleSubmit(onSubmit)}>
+      <form noValidate onSubmit={handleSubmit(onSubmit,onError)}>
         <div className="bg-[#f5f5f5] rounded-2xl pt-5 md:pt-8 lg:pt-10  xl:pt-11 pb-20 px-5 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-28 3xl:px-36">
           <h3 className="gradient-text main-heading-2 w-fit md:mx-auto">
             {heading}
@@ -362,7 +374,7 @@ const DelegateRegisterForm = ({
               <input
                 type="number"
                 min={parseInt(findSelectedPlan?.min_delegates ?? "1")}
-                max={20}
+                max={5}
                 {...register("numberOfDelegates", {
                   valueAsNumber: true,
                   onChange: (e) => {
@@ -389,8 +401,8 @@ const DelegateRegisterForm = ({
                     )} or more for ${findSelectedPlan?.title ?? ""} plans`,
                   },
                   max: {
-                    value: 20,
-                    message: "Maximum number of delegates is 20",
+                    value: 5,
+                    message: "You can register a  maximum of 5 delegates at a time.",
                   },
                 })}
                 className="border border-black rounded-sm focus:none py-2 md:py-3 pl-3 md:pl-5 lg:pl-7 pr-2 focus:outline-none max-w-20 md:max-w-[100px]"
@@ -422,7 +434,7 @@ const DelegateRegisterForm = ({
         </div>
         <div className="bg-tms-blue rounded-2xl pt-8 sm:pt-10 lg:pt-12 xl:pt-14 px-5 sm:px-6 md:px-10 lg:px-16 xl:px-[70px] pb-7 md:pb-10 lg:pb-12 xl:pb-16 2xl:pb-20 mt-[-50px] w-full">
           <div className="pb-4 md:pb-6 lg:pb-8">
-            {fields.map((field, index) => {
+            {fields.slice(0,5).map((field, index) => {
               const isAccordionOpen = openIndex === index;
               return (
                 <div
