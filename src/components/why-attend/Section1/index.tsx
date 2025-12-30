@@ -57,7 +57,7 @@ const WhyAttendSectionOne = ({ data, buttonTitle, buttonLink }: Props) => {
                           src={item?.image_url ?? ""}
                           width={500}
                           height={400}
-                          alt="title"
+                          alt={item?.image_alt_tag ?? ""}
                           className="w-full h-auto object-cover  md:flex-grow-1   min-h-[400px]- md:min-h-full-"
                         />
                       ) : (
@@ -139,7 +139,7 @@ const WhyAttendSectionOne = ({ data, buttonTitle, buttonLink }: Props) => {
                           src={item?.image_url ?? ""}
                           width={500}
                           height={400}
-                          alt="title"
+                          alt={item?.image_alt_tag ?? ""}
                           className="w-full h-auto object-cover md:flex-grow-1   min-h-[400px]- md:min-h-full-"
                         />
                       ) : (

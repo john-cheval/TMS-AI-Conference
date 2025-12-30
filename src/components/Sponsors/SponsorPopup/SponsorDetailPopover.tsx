@@ -10,7 +10,7 @@ export type SponsorDetailPropsType = SponsorsPropsType & {
 };
 
 const SponsorDetailPopover = (props: SponsorDetailPropsType) => {
-  const { isClose, company_name, image_url, description, website_link, name } =
+  const { isClose, company_name, image_url, description, website_link, name,image_alt_tag } =
     props;
   return (
     <motion.div
@@ -36,7 +36,8 @@ const SponsorDetailPopover = (props: SponsorDetailPropsType) => {
           <div className="col-span-12 md:col-span-4  ">
             <Image
               src={image_url ?? ""}
-              alt={(company_name || name) ?? ""}
+              // alt={(company_name || name) ?? ""}
+              alt={image_alt_tag ?? ""}
               width={165}
               height={60}
               className="w-full h-auto  object-cover max-w-[150px] md:max-w-full md:min-w-[150px] border border-light-grey-1  rounded-2xl py-7 md:py-10  lg:py-14 px-5"

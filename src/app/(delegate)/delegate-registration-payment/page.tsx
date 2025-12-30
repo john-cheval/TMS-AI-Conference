@@ -55,7 +55,7 @@ const DelegateRegistration = async () => {
         <div>
           <Image
             src={delegate_registration?.image}
-            alt={delegate_registration?.image_alt_tag}
+            alt={delegate_registration?.image_alt_tag ?? ""}
             width={700}
             height={900}
             className="w-full h-full object-cover "

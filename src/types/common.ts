@@ -44,6 +44,7 @@ export type SpeakersDataProps = {
   description?: string | null;
   is_chairman?: string;
   image_url?: string;
+  image_alt_tag?: string;
   home_title?: string;
   presentation_pdf_url?:string;
   downloadEnable?:boolean;
@@ -57,6 +58,7 @@ export type sectionTwoCardProps = {
 export type ImageGalleryTypes = {
   title?: string;
   image_url?: string;
+  image_alt_tag?: string;
 };
 
 export type YoutubeTestimonialsTypes = {
@@ -75,6 +77,7 @@ export type SponsorsPropsType = {
   contact_number?: string;
   country_code?: string;
   image_url?: string;
+  image_alt_tag?: string;
   description?: string | null;
 };
 
@@ -87,6 +90,7 @@ export type WhyAttendListType = {
   title?: string;
   description: string;
   image_url?: string;
+  image_alt_tag?: string;
 };
 
 export type SectionOnePropsTyps = {

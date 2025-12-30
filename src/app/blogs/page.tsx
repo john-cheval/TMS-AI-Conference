@@ -50,7 +50,8 @@ const Blogs = async () => {
               <div key={index + 1}>
                 <Image
                   src={item?.image_url}
-                  alt={item?.title}
+                  // alt={item?.title}
+                  alt={item?.image_alt_tag ?? ""}
                   width={600}
                   height={300}
                   className="responsive-radius overflow-hidden w-full h-auto object-cover"
@@ -87,7 +88,8 @@ const Blogs = async () => {
               <div key={index + 1} className="space-y-4 lg:space-y-6">
                 <Image
                   src={item?.image_url}
-                  alt={item?.title}
+                  // alt={item?.title}
+                  alt={item?.image_alt_tag ?? ""}
                   width={700}
                   height={350}
                   className="responsive-radius overflow-hidden w-full h-auto object-cover  "

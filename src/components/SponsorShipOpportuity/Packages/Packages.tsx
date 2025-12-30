@@ -101,7 +101,8 @@ const Packages = ({
                   <div className="col-span-3 lg:col-span-5 xl:col-span-4 flex ">
                     <Image
                       src={sponsor?.image_url}
-                      alt={sponsor?.title}
+                      // alt={sponsor?.title}
+                      alt={sponsor?.image_alt_tag ?? ""}
                       width={430}
                       height={430}
                       className="w-full h-auto object-cover flex-grow-1 rounded-t-sm rounded-br-sm"

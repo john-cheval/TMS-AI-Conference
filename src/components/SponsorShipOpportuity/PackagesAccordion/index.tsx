@@ -79,7 +79,8 @@ const PackagesAccordion = ({ packageData }: Props) => {
                                 <div key={index + 1}>
                                   <Image
                                     src={sponsor?.image_url}
-                                    alt={sponsor?.title}
+                                    // alt={sponsor?.title}
+                                    alt={sponsor?.image_alt_tag ?? ""}
                                     width={385}
                                     height={164}
                                     className="w-full h-auto object-cover rounded-t-sm"

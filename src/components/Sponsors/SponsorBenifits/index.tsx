@@ -15,7 +15,7 @@ const SponsorBenifits = ({
       <SectionHeadingTwo title={heading} isDark={true} />
       {all_benefits && (
         <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3  md:gap-4 xl:gap-6 mt-6 md:mt-8  ">
-          {Object.values(all_benefits)?.map((item, index) => {
+          {Object.values(all_benefits)?.map((item:any, index:number) => {
             return (
               <div
                 key={index + 1}
@@ -23,7 +23,8 @@ const SponsorBenifits = ({
               >
                 <Image
                   src={item?.image_url ?? ""}
-                  alt={item?.title}
+                  // alt={item?.title}
+                  alt={item?.image_alt_tag ?? ""}
                   width={390}
                   height={390}
                   className="w-full h-full- object-cover  "

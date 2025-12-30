@@ -6,13 +6,14 @@ const WhyAttendCard = ({
   image_url,
   title,
   description,
+  image_alt_tag
 }: WhyAttendListType) => {
   return (
     <div className="rounded-sm overflow-hidden relative">
       {" "}
       <Image
         src={image_url ?? ""}
-        alt={title ?? ""}
+        alt={image_alt_tag ?? ""}
         width={375}
         height={345}
         sizes="100vw"

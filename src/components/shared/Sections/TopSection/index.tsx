@@ -9,6 +9,7 @@ import dayjs from "dayjs";
 
 interface SharedTopSectionPropsTypes {
   banner?: string;
+  image_alt_tag?:string;
   title?: string;
   awardTitle?: string;
   conferenceTitle?: string;
@@ -18,6 +19,7 @@ interface SharedTopSectionPropsTypes {
 
 const SharedTopSection = ({
   banner,
+  image_alt_tag,
   title,
   awardTitle,
   conferenceTitle,
@@ -33,7 +35,7 @@ const SharedTopSection = ({
             src={banner ?? ""}
             width={500}
             height={400}
-            alt="title"
+            alt={image_alt_tag ?? ""}
             className="w-full h-auto object-cover  min-h-[400px] md:min-h-full"
           />
         ) : (

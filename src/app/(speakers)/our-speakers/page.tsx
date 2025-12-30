@@ -47,7 +47,8 @@ const OurSpeakers = async () => {
           <Image
             src={banner_with_heading?.banner_image}
             // src={imge}
-            alt={banner_with_heading?.heading}
+            // alt={banner_with_heading?.heading}
+            alt={banner_with_heading?.image_alt_tag ?? ""}
             width={500}
             height={300}
             className="w-full h-auto object-cover flex-grow-1"

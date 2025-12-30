@@ -6,13 +6,14 @@ import React from "react";
 import Ai from "@/assets/shared/ai-speakers.png";
 
 const SpeakersCard = (props: SpeakersDataProps) => {
-  const { image_url, name, post, company,presentation_pdf_url,downloadEnable=false } = props;
+  const { image_url, name, post, company,presentation_pdf_url,downloadEnable=false, image_alt_tag } = props;
   return (
     <div className="rounded-sm bg-tms-light-blue px-4 md:px-5 lg:px-7  pt-10 md:pt-8 pb-6 md:pb-8 h-full md:min-h-[300px] relative">
       <div className="flex flex-col items-center justify-center gap-y-3 md:gap-y-5 relative z-10">
         <Image
           src={image_url ?? ""}
-          alt={name ?? ""}
+          // alt={name ?? ""}
+          alt={image_alt_tag ?? ""}
           width={95}
           height={100}
           className="w-full h-auto object-cover rounded-sm max-w-[100px] md:max-w-[150px]"
