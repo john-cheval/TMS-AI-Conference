@@ -38,7 +38,7 @@ const WhoShouldAttendSectionOne = ({
         <article className="col-span-12 lg:col-span-6 ">
           <Image
             src={image ?? ""}
-            alt={image_alt_tag ?? "Who Should Attend"}
+            alt={image_alt_tag ?? ""}
             width={285}
             height={400}
             className="w-full h-full  object-cover responsive-radius  shrink-0"
@@ -49,7 +49,7 @@ const WhoShouldAttendSectionOne = ({
         <article className="col-span-12 lg:col-span-6 ">
           <Image
             src={image_2 ?? ""}
-            alt={image_alt_tag_2 ?? "Who Should Attend"}
+            alt={image_alt_tag_2 ?? ""}
             width={285}
             height={400}
             className="w-full h-full  object-cover responsive-radius  shrink-0"

@@ -16,7 +16,8 @@ const PreReleaseSectionOne = ({ data }: Props) => {
         <div className="col-span-12 md:col-span-7">
           <Image
             src={data[0]?.image_url}
-            alt={data[0]?.title}
+            // alt={data[0]?.title}
+            alt={data[0]?.image_alt_tag ?? ""}
             width={700}
             height={350}
             className="responsive-radius overflow-hidden w-full h-auto object-cover"
@@ -52,7 +53,8 @@ const PreReleaseSectionOne = ({ data }: Props) => {
               >
                 <Image
                   src={item?.image_url}
-                  alt={item?.title}
+                  // alt={item?.title}
+                  alt={item?.image_alt_tag ?? ""}
                   width={700}
                   height={350}
                   className="responsive-radius overflow-hidden w-full h-auto object-cover max-h-[150px] max-w-[250px] "
@@ -89,7 +91,8 @@ const PreReleaseSectionOne = ({ data }: Props) => {
             >
               <Image
                 src={item?.image_url}
-                alt={item?.title}
+                // alt={item?.title}
+                alt={item?.image_alt_tag ?? ""}
                 width={700}
                 height={350}
                 className="responsive-radius overflow-hidden w-full h-auto object-cover  "

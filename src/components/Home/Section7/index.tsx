@@ -15,6 +15,7 @@ const HomeSectionSeven = ({
   heading,
   description,
   image,
+  image_alt_tag,
   button_link,
   button_text,
   all_benifits,
@@ -45,7 +46,8 @@ const HomeSectionSeven = ({
               <article className="col-span-12 md:col-span-5 lg:col-span-6 order-0 md:order-1">
                 <Image
                   src={image ?? ""}
-                  alt={heading ?? ""}
+                  // alt={heading ?? ""}
+                  alt={image_alt_tag ?? ""}
                   width={700}
                   height={800}
                   className="w-full h-full object-cover"

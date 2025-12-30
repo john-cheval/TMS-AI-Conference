@@ -20,7 +20,8 @@ const DetailsSectionone = ({ isBlog = false, content }: Props) => {
 
       <Image
         src={content?.image_url}
-        alt={content?.title || "image"}
+        // alt={content?.title || "image"}
+        alt={content?.image_alt_tag ?? ""}
         width={700}
         height={350}
         className={`responsive-radius overflow-hidden w-full h-auto object-cover ${
@@ -44,7 +45,8 @@ const DetailsSectionone = ({ isBlog = false, content }: Props) => {
         {content?.image_main_url && (
           <Image
             src={content?.image_main_url}
-            alt={content?.title || "image"}
+            // alt={content?.title || "image"}
+            alt={content?.image_alt_tag || ""}
             width={700}
             height={350}
             className="responsive-radius  overflow-hidden w-full h-full object-cover col-span-12  md:col-span-5  2xl:col-span-4 shrink-0"

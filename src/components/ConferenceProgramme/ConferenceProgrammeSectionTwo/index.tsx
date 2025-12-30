@@ -81,7 +81,8 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                                           sponsorListItem?.image_url ??
                                           "imnagw2"
                                         }
-                                        alt={sponsorListItem?.name}
+                                        // alt={sponsorListItem?.name}
+                                        alt={sponsorListItem?.image_alt_tag ?? ""}
                                         width={360}
                                         height={80}
                                         className="w-fit object-contain max-w-[200px] md:max-w-full"
@@ -107,7 +108,8 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                                         >
                                           <Image
                                             src={speakerItem?.image_url}
-                                            alt={speakerItem?.title}
+                                            // alt={speakerItem?.title}
+                                            alt={speakerItem?.image_alt_tag ?? ""}
                                             width={63}
                                             height={63}
                                             className="rounded-md w-[65px] h-[65px]"
@@ -147,7 +149,8 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                                         >
                                           <Image
                                             src={moderatorItem?.image_url}
-                                            alt={moderatorItem?.name}
+                                            // alt={moderatorItem?.name}
+                                            alt={moderatorItem?.image_alt_tag ?? ""}
                                             width={63}
                                             height={63}
                                             className="rounded-md w-[65px] h-[65px]"
@@ -198,7 +201,8 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                                           sponsorListItemTwo?.image_url ??
                                           "image"
                                         }
-                                        alt={sponsorListItemTwo?.name}
+                                        // alt={sponsorListItemTwo?.name}
+                                        alt={sponsorListItemTwo?.image_alt_tag ?? ""}
                                         width={360}
                                         height={80}
                                         className="w-fit object-contain"
@@ -254,7 +258,8 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                                       >
                                         <Image
                                           src={moderatorItem?.image_url}
-                                          alt={moderatorItem?.name}
+                                          // alt={moderatorItem?.name}
+                                          alt={moderatorItem?.image_alt_tag ?? ""}
                                           width={63}
                                           height={63}
                                           className="rounded-md w-[65px] h-[65px]"
@@ -294,7 +299,8 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                                       >
                                         <Image
                                           src={spekersItem?.image_url}
-                                          alt={spekersItem?.name}
+                                          // alt={spekersItem?.name}
+                                          alt={spekersItem?.image_alt_tag ?? ""}
                                           width={63}
                                           height={63}
                                           className="rounded-md shrink-0  w-[65px] h-[65px]"

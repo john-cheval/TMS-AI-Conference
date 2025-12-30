@@ -11,6 +11,7 @@ interface GalleryCardProps extends PhotoGalleryType {
   isAlbumPage?: boolean;
   index?: number;
   gallery?: any;
+  image_alt_tag?:string;
 }
 
 const GalleryCard = ({
@@ -21,6 +22,8 @@ const GalleryCard = ({
   isAlbumPage = false,
   index,
   gallery,
+  image_alt_tag
+  
 }: GalleryCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(index);
@@ -39,7 +42,7 @@ const GalleryCard = ({
         <div className="responsive-radius overflow-hidden relative cursor-pointer">
           <Image
             src={image_url}
-            alt={title || slug || "image"}
+            alt={image_alt_tag ?? ""}
             width={400}
             height={300}
             sizes="100vw"
@@ -66,7 +69,8 @@ const GalleryCard = ({
       >
         <Image
           src={image_url}
-          alt={title || slug || "image"}
+          // alt={title || slug || "image"}
+          alt={image_alt_tag ?? ""}
           width={400}
           height={300}
           sizes="100vw"

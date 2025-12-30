@@ -19,6 +19,7 @@ const HomeSectionOne = (props: Props) => {
     small_title,
     small_title_2,
     banner_image,
+    image_alt_tag,
     location_heading,
     main_heading,
     callForPaperDate,
@@ -47,7 +48,7 @@ const HomeSectionOne = (props: Props) => {
               className="w-full h-full object-cover z-[5]"
             />
             :
-          <img src={banner_image || "/fallback.jpg"} className="w-full h-full object-cover z-[5]" />
+          <img src={banner_image || "/fallback.jpg"} alt={image_alt_tag ?? ""} className="w-full h-full object-cover z-[5]" />
           }
 
           <div className="home-banner-gradient w-full h-full absolute inset-0 z-10" />
