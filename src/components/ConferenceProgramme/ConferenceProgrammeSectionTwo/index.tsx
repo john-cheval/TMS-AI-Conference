@@ -1,3 +1,4 @@
+import ButtonOrLink from "@/components/shared/ui/Button";
 import dayjs from "dayjs";
 import Image from "next/image";
 import React from "react";
@@ -5,9 +6,11 @@ import { MdAccessAlarms } from "react-icons/md";
 
 type Props = {
   content: any;
+  buttonText:string;
+  buttonLink:string;
 };
 
-const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
+const ConferenceProgrammeSectionTwo = ({ content,buttonText,buttonLink }: Props) => {
   if (!content)
     return (
       <p className="text-lg font-medium my-5 text-center md:text-xl">
@@ -329,6 +332,16 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
             </div>
           );
         })}
+      </div>
+      <div className="flex items-center justify-center mt-[30px]">
+        <ButtonOrLink
+              hrefs={buttonLink}
+              isGradient={false}
+              isIcon={false}
+              isLink={true}
+            >
+              {buttonText}
+        </ButtonOrLink>
       </div>
     </section>
   );

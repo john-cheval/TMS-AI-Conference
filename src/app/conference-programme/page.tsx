@@ -45,7 +45,7 @@ const ConferenceProgramme = async () => {
         conferenceDate={page_top_banner?.data?.end_date}
       />
       <ConferenceProgrammeSectionOne {...event_overview} />
-      <ConferenceProgrammeSectionTwo content={event_overview?.data} />
+      <ConferenceProgrammeSectionTwo content={event_overview?.data} buttonText={event_overview?.cta_button_text} buttonLink={event_overview?.cta_button_link} />
 
       {
       (sponsors.data.length > 0 || supporting_associations.data.length > 0 || media_partners.data.length > 0) &&
