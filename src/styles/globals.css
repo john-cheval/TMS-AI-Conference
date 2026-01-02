@@ -73,6 +73,9 @@
 html,
 body {
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  /* height: auto; */
+  /* overflow-y: auto; */
 }
 
 input[type=number]::-webkit-inner-spin-button,
