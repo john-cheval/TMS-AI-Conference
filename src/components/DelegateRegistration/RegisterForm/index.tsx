@@ -248,7 +248,6 @@ const DelegateRegisterForm = ({
 
       if (response.ok) {
         setFormSubmitting(false);
-        toast.success("Form submitted successfully!");
         reset();
         if (recaptchaRef.current) {
           recaptchaRef.current.resetCaptcha();
@@ -256,6 +255,7 @@ const DelegateRegisterForm = ({
         setToken("");
         // ✅ Redirect to thank you page
         if(isFree) {
+          toast.success("Form submitted successfully!");
           router.push("/thank-you");
         } else {
           // response
