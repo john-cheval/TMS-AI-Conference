@@ -13,11 +13,12 @@ async function SuccessPayment({ searchParams}:any) {
     return (
         <>
             {
-            pageContent?.payment_details.state === 'CAPTURED' && (
+            // pageContent?.payment_details?.status === 'CAPTURED' && (
                 <div className='thank-you container-inside mx-auto py-[50px]'>
-                    <h1 className='text-center text-[#0078bb] text-[40px] font-[700]'>{pageContent?.msg}</h1>
+                    {/* <h1 className='text-center text-[#0078bb] text-[40px] font-[700]'>{pageContent?.msg}</h1> */}
+                    <h1 className='text-center text-[#0078bb] text-[40px] font-[700]'>Payment Successfull</h1>
                 </div>
-            ) 
+            // ) 
             }
         </>
     );
