@@ -103,7 +103,7 @@ const DelegateRegisterForm = ({
     watch,
     setValue,
     control,
-    // reset,
+    reset,
     formState: { errors },
   } = useForm<FormData & { termsAccepted: boolean }>({
     defaultValues: {
@@ -112,8 +112,8 @@ const DelegateRegisterForm = ({
       delegates: [],
       termsAccepted: false,
     },
-    // mode: "onBlur",
     shouldFocusError: false,
+    // mode: "onBlur",
     mode: "onSubmit",
   });
 
@@ -121,7 +121,9 @@ const DelegateRegisterForm = ({
   const isFormValid = termsAccepted && token;
   // const isFormValid = termsAccepted;
 
+  const [openAccordion, setOpenAccordion] = useState<number | null>(0);
   const [formSubmitting,setFormSubmitting] = useState<boolean>(false);
+
 
   const handleToken = useCallback((recaptchaToken: string | null) => {
     if (recaptchaToken) {
@@ -149,8 +151,35 @@ const DelegateRegisterForm = ({
       setValue("numberOfDelegates", minDelegates, { shouldValidate: true });
     }
   }, [selectedPlan, findSelectedPlan, setValue]);
-
   
+
+  // useEffect(() => {
+  //   const currentCount = fields.length;
+  //   if (numberOfDelegates > currentCount) {
+  //     for (let i = currentCount; i < numberOfDelegates; i++) {
+  //       append({
+  //         title: "",
+  //         firstName: "",
+  //         lastName: "",
+  //         nationality: "",
+  //         country: "",
+  //         contact: 0,
+  //         email: "",
+  //         designation: "",
+  //         company: "",
+  //         natureOfCompany: "",
+  //         addditionalDetails: "",
+  //         taxRegisterationNumber: "",
+  //         ifOthers: "",
+  //         contactCountryCode: "+971",
+  //       });
+  //     }
+  //   } else if (numberOfDelegates < currentCount) {
+  //     for (let i = currentCount; i > numberOfDelegates; i--) {
+  //       remove(i - 1);
+  //     }
+  //   }
+  // }, [numberOfDelegates, fields.length, append, remove]);
 
   const ticketPrice = findSelectedPlan ? parseFloat(findSelectedPlan.price) : 0;
   const subtotal = ticketPrice * (numberOfDelegates ?? 0);
@@ -179,10 +208,7 @@ const DelegateRegisterForm = ({
       formData.append(`delegate[${index}][lname]`, delegate.lastName);
       formData.append(`delegate[${index}][nationality]`, delegate.nationality);
       formData.append(`delegate[${index}][country]`, delegate.country);
-      formData.append(
-        `delegate[${index}][country_code]`,
-        delegate.contactCountryCode
-      );
+      formData.append(`delegate[${index}][country_code]`,delegate.contactCountryCode);
       formData.append(
         `delegate[${index}][telephone]`,
         delegate.contact.toString()
@@ -218,7 +244,7 @@ const DelegateRegisterForm = ({
       if (response.ok) {
         setFormSubmitting(false);
         toast.success("Form submitted successfully!");
-        // reset();
+        reset();
         if (recaptchaRef.current) {
           recaptchaRef.current.resetCaptcha();
         }
@@ -226,41 +252,39 @@ const DelegateRegisterForm = ({
         // ✅ Redirect to thank you page
         router.push("/thank-you");
       } else {
-        setFormSubmitting(false);
         toast.error("Form submission failed.");
+        setFormSubmitting(false);
       }
     } catch (error) {
-      setFormSubmitting(false);
       toast.error("An error occurred:");
+      setFormSubmitting(false);
     }
   };
 
-  // Auto-fill company details of Delegate 1 to all other delegates
-  // Auto-fill company details of Delegate 1 to all other delegates
   const companyFields: (keyof DelegateData)[] = [
-      // "designation",
-      "company",
-      "natureOfCompany",
-      "taxRegisterationNumber",
-      "ifOthers",
-      "addditionalDetails",
-    ];
+    // "designation",
+    "company",
+    "natureOfCompany",
+    "taxRegisterationNumber",
+    "ifOthers",
+    "addditionalDetails",
+  ];
 
-    const initializedRef = useRef(false);
+  const initializedRef = useRef(false);
 
-    useEffect(() => {
-      if (initializedRef.current) return;
+  useEffect(() => {
+    if (initializedRef.current) return;
 
-      const count = numberOfDelegates || 1;
+    const count = numberOfDelegates || 1;
 
-      for (let i = 0; i < count; i++) {
-        append(defaultDelegate);
-      }
+    for (let i = 0; i < count; i++) {
+      append(defaultDelegate, { shouldFocus: false });
+    }
 
-      initializedRef.current = true;
-    }, []);
+    initializedRef.current = true;
+  }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     const first = watch("delegates.0");
     if (!first) return;
 
@@ -288,20 +312,14 @@ const DelegateRegisterForm = ({
     watch("delegates.0.addditionalDetails"),
   ]);
 
-
-  // const [natureOfCompany,setNatureOfCompany] = useState('');
   
-  // const handleNatureofCompany = (e:any) => {
-  //   // console.log("e",e)
-  //   setNatureOfCompany(e);
-  // }
-
   // useEffect(() => {
   //   // alert("errors "+errors)
+  //   // console.log("errors",errors['delegates'])
   //   window.scrollTo(0, 0);
   // },[errors]);
 
-    useEffect(() => {
+  useEffect(() => {
     if (typeof window === "undefined") return;
 
     // Disable browser scroll restoration
@@ -314,32 +332,6 @@ const DelegateRegisterForm = ({
   }, []);
 
   useEffect(() => {
-  if (typeof window === "undefined") return;
-
-  // Prevent browser restoring scroll
-  if ("scrollRestoration" in history) {
-    history.scrollRestoration = "manual";
-  }
-
-  // HARD stop mobile auto-focus
-  document.body.addEventListener(
-    "focusin",
-    (e) => {
-      if (window.innerWidth < 768) {
-        e.preventDefault();
-        (e.target as HTMLElement)?.blur();
-      }
-    },
-    true
-  );
-
-  return () => {
-    document.body.removeEventListener("focusin", () => {}, true);
-  };
-}, []);
-
-
-  useEffect(() => {
     if (window.innerWidth < 768) {
       setTimeout(() => {
         const el = document.activeElement as HTMLElement | null;
@@ -347,6 +339,7 @@ const DelegateRegisterForm = ({
       }, 0);
     }
   }, []);
+
 
   // const onError = (errors: any) => {
   //   if (!errors?.delegates) return;
