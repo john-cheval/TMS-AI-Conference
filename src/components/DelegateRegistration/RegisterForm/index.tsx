@@ -118,8 +118,8 @@ const DelegateRegisterForm = ({
   });
 
   const termsAccepted = watch("termsAccepted");
-  // const isFormValid = termsAccepted && token;
-  const isFormValid = termsAccepted;
+  const isFormValid = termsAccepted && token;
+  // const isFormValid = termsAccepted;
 
   const [formSubmitting,setFormSubmitting] = useState<boolean>(false);
 
