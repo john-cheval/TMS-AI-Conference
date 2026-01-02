@@ -118,7 +118,8 @@ const DelegateRegisterForm = ({
   });
 
   const termsAccepted = watch("termsAccepted");
-  const isFormValid = termsAccepted && token;
+  // const isFormValid = termsAccepted && token;
+  const isFormValid = termsAccepted;
 
   const [formSubmitting,setFormSubmitting] = useState<boolean>(false);
 
@@ -572,10 +573,13 @@ const DelegateRegisterForm = ({
                       <motion.div
                         key="accordion-content"
                         initial="closed"
-                        animate="open"
+                        // animate="open"
                         exit="closed"
+                        animate={{ opacity: isAccordionOpen ? 1 : 0 }}
+                        transition={{ duration: isMobile ? 0 : 0.3 }}
                         // variants={accordionVariants}
-                        className={` ${isAccordionOpen ? "opacity-100 visible h-full overflow-visible" : "overflow-hidden opacity-0 invisible h-0"}`}
+                        // className={` ${isAccordionOpen ? "opacity-100 visible h-full overflow-visible" : "overflow-hidden opacity-0 invisible h-0"}`}
+                        className={` ${isAccordionOpen ? "opacity-100 visible" : "opacity-0 invisible absolute"}`}
                       >
                         <div className="pt-5 md:pt-7 lg:pt-9">
                           <div>

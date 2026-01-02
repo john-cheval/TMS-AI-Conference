@@ -75,6 +75,19 @@ body {
   scroll-behavior: smooth;
 }
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+ opacity: 1 !important;
+ margin: 0;
+ width: 15px;
+ height: 35px;
+}
+
+/* 
+html,
+body {scroll-behavior: smooth;-webkit-overflow-scrolling: touch;height: auto !important;
+  overflow-y: auto !important;} */
+
 body {
   background-color: #fff;
   -webkit-font-smoothing: antialiased;

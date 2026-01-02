@@ -168,6 +168,7 @@ const TitleSelectElement = forwardRef(
           styles={customStyles}
           placeholder="Title"
           components={{ DropdownIndicator: DropdownIndicator }}
+          autoFocus={false}
         />
         {/* {errors[name]?.message && (
           <p className="text-red-500 text-sm mt-1">
