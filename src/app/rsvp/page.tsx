@@ -6,6 +6,9 @@ import { fetchData } from "@/lib/fetchData";
 import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function generateMetadata() {
   return await generateMetadDataDetails(86, "rsvp", false);
 }
@@ -20,8 +23,8 @@ const RsvpPage = async ({ searchParams}:any) => {
   // );
 
   const [rsvpFormData,pageContent] = await Promise.all([
-    fetchData(`${baseUrl}/getmasterdetails?master_name=rsvpuser&id=${datas.id}`),
-    fetchData(`${baseUrl}/getmasterdetails?master_name=cms&id=86`)
+    fetchData(`${baseUrl}/getmasterdetails?master_name=rsvpuser&id=${datas.id}`,{ cache: "no-store" }),
+    fetchData(`${baseUrl}/getmasterdetails?master_name=cms&id=86`,{ cache: "no-store" })
   ]);
 
   const generalSettings = pageContent?.gernalsettings;
