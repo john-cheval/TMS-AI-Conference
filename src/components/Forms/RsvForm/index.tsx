@@ -300,7 +300,7 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
           {
             rsvpFormData.status === '1' || formSubmitted ? (
               <>
-                <p className="bg-[#f00] p-[10px] rounded-sm text-center text-[20px] text-[#fff] font-bold leading-3 mt-8">You have submitted your RSVP Form</p>
+                <p className="bg-[#fff] p-[10px] rounded-sm text-center text-[20px] text-[#0078bb] font-bold leading-3 mt-8">You have submitted your RSVP Form</p>
               </>
             ) :
             (
