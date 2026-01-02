@@ -18,6 +18,7 @@ import { FaMinus, FaPlus } from "react-icons/fa6";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { RiGeminiFill } from "react-icons/ri";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type Props = {
   heading?: string;
@@ -94,6 +95,8 @@ const DelegateRegisterForm = ({
   const [token, setToken] = useState("");
   const recaptchaRef = useRef<RecaptchaRefType>(null);
 
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -116,6 +119,8 @@ const DelegateRegisterForm = ({
 
   const termsAccepted = watch("termsAccepted");
   const isFormValid = termsAccepted && token;
+
+  const [formSubmitting,setFormSubmitting] = useState<boolean>(false);
 
   const handleToken = useCallback((recaptchaToken: string | null) => {
     if (recaptchaToken) {
@@ -203,22 +208,28 @@ const DelegateRegisterForm = ({
     });
 
     try {
+      setFormSubmitting(true);
       const response = await fetch(`${baseUrl}/registergueststore`, {
         method: "POST",
         body: formData,
       });
 
       if (response.ok) {
+        setFormSubmitting(false);
         toast.success("Form submitted successfully!");
         // reset();
         if (recaptchaRef.current) {
           recaptchaRef.current.resetCaptcha();
         }
         setToken("");
+        // ✅ Redirect to thank you page
+        router.push("/thank-you");
       } else {
+        setFormSubmitting(false);
         toast.error("Form submission failed.");
       }
     } catch (error) {
+      setFormSubmitting(false);
       toast.error("An error occurred:");
     }
   };
@@ -874,7 +885,7 @@ const DelegateRegisterForm = ({
                 className={`bg-white text-tms-purple text-lg font-bold leading-5 rounded-lg py-6 px-5 flex gap-x-2.5 group items-center ${
                   isFormValid ? "" : "opacity-50 cursor-not-allowed"
                 }`}
-                disabled={!isFormValid}
+                disabled={!isFormValid || formSubmitting}
               >
                 Submit{" "}
                 <MdOutlineKeyboardArrowRight className="text-2xl text-tms-purple group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
@@ -913,6 +924,12 @@ const DelegateRegisterForm = ({
               <MdOutlineKeyboardArrowRight className="text-2xl text-tms-purple group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
             </button> */}
           </div>
+          {formSubmitting ? (
+            <div className="flex items-center mt-[20px] justify-center">
+              <p className="text-center text-white ">Please wait form is submitting... </p>
+              <div className="ml-[10px] h-5 w-5 animate-spin rounded-full border-2 border-[#fff] border-t-transparent"></div>
+            </div>
+          ) : ""}
         </div>
       </form>
     </div>
