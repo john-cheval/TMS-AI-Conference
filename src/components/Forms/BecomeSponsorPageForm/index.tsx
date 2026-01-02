@@ -457,20 +457,24 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
               </div>
 
               <div className="flex-1">
-                {
-                natureOfCompany === 'Other' && (
-                  <TextElement
-                    label="Please specify others"
-                    name="aboutCompany.ifOthers"
-                    type="text"
-                    placeholder="Please specify others"
-                    register={register}
-                    errors={errors}
-                    isBlue={true}
-                  />
-                 )
+              {
+                (natureOfCompany.toLowerCase() === 'other' || natureOfCompany.toLowerCase() === 'others') && (
+                    <TextElement
+                      rules={{
+                        required:
+                          "You selected ‘Other’. Please tell us the nature of the company.",
+                      }}
+                      label="Please specify others"
+                      name="aboutCompany.ifOthers"
+                      type="text"
+                      placeholder="Please specify others"
+                      register={register}
+                      errors={errors}
+                      isBlue={true}
+                    />
+                  )
                 }
-              </div>
+                </div>
             </FormRow>
           </div>
         </div>

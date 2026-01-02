@@ -109,8 +109,9 @@ const DelegateRegisterForm = ({
       delegates: [],
       termsAccepted: false,
     },
-    mode: "onBlur",
+    // mode: "onBlur",
     shouldFocusError: false,
+    mode: "onSubmit",
   });
 
   const termsAccepted = watch("termsAccepted");
@@ -283,22 +284,112 @@ const DelegateRegisterForm = ({
   //   setNatureOfCompany(e);
   // }
 
+  // useEffect(() => {
+  //   // alert("errors "+errors)
+  //   window.scrollTo(0, 0);
+  // },[errors]);
+
+    useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    // Disable browser scroll restoration
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+
+    // Force top on mount (mobile-safe)
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
+  }, []);
+
   useEffect(() => {
-    // alert("errors "+errors)
-    window.scrollTo(0, 0);
-  },[errors]);
+    if (window.innerWidth < 768) {
+      setTimeout(() => {
+        const el = document.activeElement as HTMLElement | null;
+        el?.blur();
+      }, 0);
+    }
+  }, []);
+
+  // const onError = (errors: any) => {
+  //   if (!errors?.delegates) return;
+
+  //   const errorIndex = errors.delegates.findIndex(
+  //     (err: any) => err && Object.keys(err).length > 0
+  //   );
+
+  //   if (errorIndex !== -1) {
+  //     setOpenIndex(errorIndex); // 👈 open accordion with error
+  //   }
+  // };
+
+  const getScrollableParent = (el: HTMLElement | null): HTMLElement | Window => {
+    if (!el) return window;
+
+    let parent = el.parentElement;
+    while (parent) {
+      const style = window.getComputedStyle(parent);
+      const overflowY = style.overflowY;
+
+      if (overflowY === "auto" || overflowY === "scroll") {
+        return parent;
+      }
+      parent = parent.parentElement;
+    }
+
+    return window;
+  };
+
 
   const onError = (errors: any) => {
-    if (!errors?.delegates) return;
+  if (!errors?.delegates) return;
 
-    const errorIndex = errors.delegates.findIndex(
-      (err: any) => err && Object.keys(err).length > 0
-    );
+  const errorIndex = errors.delegates.findIndex(
+    (err: any) => err && Object.keys(err).length > 0
+  );
 
-    if (errorIndex !== -1) {
-      setOpenIndex(errorIndex); // 👈 open accordion with error
+  if (errorIndex === -1) return;
+
+  setOpenIndex(errorIndex);
+
+  // ⬇️ WAIT for accordion + layout (mobile needs this)
+  setTimeout(() => {
+    const el = document.querySelector(
+      `[data-delegate-index="${errorIndex}"]`
+    ) as HTMLElement | null;
+
+    if (!el) return;
+
+    const scrollParent = getScrollableParent(el);
+
+    const offset = 100; // header spacing
+
+    if (scrollParent === window) {
+      const y =
+        el.getBoundingClientRect().top +
+        window.pageYOffset -
+        offset;
+
+      window.scrollTo({
+        top: y,
+        behavior: "smooth",
+      });
+    } else {
+      const parentEl = scrollParent as HTMLElement;
+      const y =
+        el.offsetTop -
+        parentEl.offsetTop -
+        offset;
+
+      parentEl.scrollTo({
+        top: y,
+        behavior: "smooth",
+      });
     }
-  };
+  }, 500); // ⬅️ mobile-safe delay
+};
+
+
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   return (
     <div className=" mt-8 lg:mt-10">
@@ -376,14 +467,13 @@ const DelegateRegisterForm = ({
                 min={parseInt(findSelectedPlan?.min_delegates ?? "1")}
                 max={5}
                 {...register("numberOfDelegates", {
-                  valueAsNumber: true,
                   onChange: (e) => {
                     const value = Number(e.target.value);
                     const currentCount = fields.length;
 
                     if (value > currentCount) {
                       for (let i = currentCount; i < value; i++) {
-                        append(defaultDelegate);
+                        append(defaultDelegate, { shouldFocus: false });
                       }
                     }
 
@@ -393,6 +483,7 @@ const DelegateRegisterForm = ({
                       }
                     }
                   },
+                  valueAsNumber: true,
                   required: "Number of delegates is required",
                   min: {
                     value: parseInt(findSelectedPlan?.min_delegates ?? "1"),
@@ -402,10 +493,11 @@ const DelegateRegisterForm = ({
                   },
                   max: {
                     value: 5,
+                    // message: "Maximum number of delegates is 5",
                     message: "You can register a  maximum of 5 delegates at a time.",
                   },
                 })}
-                className="border border-black rounded-sm focus:none py-2 md:py-3 pl-3 md:pl-5 lg:pl-7 pr-2 focus:outline-none max-w-20 md:max-w-[100px]"
+                className="border border-black focus:none py-2 md:py-3 pl-3 md:pl-5 lg:pl-7 pr-2 focus:outline-none max-w-20 md:max-w-[100px]"
               />
               {errors.numberOfDelegates && (
                 <p className="text-red-500 text-center">
@@ -436,6 +528,9 @@ const DelegateRegisterForm = ({
           <div className="pb-4 md:pb-6 lg:pb-8">
             {fields.slice(0,5).map((field, index) => {
               const isAccordionOpen = openIndex === index;
+              const watchedNatureOfCompany = watch(
+                `delegates.${index}.natureOfCompany`
+              );
               return (
                 <div
                   className={`${
@@ -698,18 +793,22 @@ const DelegateRegisterForm = ({
                                 </div>
                               </FormRow>
 
-                              {/* {
-                                natureOfCompany === 'Other' && ( */}
-                                  <TextAreaElement
-                                    label="If other, Please specify here"
-                                    name={`delegates.${index}.ifOthers`}
-                                    placeholder="If other, Please specify here"
-                                    register={register}
-                                    errors={errors}
-                                    rows={3}
-                                  />
-                                {/* )
-                              } */}
+                              {
+                                  (watchedNatureOfCompany.toLowerCase() === 'other' || watchedNatureOfCompany.toLowerCase() === 'others') ? (
+                                    <TextAreaElement
+                                      rules={{
+                                        required:
+                                          "You selected ‘Other’. Please tell us the nature of the company.",
+                                      }}
+                                      label="If other, Please specify here"
+                                      name={`delegates.${index}.ifOthers`}
+                                      placeholder="If other, Please specify here"
+                                      register={register}
+                                      errors={errors}
+                                      rows={3}
+                                    />
+                                    ) : ""
+                              }
 
                               <TextAreaElement
                                 label="Additional Details"
