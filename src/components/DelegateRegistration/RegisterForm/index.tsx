@@ -118,8 +118,8 @@ const DelegateRegisterForm = ({
   });
 
   const termsAccepted = watch("termsAccepted");
-  const isFormValid = termsAccepted && token;
-  // const isFormValid = termsAccepted;
+  // const isFormValid = termsAccepted && token;
+  const isFormValid = termsAccepted;
 
   const [openAccordion, setOpenAccordion] = useState<number | null>(0);
   const [formSubmitting,setFormSubmitting] = useState<boolean>(false);
@@ -241,6 +241,11 @@ const DelegateRegisterForm = ({
         body: formData,
       });
 
+      const result = await response.json();
+
+      console.log("response",response)
+      console.log("response",result)
+
       if (response.ok) {
         setFormSubmitting(false);
         toast.success("Form submitted successfully!");
@@ -250,7 +255,13 @@ const DelegateRegisterForm = ({
         }
         setToken("");
         // ✅ Redirect to thank you page
-        router.push("/thank-you");
+        if(isFree) {
+          router.push("/thank-you");
+        } else {
+          // response
+          const redirectPayLink = result.paymentdetails.payment_link;
+          window.location.href = redirectPayLink;
+        }
       } else {
         toast.error("Form submission failed.");
         setFormSubmitting(false);
