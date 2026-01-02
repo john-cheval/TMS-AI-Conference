@@ -314,6 +314,32 @@ const DelegateRegisterForm = ({
   }, []);
 
   useEffect(() => {
+  if (typeof window === "undefined") return;
+
+  // Prevent browser restoring scroll
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+
+  // HARD stop mobile auto-focus
+  document.body.addEventListener(
+    "focusin",
+    (e) => {
+      if (window.innerWidth < 768) {
+        e.preventDefault();
+        (e.target as HTMLElement)?.blur();
+      }
+    },
+    true
+  );
+
+  return () => {
+    document.body.removeEventListener("focusin", () => {}, true);
+  };
+}, []);
+
+
+  useEffect(() => {
     if (window.innerWidth < 768) {
       setTimeout(() => {
         const el = document.activeElement as HTMLElement | null;
