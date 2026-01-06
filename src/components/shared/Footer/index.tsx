@@ -147,7 +147,7 @@ const Footer = ({
         <div className="flex items-center gap-x-6 gap-y-4 sm:gap-y-0 flex-wrap sm:flex-nowrap">
           {footerBottomlinksData &&
             footerBottomlinksData?.length > 0 &&
-            footerBottomlinksData?.map((link: any, index) => (
+            footerBottomlinksData?.sort((a: any, b: any) => a.order_number - b.order_number).map((link: any, index) => (
               <motion.div
                 initial={{ y: 50, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}

@@ -118,8 +118,8 @@ const DelegateRegisterForm = ({
   });
 
   const termsAccepted = watch("termsAccepted");
-  // const isFormValid = termsAccepted && token;
-  const isFormValid = termsAccepted;
+  const isFormValid = termsAccepted && token;
+  // const isFormValid = termsAccepted;
 
   const [openAccordion, setOpenAccordion] = useState<number | null>(0);
   const [formSubmitting,setFormSubmitting] = useState<boolean>(false);
