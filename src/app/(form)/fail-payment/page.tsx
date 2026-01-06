@@ -14,9 +14,11 @@ async function FailPayment({ searchParams}:any) {
         <>
             {
             // pageContent?.payment_details?.state === 'FAILED' && (
-                <div className='thank-you container-inside mx-auto py-[50px]'>
+                <div className='container text-center thank-you container-inside mx-auto py-[50px]'>
                     {/* <h1 className='text-center text-[#0078bb] text-[40px] font-[700]'>{pageContent?.msg}</h1> */}
-                    <h1 className='text-center text-[#0078bb] text-[40px] font-[700]'>Your payment is failed.</h1>
+                    <h1 className='text-center text-[#0078bb] text-[40px] font-[700]'>We couldn’t complete your payment at this time.</h1>
+                    <p className='mt-[15px]'>No amount has been deducted. Please try again</p>
+
                 </div>
             // ) 
             }
