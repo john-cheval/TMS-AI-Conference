@@ -314,7 +314,7 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
                 </div>
                 <div className=" w-full flex justify-center">
                   {
-                  !isSubmitting ? (
+                  isSubmitting ? (
                     <div className="flex items-center mt-[20px] justify-center">
                       <p className="text-center ">Please wait form is submitting... </p>
                       <div className="ml-[10px] h-5 w-5 animate-spin rounded-full border-2 border-[#fff] border-t-transparent"></div>
