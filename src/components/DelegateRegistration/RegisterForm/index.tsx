@@ -97,6 +97,11 @@ const DelegateRegisterForm = ({
 
   const router = useRouter();
 
+  const defaultPlan =
+  priceDetails.find(p => p.title === "Group") ?? priceDetails[0];
+
+  const minDefaultDelegates = parseInt(defaultPlan.min_delegates);
+
   const {
     register,
     handleSubmit,
@@ -107,13 +112,20 @@ const DelegateRegisterForm = ({
     formState: { errors },
   } = useForm<FormData & { termsAccepted: boolean }>({
     defaultValues: {
-      planType: priceDetails[0]?.title || "Individual",
-      numberOfDelegates: parseInt(priceDetails[0]?.min_delegates) || 1,
-      delegates: [],
+      // planType: priceDetails[0]?.title || "Group",
+      // numberOfDelegates: parseInt(priceDetails[0]?.min_delegates) || 1,
+      planType: defaultPlan.title || "Group",
+      numberOfDelegates: minDefaultDelegates || 1,
+      // delegates: [],
+      delegates: Array.from(
+      { length: minDefaultDelegates },
+      () => defaultDelegate
+    ),
       termsAccepted: false,
     },
     shouldFocusError: false,
     // mode: "onBlur",
+    // mode: "onSubmit",
     mode: "onSubmit",
   });
 
@@ -145,12 +157,40 @@ const DelegateRegisterForm = ({
     (item) => item.title === selectedPlan
   );
 
+  // useEffect(() => {
+  //   if (findSelectedPlan) {
+  //     const minDelegates = parseInt(findSelectedPlan.min_delegates);
+  //     setValue("numberOfDelegates", minDelegates, { shouldValidate: true });
+  //   }
+  // }, [selectedPlan, findSelectedPlan, setValue]);
+
   useEffect(() => {
-    if (findSelectedPlan) {
-      const minDelegates = parseInt(findSelectedPlan.min_delegates);
-      setValue("numberOfDelegates", minDelegates, { shouldValidate: true });
+    const plan = priceDetails.find(p => p.title === selectedPlan);
+    if (!plan) return;
+
+    const minDelegates = parseInt(plan.min_delegates);
+
+    setValue("numberOfDelegates", minDelegates, {
+      shouldDirty: false,
+      shouldValidate: true,
+    });
+  }, [selectedPlan]);
+
+  useEffect(() => {
+  const currentCount = fields.length;
+
+  if (numberOfDelegates > currentCount) {
+    for (let i = currentCount; i < numberOfDelegates; i++) {
+      append(defaultDelegate, { shouldFocus: false });
     }
-  }, [selectedPlan, findSelectedPlan, setValue]);
+  }
+
+  if (numberOfDelegates < currentCount) {
+    for (let i = currentCount; i > numberOfDelegates; i--) {
+      remove(i - 1);
+    }
+  }
+}, [numberOfDelegates]);
   
 
   // useEffect(() => {
@@ -281,19 +321,19 @@ const DelegateRegisterForm = ({
     "addditionalDetails",
   ];
 
-  const initializedRef = useRef(false);
+  // const initializedRef = useRef(false);
 
-  useEffect(() => {
-    if (initializedRef.current) return;
+  // useEffect(() => {
+  //   if (initializedRef.current) return;
 
-    const count = numberOfDelegates || 1;
+  //   const count = numberOfDelegates || 1;
 
-    for (let i = 0; i < count; i++) {
-      append(defaultDelegate, { shouldFocus: false });
-    }
+  //   for (let i = 0; i < count; i++) {
+  //     append(defaultDelegate, { shouldFocus: false });
+  //   }
 
-    initializedRef.current = true;
-  }, []);
+  //   initializedRef.current = true;
+  // }, []);
 
   useEffect(() => {
     const first = watch("delegates.0");
@@ -509,21 +549,30 @@ const DelegateRegisterForm = ({
                 min={parseInt(findSelectedPlan?.min_delegates ?? "1")}
                 max={5}
                 {...register("numberOfDelegates", {
-                  onChange: (e) => {
+                  // onChange: (e) => {
+                  //   const value = Number(e.target.value);
+                  //   const currentCount = fields.length;
+
+                  //   if (value > currentCount) {
+                  //     for (let i = currentCount; i < value; i++) {
+                  //       append(defaultDelegate, { shouldFocus: false });
+                  //     }
+                  //   }
+
+                  //   if (value < currentCount) {
+                  //     for (let i = currentCount; i > value; i--) {
+                  //       remove(i - 1);
+                  //     }
+                  //   }
+                  // },
+                  
+                  onChange:(e) => {
                     const value = Number(e.target.value);
-                    const currentCount = fields.length;
 
-                    if (value > currentCount) {
-                      for (let i = currentCount; i < value; i++) {
-                        append(defaultDelegate, { shouldFocus: false });
-                      }
-                    }
-
-                    if (value < currentCount) {
-                      for (let i = currentCount; i > value; i--) {
-                        remove(i - 1);
-                      }
-                    }
+                    setValue("numberOfDelegates", value, {
+                      shouldValidate: true, // 👈 triggers error instantly
+                      shouldDirty: true,
+                    });
                   },
                   valueAsNumber: true,
                   required: "Number of delegates is required",
