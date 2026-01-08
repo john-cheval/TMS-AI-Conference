@@ -219,20 +219,31 @@ const NumberElement = <TFieldValues extends FieldValues>({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 
-    const maxLengthRule = rules?.maxLength as {
-      value: number;
-      message: string;
-    };
-    const maxLength = maxLengthRule?.value || 15;
+    // Allow only digits
+    const numericValue = value.replace(/\D/g, "");
 
-    const truncatedValue = value.slice(0, maxLength);
+    const maxLength =
+      typeof rules?.maxLength === "object"
+        ? rules.maxLength.value
+        : typeof rules?.maxLength === "number"
+        ? rules.maxLength
+        : 9;
+
+    const truncatedValue = numericValue.slice(0, maxLength);
 
     setValue(
       name,
-      truncatedValue as PathValue<TFieldValues, Path<TFieldValues>>
+      truncatedValue as PathValue<TFieldValues, Path<TFieldValues>>,
+      { shouldValidate: true }
     );
 
-    onChange(e);
+    onChange({
+      ...e,
+      target: {
+        ...e.target,
+        value: truncatedValue,
+      },
+    });
   };
 
   const filteredCountries = countries.filter((country) =>
@@ -311,6 +322,8 @@ const NumberElement = <TFieldValues extends FieldValues>({
             } no-arrow-number !pl-[90px] w-full`}
             id={name}
             type="tel"
+            minLength={5}
+            maxLength={9}
             {...registeredProps}
             onChange={handleInputChange}
             {...rest}
