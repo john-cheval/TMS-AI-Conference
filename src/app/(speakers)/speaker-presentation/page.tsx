@@ -10,10 +10,10 @@ import Link from "next/link";
 import React from "react";
 
 export async function generateMetadata() {
-  return await generateMetadDataDetails(81, "our-speakers", false);
+  return await generateMetadDataDetails(91, "speaker-presentation", false);
 }
 
-const OurSpeakers = async () => {
+const SpeakerPresentationPage = async () => {
   const pageContent = await fetchData(
     `${baseUrl}/getmasterdetails?master_name=cms&id=91`
   );
@@ -91,4 +91,4 @@ const OurSpeakers = async () => {
   );
 };
 
-export default OurSpeakers;
+export default SpeakerPresentationPage;

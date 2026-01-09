@@ -36,7 +36,6 @@ type Props = {
 };
 
 const RsvForm = ({ description, rsvpFormData }: Props) => {
-  console.log("rsvpFormData",rsvpFormData)
   const recaptchaRef = useRef<RecaptchaRefType>(null);
   const [token, setToken] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);

@@ -584,7 +584,6 @@ const DelegateRegisterForm = ({
                   },
                   max: {
                     value: 5,
-                    // message: "Maximum number of delegates is 5",
                     message: "You can register a  maximum of 5 delegates at a time.",
                   },
                 })}
