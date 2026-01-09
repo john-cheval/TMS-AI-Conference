@@ -188,16 +188,16 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
         // CORRECTED: Pass an object with the component
         components={{ DropdownIndicator: DropdownIndicator }}
       />
-      {/* {errors[name]?.message && (
+      {errors[name]?.message && (
         <p className="text-red-500 text-sm mt-1">
           {errors[name]?.message as string}
         </p>
-      )} */}
-      {errorMessage && (
+      )}
+      {/* {errorMessage && (
         <p className="text-red-500 text-sm mt-1">
           {errorMessage as string}
         </p>
-      )}
+      )} */}
     </div>
   );
 };
