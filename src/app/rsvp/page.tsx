@@ -46,7 +46,7 @@ const RsvpPage = async ({ searchParams}:any) => {
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
         conferenceLocation={conferenceData?.location}
-        conferenceDate={conferenceData?.end_date}
+        conferenceDate={conferenceData?.award_date}
       />
       <RsvpSectionOne
         title={rsvp_form?.heading}

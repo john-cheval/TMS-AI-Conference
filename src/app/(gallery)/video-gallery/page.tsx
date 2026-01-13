@@ -35,7 +35,7 @@ const VideoGalleryPage = async () => {
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
         conferenceLocation={conferenceData?.location}
-        conferenceDate={conferenceData?.end_date}
+        conferenceDate={conferenceData?.award_date}
       />
       <VideoGallery data={video_gallery?.data} />
       {
