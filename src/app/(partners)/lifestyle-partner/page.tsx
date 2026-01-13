@@ -30,7 +30,7 @@ const MediaPartners = async () => {
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
         conferenceLocation={conferenceData?.location}
-        conferenceDate={conferenceData?.end_date}
+        conferenceDate={conferenceData?.award_date}
       />
       <SponsorsList sponsors={lifestyle_partners?.data} isButton={false} />
       <div className="pb-5 md:pb-10">

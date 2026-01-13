@@ -37,8 +37,8 @@ const SponsorshipOppurtunities = async () => {
         conferenceTitle={page_top_banner?.data.Coneference_title}
         // conferenceLocation={conferenceData?.location}
         conferenceLocation={page_top_banner?.data.location}
-        conferenceDate={page_top_banner?.data.end_date}
-        // conferenceDate={conferenceData?.end_date}
+        conferenceDate={page_top_banner?.data.award_date}
+        // conferenceDate={conferenceData?.award_date}
       />
       <SponsorShipOppSectionOne
         {...why_sponsor_tms_ai_tech_sponsorship_opportunities}

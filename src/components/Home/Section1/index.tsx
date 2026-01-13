@@ -141,7 +141,7 @@ const HomeSectionOne = (props: Props) => {
               </h5>
               <p className="text-xl lg:text-2xl font-bold leading-3 text-center">
                 {/* {formatDate(eventDate)} */}
-                {formatDate(data.start_date)}
+                {formatDate(data.award_date)}
               </p>
             </div>
           </div>

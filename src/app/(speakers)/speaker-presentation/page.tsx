@@ -39,7 +39,7 @@ const SpeakerPresentationPage = async () => {
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
         conferenceLocation={conferenceData?.location}
-        conferenceDate={conferenceData?.end_date}
+        conferenceDate={conferenceData?.award_date}
       />
       {/* <OurSpeakersSectionOne {...our_speakers} /> */}
       <SpeakerPresentation {...speaker_presentation} />

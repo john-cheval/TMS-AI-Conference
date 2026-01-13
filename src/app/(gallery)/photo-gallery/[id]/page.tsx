@@ -45,7 +45,7 @@ const ConfernceGalleryPhotos = async ({ params }: Props) => {
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
         conferenceLocation={conferenceData?.location}
-        conferenceDate={conferenceData?.end_date}
+        conferenceDate={conferenceData?.award_date}
       />
       {pageGallery?.data?.length > 0 ? (
         <PageGallery galleryData={pageGallery?.data} />

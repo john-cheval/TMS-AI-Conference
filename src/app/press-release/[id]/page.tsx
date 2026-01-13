@@ -49,7 +49,7 @@ const PressReleaseDetailPage = async ({ params }: Props) => {
         awardTitle={AWARD_YEAR?.title}
         conferenceTitle={conferenceData?.Coneference_title}
         conferenceLocation={conferenceData?.location}
-        conferenceDate={conferenceData?.end_date}
+        conferenceDate={conferenceData?.award_date}
       />
       <DetailsSectionone content={pressReleaseContent?.data} />
       <RecentlyViewed data={press_release?.data} />
