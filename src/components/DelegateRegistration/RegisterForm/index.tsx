@@ -782,12 +782,12 @@ const DelegateRegisterForm = ({
                                       //     "The minimum value should be 5.",
                                       // },
                                       minLength: {
-                                        value: 5,
-                                        message: "Mobile number must be at least 5 digits.",
+                                        value: 9,
+                                        message: "Mobile number must be at least 9 digits.",
                                       },
                                       maxLength: {
-                                        value: 9,
-                                        message: "Mobile number must not exceed 9 digits.",
+                                        value: 10,
+                                        message: "Mobile number must not exceed 10 digits.",
                                       },
                                       pattern: {
                                         value: /^\d+$/,
