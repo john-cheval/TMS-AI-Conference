@@ -227,7 +227,7 @@ const NumberElement = <TFieldValues extends FieldValues>({
         ? rules.maxLength.value
         : typeof rules?.maxLength === "number"
         ? rules.maxLength
-        : 9;
+        : 10;
 
     const truncatedValue = numericValue.slice(0, maxLength);
 
@@ -322,8 +322,8 @@ const NumberElement = <TFieldValues extends FieldValues>({
             } no-arrow-number !pl-[90px] w-full`}
             id={name}
             type="tel"
-            minLength={5}
-            maxLength={9}
+            minLength={9}
+            maxLength={10}
             {...registeredProps}
             onChange={handleInputChange}
             {...rest}

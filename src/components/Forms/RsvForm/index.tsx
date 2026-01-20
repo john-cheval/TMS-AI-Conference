@@ -230,14 +230,22 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
                   codeName="contactCountryCode"
                   rules={{
                     required: "Mobile Number is required.",
-                    min: {
-                      value: 5,
-                      message: "The minimum value should be 5.",
-                    },
+                    // min: {
+                    //   value: 5,
+                    //   message: "The minimum value should be 5.",
+                    // },
                     // max: {
                     //   value: 15,
                     //   message: "The maximum value should be 15.",
                     // },
+                    minLength: {
+                      value: 9,
+                      message: "Mobile number must be at least 9 digits.",
+                    },
+                    maxLength: {
+                      value: 10,
+                      message: "Mobile number must not exceed 10 digits.",
+                    },
                     pattern: {
                       value: /^\d+$/,
                       message: "Please enter a valid number.",
