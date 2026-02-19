@@ -19,6 +19,7 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { RiGeminiFill } from "react-icons/ri";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import CountryName from "@/components/shared/Inputs/CountryName";
 
 type Props = {
   heading?: string;
@@ -46,6 +47,9 @@ interface DelegateData {
   natureOfCompany: string;
   addditionalDetails: string;
   taxRegisterationNumber: string;
+  country_name: string;
+  city_name: string;
+  zip_number: string;
   ifOthers: string;
   contactCountryCode: string;
 }
@@ -72,6 +76,9 @@ const defaultDelegate = {
   natureOfCompany: "",
   addditionalDetails: "",
   taxRegisterationNumber: "",
+  country_name: "",
+  city_name: "",
+  zip_number: "",
   ifOthers: "",
   contactCountryCode: "+971",
 };
@@ -130,8 +137,8 @@ const DelegateRegisterForm = ({
   });
 
   const termsAccepted = watch("termsAccepted");
-  const isFormValid = termsAccepted && token;
-  // const isFormValid = termsAccepted;
+  // const isFormValid = termsAccepted && token;
+  const isFormValid = termsAccepted;
 
   const [openAccordion, setOpenAccordion] = useState<number | null>(0);
   const [formSubmitting,setFormSubmitting] = useState<boolean>(false);
@@ -261,6 +268,18 @@ const DelegateRegisterForm = ({
         delegate.taxRegisterationNumber
       );
       formData.append(
+        `delegate[${index}][country_name]`,
+        delegate.country_name
+      );
+      formData.append(
+        `delegate[${index}][city_name]`,
+        delegate.city_name
+      );
+      formData.append(
+        `delegate[${index}][zip_number]`,
+        delegate.zip_number
+      );
+      formData.append(
         `delegate[${index}][nature_company]`,
         delegate.natureOfCompany
       );
@@ -317,6 +336,9 @@ const DelegateRegisterForm = ({
     "company",
     "natureOfCompany",
     "taxRegisterationNumber",
+    "country_name",
+    "city_name",
+    "zip_number",
     "ifOthers",
     "addditionalDetails",
   ];
@@ -359,6 +381,9 @@ const DelegateRegisterForm = ({
     watch("delegates.0.company"),
     watch("delegates.0.natureOfCompany"),
     watch("delegates.0.taxRegisterationNumber"),
+    watch("delegates.0.country_name"),
+    watch("delegates.0.city_name"),
+    watch("delegates.0.zip_number"),
     watch("delegates.0.ifOthers"),
     watch("delegates.0.addditionalDetails"),
   ]);
@@ -492,7 +517,32 @@ const DelegateRegisterForm = ({
                 const isEarlyBirdPlan = item?.title === "Individual";
                 const isDisabled = isEarlyBirdPlan && isEarlyBirdExpired;
                 return (
-                  <label
+                  <>
+                  {
+                    isDisabled ? (
+                      <label
+                    // className="flex items-center mb-4 cursor-pointer"
+                    className={`flex items-center mb-4 ${
+                      isDisabled
+                        ? "cursor-not-allowed opacity-50"
+                        : "cursor-pointer"
+                    }`}
+                    key={index}
+                  >
+                    <div className="w-5 h-5 border border-black rounded-sm flex items-center justify-center peer-checked:bg-[#0078BA] peer-checked:border-[#0078BA]">
+                      <div className="w-2 h-2 rounded-full bg-white scale-0 transition-transform duration-200 peer-checked:scale-100"></div>
+                    </div>
+                    <span className="ms-2 leading-5 text-dark-alter text-sm md:text-base lg:text-lg font-bold ">
+                      {item?.title}{" "}
+                      {item?.description && (
+                        <span className="font-normal">
+                          ({item?.description})
+                        </span>
+                      )}
+                    </span>
+                  </label>
+                    ) : (
+<label
                     // className="flex items-center mb-4 cursor-pointer"
                     className={`flex items-center mb-4 ${
                       isDisabled
@@ -531,6 +581,11 @@ const DelegateRegisterForm = ({
                       )}
                     </span>
                   </label>
+                    )
+                  }
+
+                  
+                  </>
                 );
               })}
             </div>
@@ -870,8 +925,64 @@ const DelegateRegisterForm = ({
                                     // }}
                                   />
                                 </div>
+                                <div className="flex-1">
+                                  <TextElement
+                                    label="PO Box / ZIP"
+                                    name={`delegates.${index}.zip_number`}
+                                    type="text"
+                                    placeholder="PO Box / ZIP"
+                                    register={register}
+                                    errors={errors}
+                                    rules={{
+                                      pattern: {
+                                        value: /^[a-zA-Z0-9]+$/,
+                                        message:
+                                          "Please enter a valid Zip Code.",
+                                      },
+                                    }}
+                                  />
+                                </div>
 
-                              <div className="flex-1">
+                              
+                              </FormRow>
+
+                              <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
+                               <div className="flex-1">
+                                  <TextElement
+                                    label="City"
+                                    name={`delegates.${index}.city_name`}
+                                    type="text"
+                                    placeholder="City"
+                                    register={register}
+                                    errors={errors}
+                                    // rules={{
+                                    //   required:
+                                    //     "Tax Registration Number is required.",
+                                    // }}
+                                  />
+                                </div>
+                               <div className="flex-1">
+                                  <Controller
+                                    name={`delegates.${index}.country_name`}
+                                    control={control}
+                                    rules={{
+                                      required: "Country is required.",
+                                    }}
+                                    render={({ field }) => (
+                                      <CountryName 
+                                        {...field}
+                                        name={`delegates.${index}.country_name`}
+                                        errors={errors}
+                                      />
+                                    )}
+                                  />
+                                </div>
+
+                                
+                              </FormRow>
+
+                              <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
+                                <div className="flex-1">
                                   <Controller
                                     name={`delegates.${index}.natureOfCompany`}
                                     control={control}
@@ -891,6 +1002,9 @@ const DelegateRegisterForm = ({
                                       />
                                     )}
                                   />
+                                </div>
+                                <div className="flex-1">
+                                  
                                 </div>
                               </FormRow>
 

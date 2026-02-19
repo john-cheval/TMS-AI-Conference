@@ -12,7 +12,7 @@ const nextConfig = {
         pathname: "/public/public/Admin/uploads/**",
       },
     ],
-    // unoptimized: process.env.NEXT_IMAGE_UNOPTIMIZED === "true",
+    unoptimized: process.env.NEXT_IMAGE_UNOPTIMIZED === "true",
   },
 };
 
