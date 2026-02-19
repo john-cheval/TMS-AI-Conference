@@ -371,6 +371,7 @@ ul {
 .css-1u9des2-indicatorSeparator {
   display: none;
 }
+.popup-ai {max-height: 90vh;overflow-y: scroll;}
 .css-1xc3v61-indicatorContainer svg,
 .css-15lsz6c-indicatorContainer svg {
   width: 35px;

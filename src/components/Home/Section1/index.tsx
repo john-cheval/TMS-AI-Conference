@@ -161,7 +161,8 @@ const HomeSectionOne = (props: Props) => {
             {call_for_papers_heading}
           </h5>
           <p className="text-xl font-bold leading-3 text-center">
-            {formatDate(callForPaperDate)}
+            {/* {formatDate(callForPaperDate)} */}
+            {formatDate(data.Call_for_papers_date)}
           </p>
           <div className="block bg-white  w-16 h-[1px] mt-2 mx-auto" />
         </div>
@@ -171,7 +172,8 @@ const HomeSectionOne = (props: Props) => {
             {eirly_bird_offer_heading}
           </h5>
           <p className="text-xl font-bold leading-3 text-center">
-            {formatDate(earlyBirdsDate)}
+            {/* {formatDate(earlyBirdsDate)} */}
+            {formatDate(data.Early_Bird_date)}
           </p>
           <div className="block bg-white  w-16 h-[1px] mt-2 mx-auto" />
         </div>
@@ -180,7 +182,8 @@ const HomeSectionOne = (props: Props) => {
             {event_date_heading}
           </h5>
           <p className="text-xl font-bold leading-3 text-center">
-            {formatDate(eventDate)}
+            {/* {formatDate(eventDate)} */}
+            {formatDate(data.award_date)}
           </p>
         </div>
       </div>

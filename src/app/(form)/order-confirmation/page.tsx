@@ -7,10 +7,7 @@ async function OrderConfirmation({ searchParams}:any) {
 
     const pageContent = await fetchData(`${baseUrl}/payment-response?ref=${datas.ref}`,{ cache: "no-store" });
 
-    console.log("pageContent",pageContent)
-
     const payment_msg = pageContent?.payment_msg;
-
 
     return (
         <>

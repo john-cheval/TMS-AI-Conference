@@ -14,7 +14,7 @@ const SponsorDetailPopover = (props: SponsorDetailPropsType) => {
     props;
   return (
     <motion.div
-      className="rounded-2xl bg-white border border-light-grey-1 fixed top-1/2 left-1/2  z-[999959] -translate-y-1/2 -translate-x-1/2 w-[90%] md:w-[75%] lg:w-[70%] 2xl:w-fit overflow-y-scroll h-[80%] md:h-fit  [scrollbar-width:none]   [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+      className="popup-ai rounded-2xl bg-white border border-light-grey-1 fixed top-1/2 left-1/2  z-[999959] -translate-y-1/2 -translate-x-1/2 w-[90%] md:w-[75%] lg:w-[70%] 2xl:w-fit overflow-y-scroll h-[80%] md:h-fit  [scrollbar-width:none]   [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       initial={{ y: "-100%" }}
       animate={{ y: 0 }}
       exit={{ y: "100%" }}
@@ -29,7 +29,7 @@ const SponsorDetailPopover = (props: SponsorDetailPropsType) => {
       </div>
       <div className="px-8 lg:px-12 2xl:px-16 2xl:pt-10 pb-6 md:pb-8">
         <h5 className="text-tms-purple text-xl md:text-2xl font-bold leading-3 pb-3 md:pb-4  border-b  border-b-light-grey-1">
-          {company_name || name}
+          {name}
         </h5>
 
         <div className="grid grid-cols-12 gap-y-4 md:gap-y-0 md:gap-x-5  lg:gap-x-6 mt-4 md:mt-5">
