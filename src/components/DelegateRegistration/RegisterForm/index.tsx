@@ -137,8 +137,8 @@ const DelegateRegisterForm = ({
   });
 
   const termsAccepted = watch("termsAccepted");
-  // const isFormValid = termsAccepted && token;
-  const isFormValid = termsAccepted;
+  const isFormValid = termsAccepted && token;
+  // const isFormValid = termsAccepted;
 
   const [openAccordion, setOpenAccordion] = useState<number | null>(0);
   const [formSubmitting,setFormSubmitting] = useState<boolean>(false);
@@ -1084,28 +1084,56 @@ const DelegateRegisterForm = ({
           <div className="mt-6 flex justify-center">
             {
               isFree ? 
-              <button
-                type="submit"
-                className={`bg-white text-tms-purple text-lg font-bold leading-5 rounded-lg py-6 px-5 flex gap-x-2.5 group items-center ${
-                  isFormValid ? "" : "opacity-50 cursor-not-allowed"
-                }`}
-                disabled={!isFormValid || formSubmitting}
-              >
-                Submit{" "}
-                <MdOutlineKeyboardArrowRight className="text-2xl text-tms-purple group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
-              </button>
+              (
+                <>
+                  {
+                  formSubmitting ? (
+                    <div className="flex items-center mt-[20px] justify-center">
+                      <p className="text-center text-white ">Please wait form is submitting... </p>
+                      <div className="ml-[10px] h-5 w-5 animate-spin rounded-full border-2 border-[#fff] border-t-transparent"></div>
+                    </div>
+
+                  ) : (
+                      <button
+                        type="submit"
+                        className={`bg-white text-tms-purple text-lg font-bold leading-5 rounded-lg py-6 px-5 flex gap-x-2.5 group items-center ${
+                          isFormValid ? "" : "opacity-50 cursor-not-allowed"
+                        }`}
+                        disabled={!isFormValid || formSubmitting}
+                      >
+                        Submit{" "}
+                        <MdOutlineKeyboardArrowRight className="text-2xl text-tms-purple group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
+                      </button>
+
+                  )
+                  }
+                </>
+              )
+
               :
-              
-              <button
-                type="submit"
-                className={`bg-white text-tms-purple text-lg font-bold leading-5 rounded-lg py-6 px-5 flex gap-x-2.5 group items-center ${
-                  isFormValid ? "" : "opacity-50 cursor-not-allowed"
-                }`}
-                disabled={!isFormValid}
-              >
-                Proceed to Pay{" "}
-                <MdOutlineKeyboardArrowRight className="text-2xl text-tms-purple group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
-              </button>
+              (
+                <>
+                {
+                formSubmitting ? (
+                  <div className="flex items-center mt-[20px] justify-center">
+                    <p className="text-center text-white ">Please wait form is submitting... </p>
+                    <div className="ml-[10px] h-5 w-5 animate-spin rounded-full border-2 border-[#fff] border-t-transparent"></div>
+                  </div>
+                ) : (
+                <button
+                  type="submit"
+                  className={`bg-white text-tms-purple text-lg font-bold leading-5 rounded-lg py-6 px-5 flex gap-x-2.5 group items-center ${
+                    isFormValid ? "" : "opacity-50 cursor-not-allowed"
+                  }`}
+                  disabled={!isFormValid}
+                >
+                  Proceed to Pay{" "}
+                  <MdOutlineKeyboardArrowRight className="text-2xl text-tms-purple group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
+                </button>
+                )
+              }
+                </>
+              )
             }
             {/* <button
               type="submit"
@@ -1128,12 +1156,12 @@ const DelegateRegisterForm = ({
               <MdOutlineKeyboardArrowRight className="text-2xl text-tms-purple group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
             </button> */}
           </div>
-          {formSubmitting ? (
+          {/* {formSubmitting ? (
             <div className="flex items-center mt-[20px] justify-center">
               <p className="text-center text-white ">Please wait form is submitting... </p>
               <div className="ml-[10px] h-5 w-5 animate-spin rounded-full border-2 border-[#fff] border-t-transparent"></div>
             </div>
-          ) : ""}
+          ) : ""} */}
         </div>
       </form>
     </div>
