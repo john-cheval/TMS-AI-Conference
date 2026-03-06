@@ -8,9 +8,10 @@ import BigButton from "@/components/shared/ui/Button/BigButton";
 export type SponsorsListProps = {
   sponsors: SponsorsPropsType[];
   isButton?: boolean;
+  buttonUrl?: string;
 };
 
-const SponsorsList = ({ sponsors, isButton = true }: SponsorsListProps) => {
+const SponsorsList = ({ sponsors,buttonUrl='', isButton = true }: SponsorsListProps) => {
   return (
     <section
       className={`section-wrapper pt-9 md:pt-12 lg:pt-14 xl:pt-16 2xl:pt-20  ${
@@ -33,7 +34,7 @@ const SponsorsList = ({ sponsors, isButton = true }: SponsorsListProps) => {
 
       {isButton && (
         <div className="flex justify-center mt-12 lg:mt-16 xl:mt-20">
-          <BigButton hrefs={"#"}>{"Become a Sponsor"}</BigButton>
+          <BigButton hrefs={buttonUrl}>{"Become a Sponsor"}</BigButton>
         </div>
       )}
     </section>

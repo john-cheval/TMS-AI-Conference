@@ -239,12 +239,12 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
                     //   message: "The maximum value should be 15.",
                     // },
                     minLength: {
-                      value: 9,
-                      message: "Mobile number must be at least 9 digits.",
+                      value: 7,
+                      message: "Mobile number must be at least 7 digits.",
                     },
                     maxLength: {
-                      value: 10,
-                      message: "Mobile number must not exceed 10 digits.",
+                      value: 15,
+                      message: "Mobile number must not exceed 15 digits.",
                     },
                     pattern: {
                       value: /^\d+$/,

@@ -40,9 +40,12 @@ const DetailsSectionone = ({ isBlog = false, content }: Props) => {
       )}
 
       <div
-        className={`mt-4 md:mt-7 lg:mt-8 xl:mt-12 grid grid-cols-12 gap-y-4 md:gap-y-0 md:gap-x-4 xl:gap-x-6`}
+        className={`mt-4 md:mt-7 lg:mt-8 xl:mt-12 `}
       >
-        {content?.image_main_url && (
+      {/* <div
+        className={`mt-4 md:mt-7 lg:mt-8 xl:mt-12 grid grid-cols-12 gap-y-4 md:gap-y-0 md:gap-x-4 xl:gap-x-6`}
+      > */}
+        {/* {content?.image_main_url && (
           <Image
             src={content?.image_main_url}
             // alt={content?.title || "image"}
@@ -51,17 +54,25 @@ const DetailsSectionone = ({ isBlog = false, content }: Props) => {
             height={350}
             className="responsive-radius  overflow-hidden w-full h-full object-cover col-span-12  md:col-span-5  2xl:col-span-4 shrink-0"
           />
-        )}
+        )} */}
 
         {content?.description && (
           <div
-            className={` ${
-              content?.image_main_url
-                ? "col-span-12  md:col-span-7 2xl:col-span-8 "
-                : "col-span-12"
-            } description text-dark-alter space-y-3 flex flex-col justify-center-`}
+            className={` 
+               
+            description text-dark-alter space-y-3 flex flex-col justify-center-`}
             dangerouslySetInnerHTML={{ __html: content?.description }}
           />
+          // <div
+          //   className={` 
+          //     ${
+          //     content?.image_main_url
+          //       ? "col-span-12  md:col-span-7 2xl:col-span-8 "
+          //       : "col-span-12"
+          //   } 
+          //   description text-dark-alter space-y-3 flex flex-col justify-center-`}
+          //   dangerouslySetInnerHTML={{ __html: content?.description }}
+          // />
         )}
       </div>
     </section>

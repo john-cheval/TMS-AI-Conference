@@ -12,7 +12,7 @@ async function OrderConfirmation({ searchParams}:any) {
     return (
         <>
             {
-            (pageContent?.payment_details?.state === 'CAPTURED' || pageContent?.payment_details?.state === 'AUTHORISED') && (
+            (pageContent?.payment_details?.state === 'CAPTURED' || pageContent?.payment_details?.state === 'AUTHORISED' || pageContent?.payment_details?.state === 'PURCHASED') && (
                 <div className='container text-center thank-you container-inside mx-auto py-[50px]'>
                     {/* <h1 className='text-center text-[#0078bb] text-[40px] font-[700]'>{pageContent?.msg}</h1> */}
                     <h1 className='text-center text-[#0078bb] text-[40px] font-[700]'>{payment_msg[`${pageContent?.payment_details?.state}`].heading}</h1>

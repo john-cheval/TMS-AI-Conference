@@ -64,6 +64,9 @@ const ConferenceProgrammeSectionTwo = ({ content,buttonText,buttonLink }: Props)
                           <h3 className="text-lg md:text-xl text-tms-blue font-medium leading-3">
                             {item?.name}
                           </h3>
+                          {item?.description && (
+                            <div className="" dangerouslySetInnerHTML={{__html:item?.description}} />
+                          ) }
 
                           {/* Wrap all the content you want at the bottom in this div */}
                           <div className="mt-auto space-y-4 md:space-y-6">
@@ -164,6 +167,9 @@ const ConferenceProgrammeSectionTwo = ({ content,buttonText,buttonLink }: Props)
                                             </p>
                                             <p className="description text-[#2a2a2a] leading-5 md:mt-1">
                                               {moderatorItem?.post}
+                                            </p>
+                                            <p className="description text-[#2a2a2a] leading-5 md:mt-1">
+                                              {moderatorItem?.company}
                                             </p>
                                           </div>
                                         </div>
@@ -274,6 +280,9 @@ const ConferenceProgrammeSectionTwo = ({ content,buttonText,buttonLink }: Props)
                                           <p className="description text-[#2a2a2a] leading-5 md:mt-1">
                                             {moderatorItem?.post}
                                           </p>
+                                          <p className="description text-[#2a2a2a] leading-5 md:mt-1">
+                                            {moderatorItem?.company}
+                                          </p>
                                         </div>
                                       </div>
                                     );
@@ -314,6 +323,9 @@ const ConferenceProgrammeSectionTwo = ({ content,buttonText,buttonLink }: Props)
                                           </p>
                                           <p className="description text-[#2a2a2a] leading-5 md:mt-1">
                                             {spekersItem?.post}
+                                          </p>
+                                          <p className="description text-[#2a2a2a] leading-5 md:mt-1">
+                                            {spekersItem?.company}
                                           </p>
                                         </div>
                                       </div>

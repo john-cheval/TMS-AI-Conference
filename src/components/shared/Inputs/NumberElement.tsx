@@ -227,7 +227,7 @@ const NumberElement = <TFieldValues extends FieldValues>({
         ? rules.maxLength.value
         : typeof rules?.maxLength === "number"
         ? rules.maxLength
-        : 10;
+        : 15;
 
     const truncatedValue = numericValue.slice(0, maxLength);
 
