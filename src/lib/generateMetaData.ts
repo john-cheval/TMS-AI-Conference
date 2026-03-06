@@ -13,12 +13,16 @@ async function generateMetadDataDetails(
         slug ? "slug" : "id"
       }=${id}`
     );
+    // console.log("baseURL",`${baseUrl}/getmasterdetails?master_name=${innerUrl}&${
+    //     slug ? "slug" : "id"
+    //   }=${id}`)
     const data = await res.json();
+    // console.log("data",data)
 
-    const title = data?.meta_title || "TMS AI Conference";
-    const description = data?.meta_description || "TMS AI Conference";
+    const title = data?.data?.meta_title || "TMS AI Conference";
+    const description = data?.data?.meta_description || "TMS AI Conference";
     const image =
-      data?.meta_image ||
+      data?.data?.meta_image ||
       "";
 
     return {

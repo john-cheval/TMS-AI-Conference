@@ -16,7 +16,7 @@ const Sponsors = async () => {
   const generalSettings = sponsorPageContent?.gernalsettings;
   const conferenceData =
     sponsorPageContent?.gernalsettings?.current_year_coneference[0];
-  const { AWARD_YEAR } = generalSettings?.general_settings;
+  const { AWARD_YEAR,COMMON_SETTINGS_VALUES_become_a_sponsor } = generalSettings?.general_settings;
 
   const { page_top_banner, sponsors } = sponsorPageContent?.data?.section_list;
   return (
@@ -29,7 +29,7 @@ const Sponsors = async () => {
         conferenceLocation={conferenceData?.location ? conferenceData?.location : ""}
         conferenceDate={conferenceData?.award_date ? conferenceData?.award_date : ""}
       />
-      <SponsorsList sponsors={sponsors?.data} />
+      <SponsorsList sponsors={sponsors?.data} buttonUrl={COMMON_SETTINGS_VALUES_become_a_sponsor?.value} />
     </>
   );
 };

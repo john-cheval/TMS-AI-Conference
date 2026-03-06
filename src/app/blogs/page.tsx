@@ -4,6 +4,7 @@ import Sponsors from "@/components/shared/Sponsors";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
 import generateMetadDataDetails from "@/lib/generateMetaData";
+import { truncateHtml } from "@/utils/trumcate";
 import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
@@ -40,7 +41,7 @@ const Blogs = async () => {
         conferenceDate={conferenceData?.award_date}
       />
 
-      <section className="pb-6 md:pb-8 lg:pb-14 section-wrapper pt-5 md:pt-8 lg:pt-14  xl:pt-16">
+      {/* <section className="pb-6 md:pb-8 lg:pb-14 section-wrapper pt-5 md:pt-8 lg:pt-14  xl:pt-16">
         <div
           className="grid grid-cols-1 md:grid-cols-2 gap-y-6 md:gap-y-0
          md:gap-x-4 lg:gap-x-6"
@@ -66,7 +67,7 @@ const Blogs = async () => {
                   </p>
                   <div
                     className="description text-dark-alter space-y-4"
-                    dangerouslySetInnerHTML={{ __html: item?.description }}
+                    dangerouslySetInnerHTML={{ __html: truncateHtml(item?.description,150,true)  }}
                   />
                   <Link
                     href={`/blogs/${item?.slug}`}
@@ -79,37 +80,48 @@ const Blogs = async () => {
             );
           })}
         </div>
-      </section>
+      </section> */}
 
       {blog_list?.data?.length > 2 && (
-        <section className=" section-wrapper grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-6 lg:mt-8 xl:mt-10  hidden sm:grid">
-          {blog_list?.data?.slice(2)?.map((item: any, index: number) => {
+        <section className=" section-wrapper grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-6 mt-6 lg:mt-8 xl:mt-10  hidden sm:grid">
+          {blog_list?.data?.map((item: any, index: number) => {
             return (
               <div key={index + 1} className="space-y-4 lg:space-y-6">
-                <Image
-                  src={item?.image_url}
-                  // alt={item?.title}
-                  alt={item?.image_alt_tag ?? ""}
-                  width={700}
-                  height={350}
-                  className="responsive-radius overflow-hidden w-full h-auto object-cover  "
-                />
+                <Link href={`/blogs/${item.slug}`}>
+                <div className="img-box w-full h-auto lg:h-[250px]">
+                  <Image
+                    src={item?.image_url}
+                    // alt={item?.title}
+                    alt={item?.image_alt_tag ?? ""}
+                    width={700}
+                    height={350}
+                    className="responsive-radius overflow-hidden w-full h-full object-cover  "
+                  />
+                </div>
+                </Link>
 
                 <div>
+                  <Link href={`/blogs/${item.slug}`}>
+                    <h4 className="mt-2 text-dark-alter text-lg lg:text-xl lg:leading-3  font-bold mb-2">
+                      {/* {item.title} */}
+                      {truncateHtml(item.title,70,true)}
+                    </h4>
+                  </Link>
                   <p className="description text-tms-purple font-medium !leading-3">
                     {dayjs(item.date).format("MMMM YYYY")}
                   </p>
-                  <h6 className="text-dark-alter text-lg lg:text-xl lg:leading-3  font-normal mb-2">
-                    {" "}
-                    {item.title}
-                  </h6>
-
-                  <Link
-                    href={`/press-release/${item.slug}`}
+                  <Link href={`/blogs/${item.slug}`}>
+                    <div dangerouslySetInnerHTML={{__html:truncateHtml(item?.description,120,true)}} />
+                      {/* {item.title} */}
+                      {/* {truncateHtml(item.title,70,true)} */}
+                    {/* </h4> */}
+                  </Link>
+                  {/* <Link
+                    href={`/blogs/${item.slug}`}
                     className="description text-dark-alter !leading-3 hover:underline hover:text-tms-purple transition-all duration-300"
                   >
                     Read More
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             );
