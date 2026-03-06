@@ -82,7 +82,7 @@ const Blogs = async () => {
         </div>
       </section> */}
 
-      {blog_list?.data?.length > 2 && (
+      {blog_list?.data?.length > 0 && (
         <section className=" section-wrapper grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-6 mt-6 lg:mt-8 xl:mt-10  hidden sm:grid">
           {blog_list?.data?.map((item: any, index: number) => {
             return (
