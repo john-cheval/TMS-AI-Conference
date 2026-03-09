@@ -1,19 +1,18 @@
-import PreReleaseSectionOne from "@/components/PreRelease/PreReleaseSectionOne";
-
 import SharedTopSection from "@/components/shared/Sections/TopSection";
 import Sponsors from "@/components/shared/Sponsors";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
 import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
+import PressCoverage from "@/components/PressCoverage";
 
 export async function generateMetadata() {
-  return await generateMetadDataDetails(17, "press-release", false);
+  return await generateMetadDataDetails(93, "press-coverage", false);
 }
 
-const PressRelease = async () => {
+const PressCoveragePage = async () => {
   const pageContent = await fetchData(
-    `${baseUrl}/getmasterdetails?master_name=cms&id=17`
+    `${baseUrl}/getmasterdetails?master_name=cms&id=93`
   );
 
   const generalSettings = pageContent?.gernalsettings;
@@ -25,7 +24,7 @@ const PressRelease = async () => {
     sponsors,
     supporting_associations,
     media_partners,
-    press_release,
+    press_coverage,
   } = pageContent?.data?.section_list;
   return (
     <>
@@ -37,7 +36,7 @@ const PressRelease = async () => {
         conferenceLocation={conferenceData?.location}
         conferenceDate={conferenceData?.award_date}
       />
-      <PreReleaseSectionOne data={press_release?.data} />
+      <PressCoverage data={press_coverage?.data} />
       {
       (sponsors.data.length > 0 || supporting_associations.data.length > 0 || media_partners.data.length > 0) &&
         (
@@ -51,4 +50,4 @@ const PressRelease = async () => {
   );
 };
 
-export default PressRelease;
+export default PressCoveragePage;
