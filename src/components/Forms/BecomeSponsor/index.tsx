@@ -13,6 +13,7 @@ import Image from "next/image";
 import { toast } from "sonner";
 import ReCaptcha from "@/utils/ReCaptcha";
 import { baseUrl } from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 type FormData = {
   fullName: string;
@@ -60,6 +61,8 @@ const BecomeSponsorForm = ({
       setToken("");
     }
   }, []);
+
+  const router = useRouter();
 
   const onSubmit = async (data: FormData) => {
     if (!whySponsorPage && !packageName && !isPartnerForm) {
@@ -109,6 +112,7 @@ const BecomeSponsorForm = ({
 
       if (response.ok) {
         toast.success("Form submitted successfully!");
+        router.push('/thank-you-enquiry');
         reset();
 
         if (recaptchaRef.current) {

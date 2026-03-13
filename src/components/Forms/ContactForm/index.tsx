@@ -6,6 +6,7 @@ import TextAreaElement from "@/components/shared/Inputs/TextAreaElement";
 import ReCaptcha from "@/utils/ReCaptcha";
 import { toast } from "sonner";
 import { baseUrl } from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 type FormData = {
   fullName: string;
@@ -36,6 +37,8 @@ const ContactForm = () => {
     }
   }, []);
 
+  const router = useRouter();
+
   const onSubmit = async (data: FormData) => {
     try {
       const response = await fetch(`${baseUrl}/submitcontactus`, {
@@ -52,6 +55,9 @@ const ContactForm = () => {
       });
       if (response.ok) {
         toast.success("Form submitted successfully!");
+
+        router.push("/thank-you-contact-us");
+
         reset();
 
         if (recaptchaRef.current) {

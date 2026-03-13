@@ -62,9 +62,28 @@ export default async function RootLayout({
     <html lang="en" className="h-full " suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="DjWRqCu3hJ00rymUtt4y5PiUSJs7rqOjAxUulvcxuNU" />
+      </head>
+      <body className={`${inter.className} antialiased flex flex-col min-h-full `}>
+        {/* Google tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-934246425"
+          strategy="beforeInteractive"
+        />
+        <Script
+          id="gtag-config"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-934246425');
+            `,
+          }}
+        />
         <Script
           id="gtm-script"
-          strategy="afterInteractive"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -75,27 +94,6 @@ export default async function RootLayout({
             `,
           }}
         />
-
-        {/* Google tag (gtag.js) */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=AW-934246425"
-          strategy="afterInteractive"
-        />
-
-        <Script
-          id="gtag-config"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'AW-934246425');
-            `,
-          }}
-        />
-      </head>
-      <body className={`${inter.className} antialiased flex flex-col min-h-full `}>
           {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe

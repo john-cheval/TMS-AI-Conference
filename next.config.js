@@ -3,12 +3,12 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "tmsai.girishandco.com",
+        hostname: "manage.tmsaitechconference.com",
         pathname: "/public/Admin/uploads/**",
       },
       {
         protocol: "https",
-        hostname: "tmsai.girishandco.com",
+        hostname: "manage.tmsaitechconference.com",
         pathname: "/public/public/Admin/uploads/**",
       },
     ],

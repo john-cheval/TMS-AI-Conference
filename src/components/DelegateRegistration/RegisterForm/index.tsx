@@ -315,7 +315,7 @@ const DelegateRegisterForm = ({
         // ✅ Redirect to thank you page
         if(isFree) {
           toast.success("Form submitted successfully!");
-          router.push("/thank-you");
+          router.push("/thank-you-free");
         } else {
           // response
           const redirectPayLink = result.paymentdetails.payment_link;

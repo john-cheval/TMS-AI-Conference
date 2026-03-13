@@ -30,6 +30,12 @@ const Blogs = async () => {
     media_partners,
     blog_list,
   } = pageContent?.data?.section_list;
+
+  const stripHtml = (html:string) => {
+    if (!html) return "";
+    return html.replace(/<[^>]*>?/gm, "");
+  };
+  
   return (
     <>
       <SharedTopSection
@@ -111,7 +117,7 @@ const Blogs = async () => {
                     {dayjs(item.date).format("MMMM YYYY")}
                   </p>
                   <Link href={`/blogs/${item.slug}`}>
-                    <div dangerouslySetInnerHTML={{__html:truncateHtml(item?.description,120,true)}} />
+                    <div dangerouslySetInnerHTML={{__html:truncateHtml(stripHtml(item?.description),120,true)}} />
                       {/* {item.title} */}
                       {/* {truncateHtml(item.title,70,true)} */}
                     {/* </h4> */}
