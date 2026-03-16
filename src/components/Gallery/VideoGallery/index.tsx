@@ -32,7 +32,7 @@ const VideoGallery = ({ data }: Props) => {
           data?.map((item, index) => {
             return (
               <button
-                key={index}
+                key={item.id}
                 onClick={() => setSelectedConference(item?.name)}
                 className={`
                   relative py-2 sm:py-3 px-4 sm:px-5 text-sm sm:text-base leading-5 text-center rounded-sm
@@ -77,7 +77,7 @@ const VideoGallery = ({ data }: Props) => {
             const youtubeId = getYoutubeId(item.link);
             return (
               <VideoCard
-                key={index + 1}
+                key={item.id}
                 title={item.title}
                 link={item.link}
                 youtube_id={youtubeId ?? ""}

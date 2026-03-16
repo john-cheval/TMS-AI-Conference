@@ -36,7 +36,15 @@ const PressCoveragePage = async () => {
         conferenceLocation={conferenceData?.location}
         conferenceDate={conferenceData?.award_date}
       />
-      <PressCoverage data={press_coverage?.data} />
+      {
+        press_coverage?.data.length > 0 ? (
+          <PressCoverage data={press_coverage?.data} />
+        ) : (
+          <section className="section-wrapper py-[50px]">
+            <p>No press coverage found.</p>
+          </section>
+        )
+      }
       {
       (sponsors.data.length > 0 || supporting_associations.data.length > 0 || media_partners.data.length > 0) &&
         (

@@ -1,13 +1,27 @@
 "use client";
 import { SponsorsPropsType } from "@/types/common";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SponsorDetailPopover from "../SponsorPopup/SponsorDetailPopover";
 
 const SponsorListCard = (props: SponsorsPropsType) => {
   const { image_url, company_name,image_alt_tag } = props;
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+      if (isOpen) {
+          // scrollYRef.current = window.scrollY;
+          document.body.style.overflow = "hidden";   // stop scroll
+      } else {
+          document.body.style.overflow = "auto";     // restore scroll
+          // window.scrollTo(0, scrollYRef.current);
+      }
+
+      return () => {
+          document.body.style.overflow = "auto";
+      };
+  }, [isOpen]);
 
   return (
     <>

@@ -32,6 +32,7 @@ type Props = {
   NatureOfCompanyList: any;
   earlyBirdDates?: string;
   isFree:any;
+  countries:any[]
 };
 
 interface DelegateData {
@@ -88,7 +89,8 @@ const DelegateRegisterForm = ({
   priceDetails,
   NatureOfCompanyList,
   earlyBirdDates,
-  isFree = false
+  isFree = false,
+  countries=[]
 }: Props) => {
   const earlyBirdCutoffDate = new Date(earlyBirdDates ?? "");
   const currentDate = new Date();
@@ -307,7 +309,16 @@ const DelegateRegisterForm = ({
 
       if (response.ok) {
         setFormSubmitting(false);
-        reset();
+        // reset();
+        reset({
+          planType: defaultPlan.title || "Individual",
+          numberOfDelegates: minDefaultDelegates || 1,
+          delegates: Array.from(
+            { length: minDefaultDelegates },
+            () => defaultDelegate
+          ),
+          termsAccepted: false,
+        });
         if (recaptchaRef.current) {
           recaptchaRef.current.resetCaptcha();
         }
@@ -315,7 +326,7 @@ const DelegateRegisterForm = ({
         // ✅ Redirect to thank you page
         if(isFree) {
           toast.success("Form submitted successfully!");
-          router.push("/thank-you");
+          router.push("/thank-you-free");
         } else {
           // response
           const redirectPayLink = result.paymentdetails.payment_link;
@@ -602,7 +613,7 @@ const DelegateRegisterForm = ({
               <input
                 type="number"
                 min={parseInt(findSelectedPlan?.min_delegates ?? "1")}
-                max={5}
+                // max={5}
                 {...register("numberOfDelegates", {
                   // onChange: (e) => {
                   //   const value = Number(e.target.value);
@@ -752,6 +763,10 @@ const DelegateRegisterForm = ({
                                   errors={errors}
                                   rules={{
                                     required: "First Name is required.",
+                                    pattern: {
+                                      value: /\S+/,
+                                      message: "First Name is required."
+                                    }
                                   }}
                                 />
 
@@ -764,6 +779,10 @@ const DelegateRegisterForm = ({
                                   errors={errors}
                                   rules={{
                                     required: "Last Name is required.",
+                                    pattern: {
+                                      value: /\S+/,
+                                      message: "Last Name is required."
+                                    }
                                   }}
                                 />
                               </FormRow>
@@ -781,6 +800,7 @@ const DelegateRegisterForm = ({
                                         {...field}
                                         name={`delegates.${index}.nationality`}
                                         errors={errors}
+                                        countries={countries}
                                       />
                                     )}
                                   />
@@ -797,6 +817,7 @@ const DelegateRegisterForm = ({
                                         {...field}
                                         name={`delegates.${index}.country`}
                                         errors={errors}
+                                        countries={countries}
                                       />
                                     )}
                                   />
@@ -863,7 +884,8 @@ const DelegateRegisterForm = ({
                                     rules={{
                                       required: "Email is required.",
                                       pattern: {
-                                        value: /^\S+@\S+$/i,
+                                        // value: /^\S+@\S+$/i,
+                                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                                         message:
                                           "Please enter a valid email address.",
                                       },
@@ -894,6 +916,10 @@ const DelegateRegisterForm = ({
                                   errors={errors}
                                   rules={{
                                     required: "Designation is required.",
+                                    pattern: {
+                                      value: /\S+/,
+                                      message: "Designation is required."
+                                    }
                                   }}
                                 />
 
@@ -906,6 +932,10 @@ const DelegateRegisterForm = ({
                                   errors={errors}
                                   rules={{
                                     required: "Company is required.",
+                                    pattern: {
+                                      value: /\S+/,
+                                      message: "Company is required."
+                                    }
                                   }}
                                 />
                               </FormRow>
@@ -973,6 +1003,7 @@ const DelegateRegisterForm = ({
                                         {...field}
                                         name={`delegates.${index}.country_name`}
                                         errors={errors}
+                                        countries={countries}
                                       />
                                     )}
                                   />
@@ -1079,6 +1110,7 @@ const DelegateRegisterForm = ({
               siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
               callback={handleToken}
               ref={recaptchaRef}
+              expiredCallback={() => setToken("")}
             />
           </div>
           <div className="mt-6 flex justify-center">

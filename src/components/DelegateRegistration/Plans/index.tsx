@@ -12,6 +12,7 @@ const PricingPlans = ({
   register_price,
   companyList,
   earlyBirdsDate,
+  countries=[],
   isFree
 }: SectionOnePropsTyps) => {
   console.log("companyList",companyList)
@@ -39,6 +40,7 @@ const PricingPlans = ({
         NatureOfCompanyList={companyList}
         earlyBirdDates={earlyBirdsDate}
         isFree={isFree}
+        countries={countries}
       />
     </section>
   );

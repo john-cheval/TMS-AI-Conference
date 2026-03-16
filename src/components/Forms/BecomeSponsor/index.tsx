@@ -13,6 +13,7 @@ import Image from "next/image";
 import { toast } from "sonner";
 import ReCaptcha from "@/utils/ReCaptcha";
 import { baseUrl } from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 type FormData = {
   fullName: string;
@@ -60,6 +61,8 @@ const BecomeSponsorForm = ({
       setToken("");
     }
   }, []);
+
+  const router = useRouter();
 
   const onSubmit = async (data: FormData) => {
     if (!whySponsorPage && !packageName && !isPartnerForm) {
@@ -109,6 +112,7 @@ const BecomeSponsorForm = ({
 
       if (response.ok) {
         toast.success("Form submitted successfully!");
+        router.push('/thank-you-enquiry');
         reset();
 
         if (recaptchaRef.current) {
@@ -161,6 +165,11 @@ const BecomeSponsorForm = ({
           >
             {heading}
           </h3>
+          {
+              isOpppotunity && (
+                  <p className="mb-3"><span>Note:</span> Please click the "Send Enquiry" button on the package you wish to enquire about.</p>
+              )
+          }
         </div>
         <div className=" flex flex-col gap-y-2.5 md:gap-y-3 lg:gap-y-5">
           <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
@@ -173,6 +182,10 @@ const BecomeSponsorForm = ({
               errors={errors}
               rules={{
                 required: "Name is required.",
+                pattern: {
+                  value: /\S+/,
+                  message: "Name is required."
+                }
               }}
               isBlue={isOpppotunity}
               isLight={isOpppotunity}
@@ -188,7 +201,8 @@ const BecomeSponsorForm = ({
               rules={{
                 required: "Email is required.",
                 pattern: {
-                  value: /^\S+@\S+$/i,
+                  // value: /^\S+@\S+$/i,
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                   message: "Please enter a valid email address.",
                 },
               }}
@@ -207,6 +221,10 @@ const BecomeSponsorForm = ({
                 errors={errors}
                 rules={{
                   required: "Company is required.",
+                  pattern: {
+                    value: /\S+/,
+                    message: "Company is required."
+                  }
                 }}
                 isBlue={isOpppotunity}
                 isLight={isOpppotunity}
@@ -252,6 +270,10 @@ const BecomeSponsorForm = ({
             rows={3}
             rules={{
               required: "comments is required.",
+              pattern: {
+                value: /\S+/,
+                message: "comments is required."
+              }
             }}
             isBlue={isOpppotunity}
             isLight={isOpppotunity}
@@ -262,6 +284,7 @@ const BecomeSponsorForm = ({
               siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
               callback={handleToken}
               ref={recaptchaRef}
+              expiredCallback={() => setToken("")}
             />
           </div>
           <button
@@ -270,9 +293,11 @@ const BecomeSponsorForm = ({
               isOpppotunity
                 ? "text-white bg-tms-purple"
                 : "text-tms-purple bg-white"
-            } text-sm md:text-base lg:text-lg leading-5 font-semibold flex gap-x-2   items-center group  rounded-sm py-3 md:py-4 px-5 md:px-6 w-fit  mx-auto mt-4- md:mt-6- ${
+            } text-sm md:text-base lg:text-lg leading-5 font-semibold flex gap-x-2   items-center group  rounded-sm py-3 md:py-4 px-5 md:px-6 w-fit  mx-auto mt-4- md:mt-6- 
+            ${
               !token ? "cursor-not-allowed" : "cursor-pointer"
-            }`}
+            }
+            `}
             disabled={!token}
           >
             Send Enquiry{" "}
