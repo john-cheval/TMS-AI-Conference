@@ -158,6 +158,10 @@ const RsvForm = ({ description, rsvpFormData,countries=[] }: Props) => {
                 errors={errors}
                 rules={{
                   required: "First Name is required.",
+                  pattern: {
+                    value: /\S+/,
+                    message: "First Name is required."
+                  }
                 }}
               />
     
@@ -184,6 +188,10 @@ const RsvForm = ({ description, rsvpFormData,countries=[] }: Props) => {
                 errors={errors}
                 rules={{
                   required: "Company Name is required.",
+                  pattern: {
+                    value: /\S+/,
+                    message: "Company Name is required."
+                  }
                 }}
               />
     
@@ -196,6 +204,10 @@ const RsvForm = ({ description, rsvpFormData,countries=[] }: Props) => {
                 errors={errors}
                 rules={{
                   required: "Designation is required.",
+                  pattern: {
+                    value: /\S+/,
+                    message: "Designation is required."
+                  }
                 }}
               />
             </FormRow>
@@ -212,7 +224,8 @@ const RsvForm = ({ description, rsvpFormData,countries=[] }: Props) => {
                   rules={{
                     required: "Email is required.",
                     pattern: {
-                      value: /^\S+@\S+$/i,
+                      // value: /^\S+@\S+$/i,
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                       message: "Please enter a valid email address.",
                     },
                   }}

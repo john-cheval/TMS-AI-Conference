@@ -82,6 +82,10 @@ const ContactForm = () => {
           errors={errors}
           rules={{
             required: "Name is required.",
+            pattern: {
+              value: /\S+/,
+              message: "Name is required."
+            }
           }}
           isBlue={true}
           isLight={true}
@@ -97,7 +101,8 @@ const ContactForm = () => {
           rules={{
             required: "Email is required.",
             pattern: {
-              value: /^\S+@\S+$/i,
+              // value: /^\S+@\S+$/i,
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
               message: "Please enter a valid email address.",
             },
           }}
@@ -114,6 +119,10 @@ const ContactForm = () => {
           errors={errors}
           rules={{
             required: "Subject is required.",
+            pattern: {
+              value: /\S+/,
+              message: "Subject is required."
+            }
           }}
           isBlue={true}
           isLight={true}
@@ -128,6 +137,10 @@ const ContactForm = () => {
           rows={3}
           rules={{
             required: "Message is required.",
+            pattern: {
+              value: /\S+/,
+              message: "Message is required."
+            }
           }}
           isLight={true}
           isBlue={true}
@@ -149,13 +162,9 @@ const ContactForm = () => {
           className={`
           rounded-sm text-sm sm:text-base md:text-lg font-bold leading-5 text-white bg-tms-purple md:py-5 w-fit px-7 py-3 md:w-full mt-4 
           transition-all duration-300 
-          ${
-            !token
-              ? "opacity-50 cursor-not-allowed"
-              : "hover:bg-tms-purple/90 hover:text-white"
-          }
+          
         `}
-          disabled={!token}
+          // disabled={!token}
         >
           {isSubmitting ? "Submitting..." : "Send Enquiry"}
         </button>
