@@ -22,10 +22,16 @@ const RsvpPage = async ({ searchParams}:any) => {
   //   `${baseUrl}/getmasterdetails?master_name=cms&id=86`
   // );
 
-  const [rsvpFormData,pageContent] = await Promise.all([
+  const [rsvpFormData,pageContent,countries] = await Promise.all([
     fetchData(`${baseUrl}/getmasterdetails?master_name=rsvpuser&id=${datas.id}`,{ cache: "no-store" }),
-    fetchData(`${baseUrl}/getmasterdetails?master_name=cms&id=86`,{ cache: "no-store" })
+    fetchData(`${baseUrl}/getmasterdetails?master_name=cms&id=86`,{ cache: "no-store" }),
+    fetchData(`${baseUrl}/getmasterdetails?master_name=countries`),
   ]);
+
+  // const [pageContent,countries] = await Promise.all([
+  //   fetchData(`${baseUrl}/getmasterdetails?master_name=cms&id=86`),
+  //   fetchData(`${baseUrl}/getmasterdetails?master_name=countries`),
+  // ]);
 
   const generalSettings = pageContent?.gernalsettings;
   const conferenceData =
@@ -53,6 +59,7 @@ const RsvpPage = async ({ searchParams}:any) => {
         small__title={rsvp_form?.small_title}
         form_description={rsvp_form?.form_description}
         rsvpFormData={rsvpFormData.data}
+        countries={countries}
       />
       {
       (sponsors.data.length > 0 || supporting_associations.data.length > 0 || media_partners.data.length > 0) &&

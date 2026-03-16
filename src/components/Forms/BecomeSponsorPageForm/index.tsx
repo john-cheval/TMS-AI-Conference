@@ -19,7 +19,7 @@ interface AboutYouData {
   firstName: string;
   lastName: string;
   email: string;
-  contact: number;
+  contact: string;
   linkedinUrl: string;
   headshotFile: FileList | null;
   bio: FileList | null;
@@ -140,7 +140,33 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
 
       if (response.ok) {
         toast.success("Form submitted successfully!");
-        reset();
+        // reset();
+        reset({
+          aboutYou: {
+            title: "",
+            firstName: "",
+            lastName: "",
+            email: "",
+            contact: "",
+            linkedinUrl: "",
+            headshotFile: null,
+            bio: null,
+            contactCountryCode: "",
+          },
+          aboutCompany: {
+            designation: "",
+            company: "",
+            natureOfCompany: "",
+            ifOthers: "",
+          },
+          aboutPresentation: {
+            presentationTitle: "",
+            abstract: "",
+            takewayas: "",
+            aboutPresentation: "",
+            paperSubmit: null,
+          },
+        });
 
         if (recaptchaRef.current) {
           recaptchaRef.current.resetCaptcha();
@@ -203,7 +229,7 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit, onError)}>
-      <div className=" bg-tms-blue rounded-2xl px-5 md:px-10 lg:px-16  xl:px-[72px]pb-8 md:pb-12 lg:pb-16 xl:pb-20">
+      <div className="become-speaker-form bg-tms-blue rounded-2xl px-5 md:px-10 lg:px-16  xl:px-[72px]pb-8 md:pb-12 lg:pb-16 xl:pb-20">
         <h4 className="main-heading-2 !text-white pt-8 md:pt-10 lg:pt-14 mb-4  md:mb-5">
           About You
         </h4>
@@ -237,6 +263,10 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
               errors={errors}
               rules={{
                 required: "First Name is required.",
+                pattern: {
+                  value: /\S+/,
+                  message: "First Name is required."
+                }
               }}
             />
 
@@ -249,6 +279,10 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
               errors={errors}
               rules={{
                 required: "Last Name is required.",
+                pattern: {
+                  value: /\S+/,
+                  message: "Last Name is required."
+                }
               }}
             />
           </FormRow>
@@ -265,7 +299,8 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
                 rules={{
                   required: "Email is required.",
                   pattern: {
-                    value: /^\S+@\S+$/i,
+                    // value: /^\S+@\S+$/i,
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                     message: "Please enter a valid email address.",
                   },
                 }}
@@ -419,6 +454,10 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
                 errors={errors}
                 rules={{
                   required: "Designation is required.",
+                  pattern: {
+                    value: /\S+/,
+                    message: "Designation is required."
+                  }
                 }}
                 isBlue={true}
               />
@@ -431,7 +470,11 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
                 register={register}
                 errors={errors}
                 rules={{
-                  required: "Company Nameis required.",
+                  required: "Company Name is required.",
+                  pattern: {
+                    value: /\S+/,
+                    message: "Company Name is required."
+                  }
                 }}
                 isBlue={true}
               />
@@ -495,6 +538,10 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
                   errors={errors}
                   rules={{
                     required: "Presentation Title is required.",
+                    pattern: {
+                      value: /\S+/,
+                      message: "Presentation Title is required."
+                    }
                   }}
                   isBlue={true}
                 />
@@ -511,6 +558,10 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
               rows={3}
               rules={{
                 required: "Abstract is required.",
+                pattern: {
+                  value: /\S+/,
+                  message: "Abstract is required."
+                }
               }}
               isBlue={true}
               wordLimit={500}
@@ -525,6 +576,10 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
               rows={3}
               rules={{
                 required: "Key Takeaways is required.",
+                pattern: {
+                  value: /\S+/,
+                  message: "Key Takeaways is required."
+                }
               }}
               isBlue={true}
               wordLimit={500}
@@ -539,6 +594,10 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
               rows={isSmallScreen ? 8 : 4}
               rules={{
                 required: "About Presentation is required.",
+                pattern: {
+                  value: /\S+/,
+                  message: "About Presentation is required."
+                }
               }}
               isBlue={true}
               wordLimit={500}
@@ -594,21 +653,33 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
             siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
             callback={handleToken}
             ref={recaptchaRef}
+            expiredCallback={() => setToken("")}
           />
         </div>
         <div className="mt-4 md:mt-5 flex justify-center">
-          <button
-            type="submit"
-            className={`bg-tms-purple text-white text-base md:text-lg font-bold leading-5 rounded-lg py-4 md:py-6 px-10 md:px-7 flex gap-x-2.5 group items-center ${
-              !token
-                ? "opacity-50 cursor-not-allowed"
-                : "hover:bg-tms-purple/90 hover:text-white"
-            }`}
-            disabled={!token}
-          >
-            {isSubmitting ? "Submitting..." : "Submit"}
-            <MdOutlineKeyboardArrowRight className="text-2xl text-white group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
-          </button>
+          {
+                    isSubmitting ? (
+                    <div className="flex items-center mt-[20px] justify-center">
+                  <p className="text-center ">Please wait form is submitting... </p>
+                  <div className="ml-[10px] h-5 w-5 animate-spin rounded-full border-2 border-[#0078ba] border-t-transparent"></div>
+                </div>
+                    ) : (
+
+            <button
+              type="submit"
+              className={`bg-tms-purple text-white text-base md:text-lg font-bold leading-5 rounded-lg py-4 md:py-6 px-10 md:px-7 flex gap-x-2.5 group items-center 
+                ${
+                !token ? "cursor-not-allowed" : "cursor-pointer"
+              }
+              `}
+              disabled={!token}
+            >
+              Submit
+              {/* {isSubmitting ? "Submitting..." : "Submit"} */}
+              <MdOutlineKeyboardArrowRight className="text-2xl text-white group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
+            </button>
+                    )
+          }
         </div>
       </div>
     </form>

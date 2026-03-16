@@ -139,6 +139,7 @@ const ContactForm = () => {
           siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
           callback={handleToken}
           ref={recaptchaRef}
+          expiredCallback={() => setToken("")}
         />
       </div>
 

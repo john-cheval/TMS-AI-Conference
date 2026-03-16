@@ -132,6 +132,7 @@ export type SectionOnePropsTyps = {
   companyList?: any;
   button_title?: string;
   isFree?:boolean;
+  countries?:any[]
 };
 
 export type conferenceProps = {

@@ -79,11 +79,11 @@ const TextAreaElementTwo = <TFieldValues extends FieldValues>({
     <div
       className={`flex flex-grow-1 ${errorMessage ? "flex-col gap-y-2 " : ""}`}
     >
-      <div className="relative flex w-full">
+      <div className="textarea relative flex w-full">
         <textarea
           className={`relative ${
             isLight ? "fix-autofill-dark" : "fix-autofill"
-          } ${isBlue ? "input-alter" : "input"}`}
+          } ${isBlue ? "input-alters" : "input"}`}
           id={name}
           {...restRegister}
           value={value}
@@ -107,7 +107,7 @@ const TextAreaElementTwo = <TFieldValues extends FieldValues>({
         )}
 
         {/* Word counter */}
-        <p className="absolute right-3 md:right-5 bottom-2 md:bottom-5 text-dark-alter text-xs md:text-sm leading-3">
+        <p className="absolute right-3 md:right-5 bottom-2 md:bottom-0 text-dark-alter text-xs md:text-sm leading-3">
           {wordCount} / {wordLimit} Words
         </p>
       </div>

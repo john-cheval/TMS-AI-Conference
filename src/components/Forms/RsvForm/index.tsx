@@ -33,9 +33,10 @@ interface RecaptchaRefType {
 type Props = {
   description: string;
   rsvpFormData:any;
+  countries:any[];
 };
 
-const RsvForm = ({ description, rsvpFormData }: Props) => {
+const RsvForm = ({ description, rsvpFormData,countries=[] }: Props) => {
   const recaptchaRef = useRef<RecaptchaRefType>(null);
   const [token, setToken] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
@@ -266,6 +267,7 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
                       {...field}
                       name="nationality"
                       errors={errors}
+                      countries={countries}
                     />
                   )}
                 />
@@ -296,6 +298,7 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
                       {...field}
                       name={`countryOfResidence`}
                       errors={errors}
+                      countries={countries}
                     />
                   )}
                 />
@@ -316,6 +319,7 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
                   <ReCaptcha
                     siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
                     callback={handleToken}
+                    expiredCallback={() => setToken("")}
                     ref={recaptchaRef}
                   />
                 </div>
