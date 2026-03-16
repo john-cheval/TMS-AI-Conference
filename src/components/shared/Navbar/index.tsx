@@ -84,7 +84,7 @@ const Navbar = ({
   return (
     <>
       <header
-        className={` fixed top-0 w-full z-[999955] transition-all duration-300 ${
+        className={` fixed top-0 bg-white w-full z-[999955] transition-all duration-300 ${
           bgColor ? "bg-white" : "bg-transparent"
         } ease-in-out ${isVisible ? "translate-y-0" : "-translate-y-full"}`}
       >
