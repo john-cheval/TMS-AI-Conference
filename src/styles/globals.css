@@ -337,6 +337,9 @@ ul {
 .become-speaker-form .textarea {border: 1px solid #22334f;padding-bottom: 30px;}
 .become-speaker-form .textarea p{bottom:0px;}
 
+#sponsor-form #dropdown-phone ul li button {color: #00081b !important;}
+#sponsor-form #dropdown-phone ul li button:hover {color: #fff !important;}
+
 .no-arrow-number::-webkit-outer-spin-button,
 .no-arrow-number::-webkit-inner-spin-button {
   -webkit-appearance: none;
