@@ -98,6 +98,7 @@ const DelegateRegisterForm = ({
   const isEarlyBirdExpired = currentDate > earlyBirdCutoffDate;
 
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
@@ -119,6 +120,7 @@ const DelegateRegisterForm = ({
     control,
     reset,
     formState: { errors },
+    trigger
   } = useForm<FormData & { termsAccepted: boolean }>({
     defaultValues: {
       // planType: priceDetails[0]?.title || "Group",
@@ -632,13 +634,22 @@ const DelegateRegisterForm = ({
                   //   }
                   // },
                   
-                  onChange:(e) => {
+                  onChange:async (e) => {
                     const value = Number(e.target.value);
 
-                    setValue("numberOfDelegates", value, {
-                      shouldValidate: true, // 👈 triggers error instantly
-                      shouldDirty: true,
-                    });
+                    // setValue("numberOfDelegates", value, {
+                    //   shouldValidate: true, // 👈 triggers error instantly
+                    //   shouldDirty: true,
+                    // });
+
+                    if(value > 5) {
+                      setValue("numberOfDelegates", 5);
+                      setErrorMessage(true)
+                    } else {
+                      setErrorMessage(false)
+                      setValue("numberOfDelegates", value);
+                    }
+                    await trigger("numberOfDelegates");
                   },
                   valueAsNumber: true,
                   required: "Number of delegates is required",
@@ -660,6 +671,13 @@ const DelegateRegisterForm = ({
                   {errors.numberOfDelegates.message}
                 </p>
               )}
+              {
+                errorMessage && (
+                <p style={{color:"#ff0000"}} className="text-[#ff0000] text-center">
+                  You can register a  maximum of 5 delegates at a time.
+                </p>
+                )
+              }
             </div>
 
             <div className="mt-5 md:mt-8 lg:mt-10 md:max-w-[450px] border-t border-t-black md:mx-auto">
