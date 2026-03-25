@@ -330,9 +330,11 @@ const BecomeSponsorForm = ({
                 ? "text-white bg-tms-purple"
                 : "text-tms-purple bg-white"
             } text-sm md:text-base lg:text-lg leading-5 font-semibold flex gap-x-2   items-center group  rounded-sm py-3 md:py-4 px-5 md:px-6 w-fit  mx-auto mt-4- md:mt-6- 
-            
+            ${
+              !token ? "cursor-not-allowed" : "cursor-pointer"
+            }
             `}
-            // disabled={!token}
+            disabled={!token}
           >
             Send Enquiry{" "}
             <MdOutlineKeyboardArrowRight className="text-xl text-tms-purple- group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
