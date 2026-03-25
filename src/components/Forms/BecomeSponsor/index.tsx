@@ -183,11 +183,11 @@ const BecomeSponsorForm = ({
           >
             {heading}
           </h3>
-          {
+          {/* {
               isOpppotunity && (
                   <p className="mb-3"><span>Note:</span> Please click the "Send Enquiry" button on the package you wish to enquire about.</p>
               )
-          }
+          } */}
         </div>
         <div className=" flex flex-col gap-y-2.5 md:gap-y-3 lg:gap-y-5">
           {
