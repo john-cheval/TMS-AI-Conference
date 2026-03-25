@@ -132,7 +132,7 @@ const Packages = ({
                       className=" buttonGradient-2 rounded-br-sm block- flex items-center justify-center text-white py-4 lg:py-6 text-base lg:text-lg font-bold leading-5 group"
                       onClick={() => {
                         getSelectedPackage(
-                          `${sponsor?.title} -   ${activeTitle} ${selectedPackage?.small_title}`
+                          `${sponsor?.title} - ${activeTitle} ${selectedPackage?.small_title}`
                         );
                         getSelectedPackageCategoryId(sponsor?.id);
                       }}
