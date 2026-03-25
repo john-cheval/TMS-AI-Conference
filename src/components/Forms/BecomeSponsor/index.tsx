@@ -1,6 +1,6 @@
 "use client";
 import React, { useCallback, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm,Controller } from "react-hook-form";
 import FormRow from "../FormRow";
 import TextElement from "@/components/shared/Inputs/TextElement";
 import NumberElement from "@/components/shared/Inputs/NumberElement";
@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import ReCaptcha from "@/utils/ReCaptcha";
 import { baseUrl } from "@/lib/api";
 import { useRouter } from "next/navigation";
+import PackageSelect from "@/components/shared/Inputs/PackageSelect";
 
 type FormData = {
   fullName: string;
@@ -22,6 +23,7 @@ type FormData = {
   contact: number;
   comments: string;
   contactCountryCode: string;
+  package:string;
 };
 
 interface RecaptchaRefType {
@@ -33,6 +35,7 @@ type Props = SectionOnePropsTyps & {
   packageName?: string;
   packageId?: number;
   isPartnerForm?: boolean;
+  packageOption:any[]
 };
 
 const BecomeSponsorForm = ({
@@ -43,6 +46,7 @@ const BecomeSponsorForm = ({
   packageName = "",
   packageId = 0,
   isPartnerForm = false,
+  packageOption=[]
 }: Props) => {
   const recaptchaRef = useRef<RecaptchaRefType>(null);
   const [token, setToken] = useState("");
@@ -51,6 +55,7 @@ const BecomeSponsorForm = ({
     handleSubmit,
     formState: { errors },
     reset,
+    control,
     setValue,
   } = useForm<FormData>();
 
@@ -65,14 +70,25 @@ const BecomeSponsorForm = ({
   const router = useRouter();
 
   const onSubmit = async (data: FormData) => {
-    if (!whySponsorPage && !packageName && !isPartnerForm) {
-      toast.error("Please Select a package first");
-      const packagesSection = document.getElementById("packages");
-      if (packagesSection) {
-        packagesSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-      return;
+
+    let sponsor_cate = null;
+    let sponsor_cate_name = null;
+    if(isOpppotunity) {
+      const [id, title,subtitle] =  data?.package.split(" - ");
+      const cleanTitle = title.replace(/[()]/g, "");
+      const cleansubtitle = subtitle.replace(/[()]/g, "");
+      sponsor_cate = id;
+      sponsor_cate_name = cleanTitle + " - " + cleansubtitle;
     }
+
+    // if (!whySponsorPage && !packageName && !isPartnerForm) {
+    //   toast.error("Please Select a package first");
+    //   const packagesSection = document.getElementById("packages");
+    //   if (packagesSection) {
+    //     packagesSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    //   }
+    //   return;
+    // }
 
     let apiUrl;
     let requestBody;
@@ -91,8 +107,10 @@ const BecomeSponsorForm = ({
       apiUrl = `${baseUrl}/becomeasponsor`;
 
       requestBody = {
-        sponsor_cate: packageId ? packageId : 0,
-        sponsor_cate_name: packageName ? packageName : "",
+        // sponsor_cate: packageId ? packageId : 0,
+        // sponsor_cate_name: packageName ? packageName : "",
+        sponsor_cate: sponsor_cate ? sponsor_cate : 0,
+        sponsor_cate_name: sponsor_cate_name ? sponsor_cate_name : "",
         name: data.fullName,
         email: data?.email,
         companyName: data?.company,
@@ -172,6 +190,24 @@ const BecomeSponsorForm = ({
           }
         </div>
         <div className=" flex flex-col gap-y-2.5 md:gap-y-3 lg:gap-y-5">
+          {
+            isOpppotunity && (
+              <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
+                <div className="flex-1">
+                  <Controller
+                      name="package"
+                      control={control}
+                      rules={{ required: "Please select Package" }}
+                      render={({ field }) => (
+                        // <TitleSelectElement {...field} name="title" errors={errors} />
+                        <PackageSelect packageOption={packageOption} selectedvalue={`${packageId} - (${packageName})`} {...field} name="package" errors={errors} />
+                      )}
+                    />
+                </div>
+                <div className="flex-1 hidden md:block" />
+              </FormRow>
+            )
+          }
           <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
             <TextElement
               label="Full Name"
@@ -294,11 +330,9 @@ const BecomeSponsorForm = ({
                 ? "text-white bg-tms-purple"
                 : "text-tms-purple bg-white"
             } text-sm md:text-base lg:text-lg leading-5 font-semibold flex gap-x-2   items-center group  rounded-sm py-3 md:py-4 px-5 md:px-6 w-fit  mx-auto mt-4- md:mt-6- 
-            ${
-              !token ? "cursor-not-allowed" : "cursor-pointer"
-            }
+            
             `}
-            disabled={!token}
+            // disabled={!token}
           >
             Send Enquiry{" "}
             <MdOutlineKeyboardArrowRight className="text-xl text-tms-purple- group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />

@@ -1,6 +1,6 @@
 "use client";
 import SmallTitle from "@/components/shared/ui/Headings/SmallTitle";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Packages from "../Packages/Packages";
 import PackagesAccordion from "../PackagesAccordion";
 import BecomeSponsorForm from "@/components/Forms/BecomeSponsor";
@@ -22,6 +22,30 @@ const SponsorShipOppSectionOne = ({
 
   const [selectedPackageCategoryId, setSelectedPackageCategoryId] =
     useState("");
+  const [packageOption, setPackageOption] = useState([]);
+
+  useEffect(() => {
+        packageOptions();
+    },[]);
+
+    const packageOptions = () => {
+        const result:any = [];
+
+        data.forEach((category:any) => {
+            const categoryTitle = `${category.title} ${category.small_title}`;
+
+            category.sponsors.forEach((sponsor:any) => {
+            result.push({
+                label: `${sponsor.title} - ${categoryTitle}`,
+                value: `${sponsor.id} - (${sponsor.title} - ${categoryTitle})`
+            });
+            });
+        });
+
+        setPackageOption(result)
+    };
+
+    // console.log("selected",selectedPackage,selectedPackageCategoryId)
 
   return (
     <>
@@ -40,7 +64,11 @@ const SponsorShipOppSectionOne = ({
           />
         </div>
         <div className="md:hidden">
-          <PackagesAccordion packageData={data} />
+          <PackagesAccordion 
+            packageData={data} 
+            getSelectedPackage={setSelectedPackage}
+            getSelectedPackageCategoryId={setSelectedPackageCategoryId} 
+          />
         </div>
       </section>
 
@@ -49,6 +77,7 @@ const SponsorShipOppSectionOne = ({
         isOpppotunity={true}
         packageName={selectedPackage}
         packageId={selectedPackageCategoryId}
+        packageOption={packageOption}
       />
     </>
   );

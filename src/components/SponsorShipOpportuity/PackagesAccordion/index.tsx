@@ -11,13 +11,19 @@ import { truncateHtml } from "@/utils/trumcate";
 
 type Props = {
   packageData?: any;
+  getSelectedPackage?: any;
+  getSelectedPackageCategoryId?: any;
 };
 
-const PackagesAccordion = ({ packageData }: Props) => {
+const PackagesAccordion = ({ packageData,
+  getSelectedPackage,
+  getSelectedPackageCategoryId, }: Props) => {
   const [openIndex, setOpenIndex] = useState<number | null>(packageData?.id);
   const [expandedStates, setExpandedStates] = useState<{
     [key: number]: boolean;
   }>({});
+
+  const [activeTitle, setActiveTitle] = useState(packageData?.[0]?.title);
 
   const handleReadMoreClick = (index: number) => {
     setExpandedStates((prev) => ({
@@ -36,6 +42,11 @@ const PackagesAccordion = ({ packageData }: Props) => {
       </p>
     );
   }
+
+  const selectedPackage = packageData?.find(
+    (item: any) => item?.title === activeTitle
+  );
+
   return (
     <article className="w-full">
       {packageData?.map((item: any, index: number) => {
@@ -131,13 +142,20 @@ const PackagesAccordion = ({ packageData }: Props) => {
                                         }`}
                                       />
                                     </button>
-                                    <Link
-                                      href={"#"}
+                                    <button
+                                      // href={"#"}
+                                      onClick={() => {
+                                        getSelectedPackage(
+                                          `${sponsor?.title} - ${item?.title} ${item?.small_title}`
+                                        );
+                                        getSelectedPackageCategoryId(sponsor?.id);
+                                        document.getElementById("sponsor-form")?.scrollIntoView({behavior: "smooth",});
+                                      }}
                                       className=" buttonGradient-2 rounded-br-sm block- flex items-center justify-center text-white py-3 text-sm sm:text-base font-bold leading-5 group"
                                     >
                                       Send Enquiry{" "}
                                       <MdOutlineKeyboardArrowRight className="text-2xl  group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
-                                    </Link>
+                                    </button>
                                   </div>
                                 </div>
                               );
